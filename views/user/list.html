@@ -1,0 +1,80 @@
+<div class="block-flat">
+						<div class="header">							
+											<h3>User List</h3>
+						</div>
+<div class="row">
+	<div class="col-md-3">
+		<form method="POST" ng-submit="save()">
+				<div class="form-group">
+					<label>Name</label>
+					<input type="text" ng-model="formData.name"  class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label>Username</label>
+					<input type="text" ng-model="formData.username"  class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label>Password</label>
+					<input type="text" ng-model="formData.password"  class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label>User Type</label>
+					<select class="form-control" ng-model="formData.UserTypeId" ng-options="row.Id as row.user_type for row in userTypeList" required>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Status</label>
+					<select class="form-control" ng-model="formData.status" required>
+						<option>Active</option>
+						<option>InActive</option>
+					</select>
+				</div>
+				<button type="submit"  class="btn btn-success btn-sm"><i class="fa fa-save"></i>  Save</button>
+		</form>
+	</div>
+	<div class="col-md-9">
+					<form ng-submit="load()">
+						<div class="input-group col-sm-5">
+							<input type="text" class="form-control" ng-model="searchText">
+							<span class="input-group-btn">
+							<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Search</button>
+							</span>
+						</div>
+					</form>
+					
+				<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Username</th>
+						<th>Password</th>
+						<th>User Type</th>
+						<th>Status</th>
+						<th width="20%"></th>
+						<!-- <th width="15%"></th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in list">
+						<td>{{row.name}}</td>
+						<td>{{row.username}}</td>
+						<td>{{row.password}}</td>
+						<td>{{row.user_type}}</td>
+						<td>
+							<span class="label label-success" ng-show="row.status=='Active'">{{row.status}} </span>
+							<span class="label label-danger" ng-show="row.status=='InActive'">{{row.status}} </span>
+						</td>
+						<td class="text-center">
+							<button class="btn btn-success btn-sm" ng-click="getById(row.user_id)"> <i class="fa fa-edit"></i> </button>
+							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.user_id)"> <i class="fa fa-trash-o"></i>  </button>
+						</td>
+<!-- 						<td class="text-center">
+							<a  href="#/user/roles/{{row.user_id}}" class="btn btn-info btn-sm"> View Role </a>
+						</td> -->
+					</tr>
+				</tbody>
+			</table>
+			  <uib-pagination ng-model="pageNo" ng-click="pageChanged()" items-per-page="pageSize" total-items="count"  max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></uib-pagination>
+	</div>
+</div>
+</div>

@@ -1,0 +1,27 @@
+
+        <div class="modal-body">
+			<div class="text-center">
+                        <div class="i-circle info"><i class="fa fa-info"></i></div>
+                        <p>Are you Sure you want to move this data to </p>
+            </div>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					
+				<form method="POST" class="form-horizontal" name="YearForm" ng-submit="Save()">
+						<div class="form-group">
+							<select type="text" ng-model="formData.MemberTypeId"  ng-options="row.Id as row.type for row in memberTypeList" class="form-control" required>
+							</select>
+						</div>
+						<div class="form-group">
+							<button type="submit"  class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+						</div>
+				</form>
+					
+					
+				</div>
+			</div>
+
+        </div>
+        <div class="modal-footer text-center">
+            <button class="btn btn-default" type="button" ng-click="close()"><i class="fa fa-times"></i> Cancel</button>
+        </div>

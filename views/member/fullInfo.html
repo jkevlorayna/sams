@@ -1,0 +1,52 @@
+
+
+        <div class="modal-header">
+			<h3>Student Information</h3>
+		</div>
+        <div class="modal-body">
+			<table class="table">
+				<tr>
+					<td class="text-right">Name:</td>
+					<td>{{formData.firstname}} {{formData.lastname}}  {{formData.middlename}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Gender:</td>
+					<td>{{formData.gender}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Address:</td>
+					<td>{{formData.address}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Mobile No:</td>
+					<td>{{formData.mobile_no}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Email:</td>
+					<td>{{formData.email}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Course:</td>
+					<td>{{formData.Course.course}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Year:</td>
+					<td>{{formData.CourseYear.year}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Section:</td>
+					<td>{{formData.Section.section}}</td>
+				</tr>
+				<tr>
+					<td class="text-right">Date Registered:</td>
+					<td>{{formData.date_registered | date:'MM/dd/yyyy'}}</td>
+				</tr>
+				<tr ng-if="formData.Transfer==1">
+					<td class="text-right">Date Transfer:</td>
+					<td>{{formData.DateTransfer | date:'MM/dd/yyyy'}}</td>
+				</tr>
+			</table>
+        </div>
+        <div class="modal-footer text-center">
+            <button class="btn btn-default" type="button" ng-click="close()"><i class="fa fa-times"></i> Cancel</button>
+        </div>

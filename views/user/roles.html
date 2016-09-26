@@ -1,0 +1,37 @@
+<div class="block-flat">
+						<div class="header">	
+			<div class="pull-right"><a class="btn btn-default" href="#/user/list"><i class="fa fa-arrow-left"></i> Back</a></div>						
+											<h3>User Roles</h3>
+						</div>
+<div class="row">
+	<div class="col-md-12">
+				<form method="post" ng-submit="Save()">	
+				<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th width="10%"  class="text-center">
+						</th>
+						<th>Roles</th>
+<!-- 						<th width="20%"></th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in Roles">
+						<td class="text-center">
+							
+							<input type="checkbox" checklist-model="UserRoles" checklist-value="{Id:row.Id , role:row.role}"> 
+						</td>
+						<td>{{row.role}}</td>
+<!-- 						<td>
+							<button class="btn btn-success btn-sm" ng-click="getById(row.Id)"> <i class="fa fa-edit"></i> </button>
+							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i>  </button>
+						</td> -->
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+			</form>
+	</div>
+</div>
+</div>

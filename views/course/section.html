@@ -1,0 +1,48 @@
+ <div class="modal-header">
+	<h3>Section List</h3>
+ </div>
+        <div class="modal-body">
+				<div class="row">
+					<div class="col-md-4">
+							<form method="POST" ng-submit="save()">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Section</label>
+										<input type="text" ng-model="formData.section"  class="form-control" >
+									</div>
+									<button type="submit"  class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+							</form>
+					</div>
+					<div class="col-md-8">
+						<form ng-submit="load()">
+							<div class="input-group col-sm-5">
+								<input type="text" class="form-control" ng-model="searchText">
+								<span class="input-group-btn">
+								<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Search</button>
+								</span>
+							</div>
+						</form>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th width="10%">Id</th>
+									<th>Section</th>
+									<th width="20%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="row in list">
+									<td class="text-center">{{row.Id}}</td>
+									<td>{{row.section}}</td>
+									<td>
+											<button class="btn btn-success btn-sm" ng-click="getById(row.Id)"> <i class="fa fa-edit"></i>  </button>
+											<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i> </button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>						
+				</div>
+        </div>
+        <div class="modal-footer text-center">
+            <button class="btn btn-default" type="button" ng-click="close()"><i class="fa fa-times"></i> Cancel</button>
+        </div>

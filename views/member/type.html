@@ -1,0 +1,46 @@
+
+<div class="block-flat">
+						<div class="header">							
+											<h3>Member Type List</h3>
+						</div>
+<div class="row">
+	<div class="col-md-3">
+		<form method="POST"  ng-submit="save()">
+				<div class="form-group">
+					<label for="exampleInputPassword1">type</label>
+					<input type="text" ng-model="formData.type"  class="form-control" required>
+				</div>
+				<button type="submit"  class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+		</form>
+	</div>
+	<div class="col-md-9">
+					<form ng-submit="load()">
+						<div class="input-group col-sm-5">
+							<input type="text" class="form-control" ng-model="searchText">
+							<span class="input-group-btn">
+							<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Search</button>
+							</span>
+						</div>
+					</form>
+					
+				<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th width="20%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in list">
+						<td>{{row.type}}</td>
+						<td>
+							<button class="btn btn-success btn-sm" ng-click="getById(row.Id)"> <i class="fa fa-edit"></i> </button>
+							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i> </button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			  <uib-pagination ng-model="pageNo" ng-click="pageChanged()" items-per-page="pageSize" total-items="count"  max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></uib-pagination>
+	</div>
+</div>
+</div>

@@ -1,0 +1,17 @@
+
+		<form method="POST" ng-submit="save()">
+				<div class="form-group">
+					<label for="exampleInputPassword1">Current Passoword</label>
+					<input type="password" ng-model="formData.cpassword"  class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">New Password</label>
+					<input type="password" ng-model="formData.newpassword"  class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Retype Password</label>
+					<input type="password" ng-model="formData.rnewpassword"  ng-keyup="ComparePassword(formData.newpassword,formData.rnewpassword)" class="form-control" required>
+				</div>
+				<div class="alert alert-danger" ng-show="passwordCorrect" >Password not match</div>
+				<button type="submit" ng-disabled="formData.newpassword!=formData.rnewpassword"  class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+		</form>

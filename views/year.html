@@ -1,0 +1,43 @@
+
+<div class="block-flat">
+						<div class="header">							
+											<h3>Year List</h3>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+		<form method="POST" name="YearForm">
+				<div class="form-group">
+					<label for="exampleInputPassword1">Year</label>
+					<input type="text" ng-model="formData.year"  class="form-control" required>
+				</div>
+				<button type="submit" ng-click="save()" ng-disabled="YearForm.$invalid" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+		</form>
+								
+							</div>
+							<div class="col-md-9">
+				<div class="alert alert-danger" ng-if="list.length <= 0">No Results Found</div>			
+				<table class="table table-bordered table-condensed" ng-if="list.length > 0">
+				<thead>
+					<tr>
+						<th>Year</th>
+						<th width="20%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in list">
+						<td>{{row.year}}</td>
+						<td>
+							<button class="btn btn-success btn-sm" ng-click="getById(row.Id)"><i class="fa fa-edit"></i></button>
+							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"><i class="fa fa-trash-o"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			  <uib-pagination ng-model="pageNo" ng-click="pageChanged()" items-per-page="pageSize" total-items="count"  max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></uib-pagination>
+
+							</div>
+						</div>
+</div>
+
+
+

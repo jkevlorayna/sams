@@ -1,0 +1,37 @@
+<div class="block-flat">
+						<div class="header">							
+											<h3>User Type List</h3>
+						</div>
+<div class="row">
+	<div class="col-md-3">
+		<form method="POST" ng-submit="save()">
+				<div class="form-group">
+					<label for="exampleInputPassword1">User Type</label>
+					<input type="text" ng-model="formData.user_type"  class="form-control" required>
+				</div>
+				<button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+		</form>
+	</div>
+	<div class="col-md-9">
+
+				<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>User Type</th>
+						<th width="20%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in list">
+						<td>{{row.user_type}}</td>
+						<td>
+							<button class="btn btn-success btn-sm" ng-click="getById(row.Id)"> <i class="fa fa-edit"></i> </button>
+							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i>  </button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			  <uib-pagination ng-model="pageNo" ng-click="pageChanged()" items-per-page="pageSize" total-items="count"  max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></uib-pagination>
+	</div>
+</div>
+</div>

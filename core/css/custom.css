@@ -1,0 +1,59 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+.form-group{
+	margin-top:0;
+}
+.form-inline select{
+	min-width:200px;
+}
+.nomargin{ margin:0 !important; }
+.nomargin-left{ margin-left:0 !important; }
+.nomargin-right{ margin-right:0 !important; }
+.nomargin-bottom{ margin-bottom:0 !important; }
+.nomargin-top{ margin-top:0 !important; }
+
+.product-details {
+    min-height: 335px;
+}
+
+.table {
+	margin-bottom:0;
+}
+.filter_form{
+	margin-bottom:15px;
+}
+input.ng-invalid-required{ border:1px solid #C9302C; }
+select.ng-invalid-required{ border:1px solid #C9302C; }
+
+.modal-header{ border-bottom:1px solid #ddd !important;}
+.nopadding-top{ padding-top:0;}
+
+.product-con{
+	margin:0 0 20px 0;
+}
+.list-group {
+	list-style:none;
+}
+.bubble {
+    background-color: #e44c34;
+    border-color: #e23923 #d83722 #c0311e;
+    border-left: 1px solid #d83722;
+    border-radius: 3px;
+    border-width: 1px;
+    box-shadow: -1px 1px 0 rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font: bold 9px Tahoma;
+    left: 28px;
+    padding: 1px 3px 1px 2px;
+    position: absolute;
+     top: 15px;
+}
+.uib-daypicker  tbody td{
+	padding:0 !important;
+}
+.uib-daypicker .input-group .btn {	
+	padding:0 !important;
+}	
+
+
