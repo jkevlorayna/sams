@@ -22,6 +22,7 @@ app.controller('AppSemesterController', function ($scope, $http, $q, $location, 
 		svcSemester.save($scope.formData).then(function (r) {
 			$scope.load();
 			$scope.formData = { }
+			growl.success("Data Successfully Save");
         }, function (error) {
 
         });

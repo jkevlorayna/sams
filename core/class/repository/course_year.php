@@ -33,7 +33,7 @@ class CourseYearRepository{
 			$request = \Slim\Slim::getInstance()->request();
 			$POST = json_decode($request->getBody());
 			
-			$id  = (!isset($POST->id))? 0 : $POST->id;
+			$id  = (!isset($POST->Id))? 0 : $POST->Id;
 			$CourseId = $POST->CourseId;
 			$year = $POST->year;
 

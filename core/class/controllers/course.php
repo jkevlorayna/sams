@@ -16,6 +16,6 @@ $slim_app->delete('/course/:id',function($id){
 });
 $slim_app->post('/course',function(){
 	$CourseRepo = new CourseRepository();
-	$$CourseRepo->Save();
+	$CourseRepo->Save();
 });
 ?>

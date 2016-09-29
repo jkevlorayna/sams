@@ -19,6 +19,7 @@ app.controller('AppCourseController', function ($scope, $http, $q, $location, $f
 	$scope.save = function () {
 		svcCourse.save($scope.formData).then(function (r) {
 			$scope.load();
+			growl.success("Data Successfully Saved");
 			$scope.formData = { }
         }, function (error) {
 

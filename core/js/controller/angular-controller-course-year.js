@@ -32,7 +32,7 @@ app.controller('AppCourseYearController', function ($scope, $http, $q, $location
 	
 	$scope.getById = function (id) {
 		svcCourseYear.getById(id).then(function (r) {
-				$scope.formData =  r
+			$scope.formData =  r
         });
     }
 	

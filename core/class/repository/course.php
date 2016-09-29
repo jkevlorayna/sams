@@ -43,7 +43,4 @@ class CourseRepository{
 
 		}
 }
-$GLOBALS['CourseRepo'] = new CourseRepository();
-
-
 ?>
