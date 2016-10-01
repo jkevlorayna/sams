@@ -1,5 +1,5 @@
 ﻿
-app.controller('AppSemesterController', function ($scope, $http, $q, $location, $filter, svcSemester,$uibModal) {
+app.controller('AppSemesterController', function ($scope, $http, $q, $location, $filter, svcSemester,$uibModal,growl) {
 		$scope.pageNo = 1;
 		$scope.pageSize = 10;
 		if($scope.searchText == undefined){ $scope.searchText = ''; } 

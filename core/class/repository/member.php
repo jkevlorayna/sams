@@ -83,11 +83,11 @@ class MemberRepository{
 			$query->bindParam(':SectionId', !isset($POST->SectionId) ? '' : $POST->SectionId );
 			$query->bindParam(':MemberTypeId', !isset($POST->MemberTypeId) ? '' : $POST->MemberTypeId );
 			$query->bindParam(':IdNumber', !isset($POST->IdNumber) ? '' : $POST->IdNumber );
-			if($Id == 0){ $query->bindParam(':date_registered', !isset($POST->date_registered) ? '' : $POST->date_registered ); }
+			if($Id == 0){ $query->bindParam(':date_registered', date('Y-m-d')); }
 			
 			$Transfer = !isset($POST->Transfer) ? 0 : $POST->Transfer;
-			$Transfer != 0 ? $query->bindParam(':Transfer',$Transfer) :$query->bindParam(':Transfer',0);
-			$Transfer != 0 ? $query->bindParam(':DateTransfer',date('Y-m-d')) :$query->bindParam(':DateTransfer',0);
+			$Transfer != 0 ? $query->bindParam(':Transfer',$Transfer) : '' ;
+			$Transfer != 0 ? $query->bindParam(':DateTransfer',date('Y-m-d')) : '';
 
 			
 			

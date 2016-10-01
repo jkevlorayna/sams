@@ -1,8 +1,11 @@
 <?php 
 $slim_app->get('/member/:id',function($id){
+	$CourseRepo = new CourseRepository();
+	$CourseYearRepo = new CourseYearRepository();
+	
 	$result = $GLOBALS['MemberRepo']->Get($id);
-	$result['Course'] =  $GLOBALS['CourseRepo']->Get($result['CourseId']);
-	$result['CourseYear'] =  $GLOBALS['CourseYearRepo']->Get($result['CourseYearId']);
+	$result['Course'] =  $CourseRepo->Get($result['CourseId']);
+	$result['CourseYear'] =  $CourseYearRepo->Get($result['CourseYearId']);
 	$result['Section'] =  $GLOBALS['SectionRepo']->Get($result['SectionId']);
 	echo json_encode($result);
 });
