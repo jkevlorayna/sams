@@ -17,10 +17,18 @@ $slim_app->delete('/member/:id',function($id){
 	 $GLOBALS['MemberRepo']->Delete($id);
 });
 $slim_app->post('/member',function(){
-	 $GLOBALS['MemberRepo']->Save();
+		$MemberRepo = new MemberRepository();
+	
+		$request = \Slim\Slim::getInstance()->request();
+		$POST = json_decode($request->getBody());
+		$MemberRepo->Save($MemberRepo->Transform($POST));
 });
 $slim_app->post('/signup',function(){
-	 $GLOBALS['MemberRepo']->SignUp();
+		$MemberRepo = new MemberRepository();
+		
+		$request = \Slim\Slim::getInstance()->request();
+		$POST = json_decode($request->getBody());
+		$MemberRepo->SignUp($MemberRepo->Transform($POST));
 });
 $slim_app->post('/member/changepassword',function(){
 	 $GLOBALS['MemberRepo']->ChangePassword();

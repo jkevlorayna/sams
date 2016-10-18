@@ -1,7 +1,7 @@
 ﻿var MainFolder = 'sams';
 var MainFolder = 'sams';
 var BasePath = 'core';
-var app = angular.module('app', ['ui.router','ui.bootstrap','ngSanitize', 'ui.select','angular-growl','ngCookies','ngAnimate','checklist-model']);
+var app = angular.module('app', ['ui.router','ui.bootstrap','ngSanitize', 'ui.select','angular-growl','ngCookies','ngAnimate','checklist-model','io-barcode']);
 app.run(function ($rootScope, $location,$cookieStore,$window,svcLogin) {
    var cookieCheck = $cookieStore.get('credentials');
    
@@ -197,87 +197,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "views/semester.html",
             controller: "AppSemesterController",
         })
-		// books
-			.state('books',
-			{
-				url: '/books',
-				templateUrl: "views/books/index.html",
-				controller: "",
-			})
-			.state('books.list',
-			{
-				url: '/list',
-				templateUrl: "views/books/list.html",
-				controller: "AppBooksController",
-			})
-			.state('books.archive',
-			{
-				url: '/archive',
-				templateUrl: "views/books/archive.html",
-				controller: "AppBooksArchiveController",
-			})
-			.state('books.form',
-			{
-				url: '/form/:id',
-				templateUrl: "views/books/form.html",
-				controller: "AppAddEditBooksController",
-			})
-			.state('books.details',
-			{
-				url: '/details/:id',
-				templateUrl: "views/books/details.html",
-				controller: "AppBooksDetailsController",
-			})
-			.state('books.brrow',
-			{
-				url: '/borrow',
-				templateUrl: "views/books/borrow/form.html",
-				controller: "AppBooksBorrowController",
-			})
-			.state('books.brrowList',
-			{
-				url: '/borrow/list',
-				templateUrl: "views/books/borrow/list.html",
-				controller: "AppBooksBorrowListController",
-			})
-			.state('books.brrowDetails',
-			{
-				url: '/borrow/details/:id',
-				templateUrl: "views/books/borrow/details.html",
-				controller: "AppBooksBorrowDetailsController",
-			})
-		// end books
-		.state('product',
-        {
-            url: '/product',
-            templateUrl: "views/product/index.html",
-            controller: "",
-        })
-		.state('product.list',
-        {
-            url: '/list',
-            templateUrl: "views/product/list.html",
-            controller: "AppProductController",
-        })
-		.state('product.form',
-        {
-         url: '/form/:id',
-            templateUrl: "views/product/form.html",
-            controller: "AppAddEditProductController",
-        })
-		.state('product.stock',
-        {
-            url: '/stock/:id',
-            templateUrl: "views/product/stock.html",
-            controller: "AppProductStockController",
-        })
-		
-		.state('units',
-        {
-            url: '/units',
-            templateUrl: "views/units.html",
-            controller: "AppUnitsController",
-        })
+
+
 		.state('signUp',
         {
             url: '/signup',
@@ -321,65 +242,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "views/example/example1.html",
             controller: "AppExample1Controller",
         })
-		//order 
-			.state('orderStatus',
-			{
-				url: '/orderStatus',
-				templateUrl: "views/orderStatus.html",
-				controller: "AppOrderStatusController",
-			})
-			.state('order',
-			{
-				url: '/order',
-				templateUrl: "views/order/index.html",
-				controller: "",
-			})
-			.state('order.list',
-			{
-				url: '/list',
-				templateUrl: "views/order/list.html",
-				controller: "AppOrderController",
-			})
-			.state('order.details',
-			{
-				url: '/details/:id',
-				templateUrl: "views/order/details.html",
-				controller: "AppOrderDetailsController",
-			})
-			//report 
-					.state('order.reportDaily',
-					{
-						url: '/report/daily',
-						templateUrl: "views/order/report/daily.html",
-						controller: "AppOrderReportDailyController",
-					})
-					.state('order.reportMonthly',
-					{
-						url: '/report/monthly',
-						templateUrl: "views/order/report/monthly.html",
-						controller: "AppOrderReportMonthController",
-					})
-					.state('order.reportYearly',
-					{
-						url: '/report/yearly',
-						templateUrl: "views/order/report/yearly.html",
-						controller: "AppOrderReportYearController",
-					})
-					.state('order.reportSpecific',
-					{
-						url: '/report/specific',
-						templateUrl: "views/order/report/specificDate.html",
-						controller: "AppOrderReportSpecificController",
-					})
-			//end report 
-		// end order
-		.state('status',
-		{
-			url: '/status',
-			templateUrl: "views/status.html",
-			controller: "AppStatusController",
-		})
-		// end order
+		
 		.state('setting',
 		{
 			url: '/setting',
@@ -399,7 +262,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 			templateUrl: "views/transaction/form.html",
 			controller: "AppSettingController",
 		})
-		
+		// barcode 
+		.state('barcode',
+		{
+			url: '/barcode/generate',
+			templateUrl: "views/barcode/generate.html",
+			controller: "AppBarcodeController",
+		})
 		
 }]);
 app.config(['growlProvider', function(growlProvider) {

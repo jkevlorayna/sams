@@ -167,7 +167,7 @@ app.controller('AppSignUpController', function ($scope, $http, $q, $filter, svcM
 });
 
 
-app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filter, svcMember,growl,svcCourse,svcCourseYear,svcSection,$stateParams) {
+app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filter, svcMember,growl,svcCourse,svcCourseYear,svcSection,$stateParams,$location) {
 	$scope.Id = $stateParams.Id;
 	$scope.type = $stateParams.type;
 		
@@ -198,6 +198,7 @@ app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filte
 	$scope.save = function () {
 		svcMember.signUp($scope.formData).then(function (r) {
 			growl.success('Data Successfully Saved');
+			// $location.path('/member/list/'+$scope.type);
         },function(){
 			growl.error('Ops Something Went Wrong');
 		});

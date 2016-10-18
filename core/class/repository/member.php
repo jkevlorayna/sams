@@ -60,43 +60,69 @@ class MemberRepository{
 				");
 			return $query;	
 		}
-		public function Save(){
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->firstname = !isset($POST->firstname) ? '' : $POST->firstname;
+			$POST->lastname = !isset($POST->lastname) ? '' : $POST->lastname;
+			$POST->middlename = !isset($POST->middlename) ? '' : $POST->middlename;
+			$POST->gender = !isset($POST->gender) ? '' : $POST->gender;
+			$POST->email = !isset($POST->email) ? '' : $POST->email;
+			$POST->mobile_no = !isset($POST->mobile_no) ? '' : $POST->mobile_no;
+			$POST->address = !isset($POST->address) ? '' : $POST->address;
+			$POST->username = !isset($POST->username) ? '' : $POST->username;
+			$POST->password = !isset($POST->password) ? '' : $POST->password;
+			$POST->CourseId = !isset($POST->CourseId) ? '' : $POST->CourseId;
+			$POST->CourseYearId = !isset($POST->CourseYearId) ? '' : $POST->CourseYearId;
+			$POST->SectionId = !isset($POST->SectionId) ? '' : $POST->SectionId;
+			$POST->MemberTypeId = !isset($POST->MemberTypeId) ? '' : $POST->MemberTypeId;
+			$POST->IdNumber = !isset($POST->IdNumber) ? '' : $POST->IdNumber;
+			$POST->Transfer = !isset($POST->Transfer) ? null : $POST->Transfer;
+			$POST->DateTransfer = !isset($POST->DateTransfer) ? '' : $POST->DateTransfer;
+			$POST->date_registered = date('Y-m-d');
+
+			return $POST;
+		}
+		public function Save($POST){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
+
+			if($POST->Id == 0){
+				$query = $this->Create();
+				$query->bindParam(':date_registered',$POST->date_registered);
+			}else{
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
+			}
 			
-			$Id = !isset($POST->Id) ? 0 : $POST->Id;
-			$Id == 0 ? $query = $this->Create() : $query = $this->UPDATE() ;
+
 		
-			if($Id != 0){ $query->bindParam(':Id', $Id); }
+
 			$query->bindParam(':firstname', $POST->firstname);
 			$query->bindParam(':lastname', $POST->lastname);
 			$query->bindParam(':middlename', $POST->middlename);
 			$query->bindParam(':gender', $POST->gender);
-			$query->bindParam(':email', !isset($POST->email) ? '' : $POST->email );
-			$query->bindParam(':mobile_no', !isset($POST->mobile_no) ? '' : $POST->mobile_no );
-			$query->bindParam(':address', !isset($POST->address) ? '' : $POST->address );
-			$query->bindParam(':username', !isset($POST->username) ? '' : $POST->username );
-			$query->bindParam(':password', !isset($POST->password) ? '' : $POST->password );
-			$query->bindParam(':CourseId', !isset($POST->CourseId) ? '' : $POST->CourseId );
-			$query->bindParam(':CourseYearId', !isset($POST->CourseYearId) ? '' : $POST->CourseYearId );
-			$query->bindParam(':SectionId', !isset($POST->SectionId) ? '' : $POST->SectionId );
-			$query->bindParam(':MemberTypeId', !isset($POST->MemberTypeId) ? '' : $POST->MemberTypeId );
-			$query->bindParam(':IdNumber', !isset($POST->IdNumber) ? '' : $POST->IdNumber );
-			if($Id == 0){ $query->bindParam(':date_registered', date('Y-m-d')); }
-			
-			$Transfer = !isset($POST->Transfer) ? 0 : $POST->Transfer;
-			$Transfer != 0 ? $query->bindParam(':Transfer',$Transfer) : '' ;
-			$Transfer != 0 ? $query->bindParam(':DateTransfer',date('Y-m-d')) : '';
+			$query->bindParam(':email', $POST->email );
+			$query->bindParam(':mobile_no',  $POST->mobile_no );
+			$query->bindParam(':address', $POST->address );
+			$query->bindParam(':username', $POST->username );
+			$query->bindParam(':password', $POST->password );
+			$query->bindParam(':CourseId', $POST->CourseId );
+			$query->bindParam(':CourseYearId', $POST->CourseYearId );
+			$query->bindParam(':SectionId', $POST->SectionId );
+			$query->bindParam(':MemberTypeId', $POST->MemberTypeId );
+			$query->bindParam(':IdNumber', $POST->IdNumber );
 
+			if($POST->Transfer != null){
+				 $query->bindParam(':Transfer',$POST->Transfer);
+				 $query->bindParam(':DateTransfer',$POST->DateTransfer);
+			} 
 			
 			
 			
 			$query->execute();	
 			
 		}
-		public function SignUp(){
-			$this->Save();		
+		public function SignUp($POST){
+			$this->Save($POST);		
 		}
 		public function ChangePassword(){
 			global $conn;

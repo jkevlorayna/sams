@@ -14,12 +14,16 @@ if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAu
     <div class="cl-navblock">
       <div class="menu-space">
         <div class="content">
+		<div class="text-center">
+			<img src="core/images/logo.png" class="img-responsive" style="max-height:140px;margin:0 auto;">
+		</div>	
           <ul class="cl-vnavigation">
 			        <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
 					<li ng-repeat="mtrow in memberTypeList"><a href="#/member/list/{{mtrow.Id}}"><i class="fa fa-group"></i>  
 					{{mtrow.type}}</a></li>
 					<li><a href="#/user/list"><i class="fa fa-group"></i> User List</a></li>
 					<li><a href="#/event/list"><i class="fa fa-file"></i> Event</a></li>
+					<li><a href="#/barcode/generate"><i class="fa fa-barcode"></i> Genrate Barcode</a></li>
 				<li>
 					<a href="#"><i class="fa fa-folder"></i><span>Selection Menu</span></a> 
 					<ul class="sub-menu">						
