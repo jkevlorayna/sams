@@ -13,5 +13,5 @@
 					<input type="password" ng-model="formData.rnewpassword"  ng-keyup="ComparePassword(formData.newpassword,formData.rnewpassword)" class="form-control" required>
 				</div>
 				<div class="alert alert-danger" ng-show="passwordCorrect" >Password not match</div>
-				<button type="submit" ng-disabled="formData.newpassword!=formData.rnewpassword"  class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+				<button type="submit" ng-disabled="formData.newpassword!=formData.rnewpassword"  class="btn btn-success"><i class="fa fa-save"></i> Save</button>
 		</form>

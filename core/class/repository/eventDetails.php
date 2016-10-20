@@ -10,12 +10,19 @@ class EventDetailsRepository{
 			$query = $conn->prepare("DELETE FROM  tbl_event_details  WHERE Id = '$id'");
 			$query->execute();	
 		}
-		 function DataList($searchText,$pageNo,$pageSize){
+		 function DataList($searchText,$pageNo,$pageSize,$EventId){
 			global $conn;
-					$pageNo = ($pageNo - 1) * $pageSize; 
-					$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;					
-					$query = $conn->query("SELECT * FROM  tbl_event_details WHERE MemberId LIKE '%$searchText%' $limitCondition ");
-					$count = $searchText != '' ?   $query->rowcount() : $conn->query("SELECT * FROM  tbl_event_details")->rowcount();
+			$where = "";
+			$where .= "And EventId = '$EventId'";
+			
+			$pageNo = ($pageNo - 1) * $pageSize; 
+			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;		
+			
+			$query = $conn->query("SELECT *,tbl_event_details.Id As Id FROM  tbl_event_details 
+			LEFT JOIN tbl_member On tbl_event_details.MemberId = tbl_member.Id
+			WHERE 1 = 1 $where
+			$limitCondition ");
+			$count = $searchText != '' ?   $query->rowcount() : $conn->query("SELECT * FROM  tbl_event_details WHERE EventId = '$EventId' ")->rowcount();
 			
 			$data = array();
 			$data['Results'] = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -33,15 +40,26 @@ class EventDetailsRepository{
 			return $query;
 			
 		}	
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->MemberId = !isset($POST->MemberId) ? '' : $POST->MemberId;
+			$POST->EventId = !isset($POST->EventId) ? '' : $POST->EventId;
+			return $POST;
+		}
 		function Save($POST){
 			global $conn;
 
-			$Id = !isset($POST->Id) ? 0 : $POST->Id;
-			$Id == 0 ? $query = $this->Create() : $query = $this->UPDATE() ;
+
+			if($POST->Id == 0){
+				$query = $this->Create();
+			}else{
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
+			}
 			
-			if($Id != 0){ $query->bindParam(':Id', $Id); }
-			$query->bindParam(':MemberId', !isset($POST->MemberId) ? 0 : $POST->MemberId );
-			$query->bindParam(':EventId', !isset($POST->EventId) ? 0 : $POST->EventId );
+			
+			$query->bindParam(':MemberId',$POST->MemberId );
+			$query->bindParam(':EventId',$POST->EventId );
 
 			$query->execute();	
 

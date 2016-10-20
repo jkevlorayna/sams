@@ -66,19 +66,58 @@ app.controller('AppEventModalController', function ($rootScope,$scope, $http, $q
     }
 });	
 
-app.controller('AppEventDetailsController', function ($scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams) {
-$scope.Id = $stateParams.Id;
-
+app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,svcEvent) {
+	$scope.Id = $stateParams.Id;
 	
+	$scope.pageNo = 1;
+	$scope.pageSize = 10;
+	if($scope.searchText == undefined){
+			$scope.searchText = '';
+	} 
+	$scope.getById = function(){
+		svcEvent.getById($scope.Id).then(function(r){
+			$scope.formData = r;
+		})
+	}	
+	$scope.getById();
+	$scope.load = function(){
+		svcEventDetails.List('',0,0,$scope.Id).then(function(r){
+			$scope.list = r.Results;
+			$scope.count = r.Count;
+		})
+	}
+	$scope.load();
 });
-app.controller('AppEventFormController', function ($scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails) {
+app.controller('AppEventFormController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,$timeout) {
 $scope.Id = $stateParams.Id;
 
-	$scope.formData = { EventId : $scope.Id  }
+$rootScope.Sidebar = false;
+$rootScope.Navigation = false;
+$scope.Message = null;
+	$scope.getById = function(){
+		svcEvent.getById($scope.Id).then(function(r){
+			$scope.formData = r;
+			$scope.formData.Id = 0;
+		})
+	}
+	$scope.getById();
+
+
 	$scope.save = function () {
+		$scope.formData.EventId = $scope.Id;
 		svcEventDetails.Save($scope.formData).then(function (r) {
-			growl.success("Data Successfully Save");
-			$scope.formData = { EventId : $scope.Id  }
+			// console.log(r);
+			if(r == 0){
+				growl.error("Member Does Not Exist");
+			}else{
+				growl.success("Data Successfully Save");
+				$scope.Message = "Welcome " + r.firstname + " " + r.lastname;
+				
+				    $timeout(function() { $scope.Message = null; }, 5000);
+			}
+				
+				$scope.formData = { EventId : $scope.Id  }
+				$scope.getById();
         });
     }
 	

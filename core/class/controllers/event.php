@@ -18,6 +18,6 @@ $slim_app->post('/event',function(){
 	$request = \Slim\Slim::getInstance()->request();
 	$POST = json_decode($request->getBody());
 			
-	$EventRepo->Save($POST);
+	$EventRepo->Save($EventRepo->Transform($POST));
 });
 ?>

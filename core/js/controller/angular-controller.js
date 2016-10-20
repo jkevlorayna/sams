@@ -1,7 +1,8 @@
 ﻿
 app.controller('AppMainController', function ($rootScope,$scope, $http, $q, $location, $filter, $window,$cookieStore,$uibModal,svcLogin,svcMemberType) {
      $scope.cookieCheck = $cookieStore.get('credentials');
-	
+	$rootScope.Sidebar = true;
+	$rootScope.Navigation = true;
 	
 	if($scope.cookieCheck == undefined){
 		$scope.session = { userData:{} , isAuthenticated: false,  loading: false };

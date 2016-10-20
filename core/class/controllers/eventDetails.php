@@ -1,23 +1,34 @@
 <?php 
 $slim_app->get('/event/details/:id',function($id){
-	$EventRepo = new EventDetailsRepository();
-	$result = $EventRepo->Get($id);
+	$EventDetailsRepo = new EventDetailsRepository();
+	$result = $EventDetailsRepo->Get($id);
 	echo json_encode($result);
 });
-$slim_app->get('/event/details',function(){
-	$EventRepo = new EventDetailsRepository();
-	$result = $EventRepo->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize']);
+$slim_app->get('/eventDetail/list',function(){
+	$EventDetailsRepo = new EventDetailsRepository();
+	
+	$result = $EventDetailsRepo->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize'],$_GET['EventId']);
 	echo json_encode($result);
 });
 $slim_app->delete('/event/details/:id',function($id){
-	$EventRepo = new EventDetailsRepository();
-	$EventRepo->Delete($id);
+	$EventDetailsRepo = new EventDetailsRepository();
+	$EventDetailsRepo->Delete($id);
 });
 $slim_app->post('/event/details',function(){
-	$EventRepo = new EventDetailsRepository();
+	$EventDetailsRepo = new EventDetailsRepository();
+	$MemberRepo = new MemberRepository();
 	
 	$request = \Slim\Slim::getInstance()->request();
 	$POST = json_decode($request->getBody());	
-	$EventRepo->Save($POST);
+	
+	$Member = $MemberRepo->GetByBarcode($POST->Barcode);
+	if(is_object($Member)){
+		$POST->MemberId = $Member->Id;
+		$EventDetailsRepo->Save($EventDetailsRepo->Transform($POST));
+		echo json_encode($Member);
+	}else{
+		echo 0;
+	};
+	
 });
 ?>

@@ -1,7 +1,7 @@
 ﻿var MainFolder = 'sams';
 var MainFolder = 'sams';
 var BasePath = 'core';
-var app = angular.module('app', ['ui.router','ui.bootstrap','ngSanitize', 'ui.select','angular-growl','ngCookies','ngAnimate','checklist-model','io-barcode']);
+var app = angular.module('app', ['ui.router','ui.bootstrap','ngSanitize', 'ui.select','angular-growl','ngCookies','ngAnimate','checklist-model','io-barcode','angular-loading-bar']);
 app.run(function ($rootScope, $location,$cookieStore,$window,svcLogin) {
    var cookieCheck = $cookieStore.get('credentials');
    

@@ -3,7 +3,22 @@ class MemberRepository{
 		public function Get($id){
 			global $conn;
 			$query = $conn->query("SELECT * FROM tbl_member  WHERE Id = '$id'");
-			return $query->fetch(PDO::FETCH_ASSOC);	
+			return $query->fetch(PDO::FETCH_OBJ);	
+		}
+		public function GetByBarcode($id){
+			global $conn;
+			$query = $conn->query("SELECT * FROM tbl_member  WHERE Barcode = '$id'");
+			$count = $query->rowcount();
+			if($count == 0){
+				return 0;
+			}else{
+				return $query->fetch(PDO::FETCH_OBJ);	
+			}
+		}
+		public function GetByIdNumber($id){
+			global $conn;
+			$query = $conn->query("SELECT * FROM tbl_member  WHERE Id = '$id'");
+			return $query->fetch(PDO::FETCH_OBJ);	
 		}
 		public function Delete($id){
 			global $conn;
@@ -17,7 +32,7 @@ class MemberRepository{
 			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
 			
 			$query = $conn->query("SELECT * FROM  tbl_member WHERE firstname LIKE '%$searchText%' AND MemberTypeId = '$type'  $limitCondition ");
-			$count = $searchText != '' ? $query->rowcount() : $conn->query("SELECT * FROM  tbl_member")->rowcount();
+			$count = $searchText != '' ? $query->rowcount() : $conn->query("SELECT * FROM  tbl_member WHERE MemberTypeId = '$type'")->rowcount();
 			
 			$data = array();
 			$data['Results'] = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -30,8 +45,8 @@ class MemberRepository{
 			$query = $conn->prepare("
 				INSERT INTO 
 					   tbl_member 
-					  (firstname,lastname,middlename,gender,address,mobile_no,username,password,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber) 
-				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:username,:password,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber)
+					  (firstname,lastname,middlename,gender,address,mobile_no,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber) 
+				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber)
 				");
 			return $query;	
 		}
@@ -46,8 +61,6 @@ class MemberRepository{
 					   gender = :gender,
 					   address = :address,
 					   mobile_no = :mobile_no,
-					   username = :username,
-					   password = :password,
 					   email = :email,
 					   MemberTypeId = :MemberTypeId,
 					   CourseId = :CourseId,
@@ -55,7 +68,8 @@ class MemberRepository{
 					   SectionId = :SectionId,
 					   IdNumber = :IdNumber,
 					   DateTransfer = :DateTransfer,
-					   Transfer = :Transfer
+					   Transfer = :Transfer,
+					   Barcode = :Barcode
 					   WHERE Id = :Id
 				");
 			return $query;	
@@ -69,8 +83,6 @@ class MemberRepository{
 			$POST->email = !isset($POST->email) ? '' : $POST->email;
 			$POST->mobile_no = !isset($POST->mobile_no) ? '' : $POST->mobile_no;
 			$POST->address = !isset($POST->address) ? '' : $POST->address;
-			$POST->username = !isset($POST->username) ? '' : $POST->username;
-			$POST->password = !isset($POST->password) ? '' : $POST->password;
 			$POST->CourseId = !isset($POST->CourseId) ? '' : $POST->CourseId;
 			$POST->CourseYearId = !isset($POST->CourseYearId) ? '' : $POST->CourseYearId;
 			$POST->SectionId = !isset($POST->SectionId) ? '' : $POST->SectionId;
@@ -78,6 +90,7 @@ class MemberRepository{
 			$POST->IdNumber = !isset($POST->IdNumber) ? '' : $POST->IdNumber;
 			$POST->Transfer = !isset($POST->Transfer) ? null : $POST->Transfer;
 			$POST->DateTransfer = !isset($POST->DateTransfer) ? '' : $POST->DateTransfer;
+			$POST->Barcode = !isset($POST->Barcode) ? '' : $POST->Barcode;
 			$POST->date_registered = date('Y-m-d');
 
 			return $POST;
@@ -103,13 +116,12 @@ class MemberRepository{
 			$query->bindParam(':email', $POST->email );
 			$query->bindParam(':mobile_no',  $POST->mobile_no );
 			$query->bindParam(':address', $POST->address );
-			$query->bindParam(':username', $POST->username );
-			$query->bindParam(':password', $POST->password );
 			$query->bindParam(':CourseId', $POST->CourseId );
 			$query->bindParam(':CourseYearId', $POST->CourseYearId );
 			$query->bindParam(':SectionId', $POST->SectionId );
 			$query->bindParam(':MemberTypeId', $POST->MemberTypeId );
 			$query->bindParam(':IdNumber', $POST->IdNumber );
+			$query->bindParam(':Barcode', $POST->Barcode);
 
 			if($POST->Transfer != null){
 				 $query->bindParam(':Transfer',$POST->Transfer);

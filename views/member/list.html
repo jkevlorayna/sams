@@ -21,9 +21,10 @@
 				<thead>
 					<tr>
 						<th>Id Number</th>
+						<th>Barcode No.</th>
 						<th>Name</th>
 						<th>Gender</th>
-						<th>Address</th>
+						<!-- <th>Address</th> -->
 						<th>Mobile No</th>
 						<th>Email</th>
 						<th></th>
@@ -32,9 +33,10 @@
 				<tbody>
 					<tr ng-repeat="row in list">
 						<td>{{row.IdNumber}}</td>
+						<td>{{row.Barcode}}</td>
 						<td>{{row.firstname}} {{row.middlename}} {{row.lastname}}</td>
 						<td>{{row.gender}}</td>
-						<td>{{row.address}}</td>
+						<!-- <td>{{row.address}}</td> -->
 						<td>{{row.mobile_no}}</td>
 						<td>{{row.email}}</td>
 						<td>

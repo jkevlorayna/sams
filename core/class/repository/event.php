@@ -33,18 +33,29 @@ class EventRepository{
 			return $query;
 			
 		}	
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->Name = !isset($POST->Name) ? '' : $POST->Name;
+			$POST->Place = !isset($POST->Place) ? '' : $POST->Place;
+			$POST->Status = !isset($POST->Status) ? '' : $POST->Status;
+			$POST->DateCreated = date('Y-m-d');
+			return $POST;
+		}
 		 function Save($POST){
 			global $conn;
 
-			$Id = !isset($POST->Id) ? 0 : $POST->Id;
-			$Id == 0 ? $query = $this->Create() : $query = $this->UPDATE() ;
+			if($POST->Id == 0){
+				$query = $this->Create();
+			}else{
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
+				$query->bindParam(':DateCreated', $POST->DateCreated);
+			}
 			
-			if($Id != 0){ $query->bindParam(':Id', $Id); }
-			$query->bindParam(':Name', !isset($POST->Name) ? '' : $POST->Name );
-			$query->bindParam(':Place', !isset($POST->Place) ? '' : $POST->Place );
-			$query->bindParam(':Status', !isset($POST->Status) ? '' : $POST->Status );
-			if($Id == 0){ $query->bindParam(':DateCreated', date('Y-m-d')); }
-			
+
+			$query->bindParam(':Name',$POST->Name);
+			$query->bindParam(':Place',$POST->Place );
+			$query->bindParam(':Status',$POST->Status );
 
 			$query->execute();	
 

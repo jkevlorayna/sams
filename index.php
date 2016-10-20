@@ -9,7 +9,7 @@ if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAu
 	
 <div id="cl-wrapper">
 
-  <div class="cl-sidebar" ng-show="session.isAuthenticated">
+  <div class="cl-sidebar" ng-show="session.isAuthenticated" ng-if="Sidebar">
     <div class="cl-toggle"><i class="fa fa-bars"></i></div>
     <div class="cl-navblock">
       <div class="menu-space">
@@ -46,7 +46,7 @@ if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAu
 	
 		<div class="container-fluid" id="pcont">
 				
-				  <div id="head-nav" class="navbar navbar-default" ng-show="session.isAuthenticated">
+				  <div id="head-nav" class="navbar navbar-default" ng-show="session.isAuthenticated" ng-if="Navigation">
     <div class="container-fluid">
       <div class="navbar-collapse">
         <ul class="nav navbar-nav navbar-right user-nav">	

@@ -1,3 +1,12 @@
+@font-face {
+  font-family: Raleway-Bold;
+  src: url("Raleway-Bold.ttf"); }
+@font-face {
+  font-family: Raleway-Regular;
+  src: url("Raleway-Regular.ttf"); }
+body, h1, h2, h3, h4, h5 {
+  font-family: Raleway-Regular; }
+  
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
@@ -55,5 +64,6 @@ select.ng-invalid-required{ border:1px solid #C9302C; }
 .uib-daypicker .input-group .btn {	
 	padding:0 !important;
 }	
-
-
+body.texture {
+    background: #f0f0f0  !important;
+}

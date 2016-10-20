@@ -19,7 +19,7 @@
 
 	<link href="<?php echo $path; ?>fonts/font-awesome-4/css/font-awesome.min.css"  rel="stylesheet" >
 	<link href="<?php echo $path; ?>css/style.css" rel="stylesheet" />	
-	<link href="<?php echo $path; ?>css/custom.css" rel="stylesheet" />
+	<link href="<?php echo $path; ?>css/sass/custom.css" rel="stylesheet" />
 	
 
 

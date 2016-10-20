@@ -1,7 +1,26 @@
+<div class="row">
+
+<div class="col-md-6 col-md-offset-3">
+		<div class="text-center">
+			<img src="core/images/logo.png" class="img-responsive" style="max-height:140px;margin:0 auto;">
+		</div>	
+<div class="block-flat">
+
+		
+						<div class="header text-center">							
+											<h1>{{formData.Name}}</h1>
+						</div>
+
+		<div ng-show="Message != null" class="text-center alert alert-info"><h4 >{{Message}}</h4></div>
 		<form method="POST"  ng-submit="save()">
 				<div class="form-group">
-					<label for="exampleInputPassword1">ID Number</label>
-					<input type="text" ng-model="formData.MemberId"  class="form-control" required>
+					<label for="exampleInputPassword1">Barcode No</label>
+					<input type="text" ng-model="formData.Barcode"  class="form-control input-lg" required>
 				</div>
-				<button type="submit"  class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+				<button type="submit"  class="btn btn-success btn-block btn-lg"><i class="fa fa-check"></i> Submit</button>
 		</form>
+	
+</div>
+</div>
+</div>
+		
