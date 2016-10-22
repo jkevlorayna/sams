@@ -1,36 +1,34 @@
 <?php 
 class LoginRepository{
-		public function changePassword(){
+		public function changePassword($POST){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
-	
-			$id = (!isset($POST->user_id)) ? 0 : $POST->user_id;
-			$cpassword =  $POST->cpassword;
-			$newpassword =  $POST->newpassword;
-			
-			$count = $conn->query("SELECT * FROM tbl_user WHERE  password = '$cpassword' AND user_id = '$id' ")->rowcount();
 
+
+			$query = $conn->prepare("SELECT * FROM tbl_user WHERE  password = :password AND user_id = :user_id ");
+			$query->bindParam(':password', $POST->cpassword);
+			$query->bindParam(':user_id', $POST->user_id);
+			$query->execute();
+			
+			$count = $query->rowcount();
+			
 			if($count > 0){
-				$query = $conn->prepare("UPDATE tbl_user SET password = ? WHERE user_id = ? ");
-				$query->execute(array($newpassword,$id));
+				$query = $conn->prepare("UPDATE tbl_user SET password = :password WHERE user_id = :user_id ");
+				$query->bindParam(':password', $POST->newpassword);
+				$query->bindParam(':user_id', $POST->user_id);
+				$query->execute();
 			}else{
 				 return 'cpFalse';
 			}
 
 			
 		}
-		public function loginMember(){
+		public function loginMember($POST){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
-	
-			$id = (!isset($POST->Id)) ? 0 : $POST->Id;
-			$username =  $POST->username;
-			$password =  $POST->password;
-		
-			$query = $conn->prepare("SELECT * FROM tbl_member WHERE username =  ?  AND password = ? ");
-			$query->execute(array($username,$password));
+			
+			$query = $conn->prepare("SELECT * FROM tbl_member WHERE username =  :username  AND password = :password ");
+			$query->bindParam(':username', $POST->username);
+			$query->bindParam(':password', $POST->password);
+			$query->execute();
 
 			
 			$count = $query->rowcount();
@@ -56,19 +54,23 @@ class LoginRepository{
 					return $data;	
 			}
 		}
-				public function login(){
+		public function Transform($POST){
+			$POST->user_id = (!isset($POST->user_id)) ? 0 : $POST->user_id;
+			$POST->username = (!isset($POST->username)) ? '' : $POST->username;
+			$POST->password = (!isset($POST->password)) ? '' : $POST->password;	
+			$POST->cpassword = (!isset($POST->cpassword)) ? '' : $POST->cpassword;	
+			$POST->newpassword = (!isset($POST->newpassword)) ? '' : $POST->newpassword;	
+			return $POST;	
+		}
+		public function login($POST){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
-	
-			$id = (!isset($POST->user_id)) ? 0 : $POST->user_id;
-			$username =  $POST->username;
-			$password =  $POST->password;
-		
-			$query = $conn->prepare("SELECT * FROM tbl_user WHERE username =  ?  AND password = ? ");
-			$query->execute(array($username,$password));
 
-			
+		
+			$query = $conn->prepare("SELECT * FROM tbl_user WHERE username =  :username  AND password = :password ");
+			$query->bindParam(':username', $POST->username);
+			$query->bindParam(':password', $POST->password);
+			$query->execute();
+
 			$count = $query->rowcount();
 				
 			if($count > 0){
@@ -108,5 +110,5 @@ class LoginRepository{
 			}
 		}
 }
-$GLOBALS['LoginRepo'] = new LoginRepository();		
+
 ?>

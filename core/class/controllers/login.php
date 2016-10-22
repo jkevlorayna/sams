@@ -1,22 +1,38 @@
 <?php 
 $slim_app->post('/login',function(){
-	$result = $GLOBALS['LoginRepo']->login();
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+	$LoginRepo = new LoginRepository();
+
+	$result = $LoginRepo->login($LoginRepo->Transform($POST));
 	echo json_encode($result);
 });
 $slim_app->post('/loginMember',function(){
-	$result = $GLOBALS['LoginRepo']->loginMember();
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+	$LoginRepo = new LoginRepository();
+	
+	$result = $LoginRepo->loginMember($LoginRepo->Transform($POST));
 	echo json_encode($result);
 });
 $slim_app->post('/logout',function(){
-	echo $GLOBALS['LoginRepo']->logout();
+	$LoginRepo = new LoginRepository();
+	
+	echo $LoginRepo->logout();
 });
 $slim_app->post('/changePassword',function(){
-	echo $GLOBALS['LoginRepo']->changePassword();
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+	$LoginRepo = new LoginRepository();
+	
+	echo $LoginRepo->changePassword($LoginRepo->Transform($POST));
 });
 $slim_app->get('/auth',function(){
-	echo $GLOBALS['LoginRepo']->auth();
+	$LoginRepo = new LoginRepository();
+	echo $LoginRepo->auth();
 });
 $slim_app->get('/authUser',function(){
-	echo $GLOBALS['LoginRepo']->authUser();
+	$LoginRepo = new LoginRepository();
+	echo $LoginRepo->authUser();
 });
 ?>
