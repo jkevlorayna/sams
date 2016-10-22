@@ -3,6 +3,7 @@
 session_start(); 
 if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAuthenticated = true; }
 ?>
+
 <?php include('core/header.php'); ?>
 <body class="texture" ng-controller="AppMainController" ng-init="<?php echo $isAuthenticated; ?>">
 	<div style="width:400px;" growl></div>
