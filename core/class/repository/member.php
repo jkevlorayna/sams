@@ -7,7 +7,9 @@ class MemberRepository{
 		}
 		public function GetByBarcode($id){
 			global $conn;
-			$query = $conn->query("SELECT * FROM tbl_member  WHERE Barcode = '$id'");
+			$query = $conn->query("SELECT * FROM tbl_member  
+			LEFT JOIN tbl_member_type on tbl_member_type.Id = tbl_member.MemberTypeId
+			WHERE Barcode = '$id'");
 			$count = $query->rowcount();
 			if($count == 0){
 				return 0;
@@ -17,7 +19,7 @@ class MemberRepository{
 		}
 		public function GetByIdNumber($id){
 			global $conn;
-			$query = $conn->query("SELECT * FROM tbl_member  WHERE Id = '$id'");
+			$query = $conn->query("SELECT * FROM tbl_member WHERE IdNumber = '$id'");
 			return $query->fetch(PDO::FETCH_OBJ);	
 		}
 		public function Delete($id){
@@ -45,8 +47,8 @@ class MemberRepository{
 			$query = $conn->prepare("
 				INSERT INTO 
 					   tbl_member 
-					  (firstname,lastname,middlename,gender,address,mobile_no,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber) 
-				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber)
+					  (firstname,lastname,middlename,gender,address,mobile_no,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber,Barcode) 
+				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber,:Barcode)
 				");
 			return $query;	
 		}

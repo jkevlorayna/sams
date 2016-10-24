@@ -14,11 +14,23 @@ app.controller('AppSchoolYearController', function ($rootScope,$scope, $http, $q
     }
     $scope.load();
 	
+	$scope.SaveAll = function () {
+		svcSchoolYear.SaveAll($scope.list).then(function (r) {
+			$scope.load();
+			growl.success("Data Successfully Saved!");
+        });
+    }
 	
 	
 	$scope.pageChanged = function () {
 		$scope.load();
     }
+	
+	$scope.ClearRadio = function(){
+		$scope.list.map(function(r){
+			r.Current = 0;
+		})
+	}
 
 	$scope.formData = {}
 	$scope.save = function () {
@@ -31,6 +43,13 @@ app.controller('AppSchoolYearController', function ($rootScope,$scope, $http, $q
         });
     }
 	
+	$scope.SaveRow = function (row) {
+		svcSchoolYear.save(row).then(function (r) {
+			$scope.load();
+			growl.success("Data Successfully Saved!");
+        });
+    }
+
 	$scope.getById = function (id) {
 		svcSchoolYear.getById(id).then(function (r) {
 				$scope.formData =  r

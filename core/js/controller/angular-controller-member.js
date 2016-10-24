@@ -197,8 +197,14 @@ app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filte
 
 	$scope.save = function () {
 		svcMember.signUp($scope.formData).then(function (r) {
-			growl.success('Data Successfully Saved');
-			// $location.path('/member/list/'+$scope.type);
+			if(r == 'exist'){
+				growl.error('Id Number Already Exist');
+			}else{
+				growl.success('Data Successfully Saved');
+				$location.path('/member/list/'+$scope.type);
+			}
+			
+			
         },function(){
 			growl.error('Ops Something Went Wrong');
 		});

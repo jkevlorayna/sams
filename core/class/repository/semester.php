@@ -1,14 +1,5 @@
 <?php 
 class SemesterRepository{
-		public function GetByName($search){
-			global $conn;
-					$searchText = $_GET['searchText'];
-					$pageNo = $_GET['pageNo'];
-					$pageSize = $_GET['pageSize'];
-			$pageNo = ($pageNo - 1) * $pageSize; 
-			$query = $conn->query("SELECT * FROM tbl_semester  WHERE semester = '$searchText' LIMIT $pageNo,$pageSize ");
-			return $query->fetch(PDO::FETCH_ASSOC);	
-		}
 		public function Get($id){
 			global $conn;
 			$query = $conn->query("SELECT * FROM tbl_semester  WHERE Id = '$id'");
@@ -21,35 +12,52 @@ class SemesterRepository{
 		}
 		public function DataList($searchText,$pageNo,$pageSize){
 			global $conn;
-					$pageNo = ($pageNo - 1) * $pageSize; 
-					
-				    $limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
-				    $query = $conn->query("SELECT * FROM  tbl_semester WHERE semester LIKE '%$searchText%' ORDER BY semester DESC $limitCondition");
-				    $count = $searchText != '' ?  $query->rowcount() : $conn->query("SELECT * FROM  tbl_semester")->rowcount();
+			$where = "";
+			if($searchText != ''){
+				$where .= "And Semester LIKE '%$searchText%'";
+			}
+			
+			$pageNo = ($pageNo - 1) * $pageSize; 
+			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
+			$query = $conn->query("SELECT * FROM  tbl_semester WHERE 1 = 1 $where ORDER BY Semester DESC $limitCondition");
+			$count = $searchText != '' ?  $query->rowcount() : $conn->query("SELECT * FROM  tbl_semester")->rowcount();
 			
 			$data = array();
 			$data['Results'] = $query->fetchAll(PDO::FETCH_ASSOC);
 			$data['Count'] = $count;
 			return $data;	
 		}
-		public function Save(){
+		public function Create(){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
-			
-	
-			$id  = (!isset($POST->Id))? 0 : $POST->Id;
-			$semester =  $POST->semester;
+			$query = $conn->prepare("INSERT INTO tbl_semester (Semester,Current) VALUES(:Semester,:Current)");
+			return $query;	
+		}
+		public function Update(){
+			global $conn;
+			$query = $conn->prepare("UPDATE tbl_semester SET Semester = :Semester , Current = :Current  WHERE Id = :Id ");
+			return $query;	
+		}
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->Semester = !isset($POST->Semester) ? '' : $POST->Semester;
+			$POST->Current = !isset($POST->Current) ? 0 : $POST->Current;
+			return $POST;
+		}
+		public function Save($POST){
+			global $conn;
 
-			if($id == 0) { 
-				$query = $conn->prepare("INSERT INTO tbl_semester (semester) VALUES(?)");
-				$query->execute(array($semester));
-			}else{ 
-				$query = $conn->prepare("UPDATE tbl_semester SET semester = ?   WHERE Id = ? ");
-				$query->execute(array($semester,$id));	
+			if($POST->Id == 0){
+				$query = $this->Create();
+			}else{
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
 			}
+			
+			$query->bindParam(':Semester', $POST->Semester);
+			$query->bindParam(':Current', $POST->Current);
+			$query->execute();	
 		}
 }
-$GLOBALS['SemesterRepo'] = new SemesterRepository();
+
 
 ?>

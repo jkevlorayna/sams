@@ -12,10 +12,14 @@ class SchoolYearRepository{
 		}
 		function DataList($searchText,$pageNo,$pageSize){
 			global $conn;
-
+			$where = "";
+			if($searchText != ''){
+				$where .= "And YearFrom = '%$searchText%'";
+			}
+			
 			$pageNo = ($pageNo - 1) * $pageSize; 
 			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
-			$query = $conn->query("SELECT * FROM  tbl_school_year  ORDER BY year_from DESC $limitCondition  ");
+			$query = $conn->query("SELECT * FROM  tbl_school_year WHERE 1 = 1 $where  ORDER BY YearFrom DESC $limitCondition  ");
 			$count = $searchText != '' ? $query->rowcount() : $conn->query("SELECT * FROM  tbl_school_year")->rowcount();;
 
 			$data = array();
@@ -23,24 +27,37 @@ class SchoolYearRepository{
 			$data['Count'] = $count;
 			return $data;	
 		}
-		function Save(){
+		public function Create(){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
-			
-	
-			$id  = (!isset($POST->Id))? 0 : $POST->Id;
-			$year_from =  $POST->year_from;
-			$year_to =  $POST->year_to;
+			$query = $conn->prepare("INSERT INTO tbl_school_year (YearFrom,YearTo,Current) VALUES(:YearFrom,:YearTo,:Current)");
+			return $query;	
+		}
+		public function Update(){
+			global $conn;
+			$query = $conn->prepare("UPDATE tbl_school_year SET YearFrom = :YearFrom , YearTo = :YearTo , Current = :Current  WHERE Id = :Id ");
+			return $query;	
+		}
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->YearFrom = !isset($POST->YearFrom) ? 0 : $POST->YearFrom;
+			$POST->YearTo = !isset($POST->YearTo) ? 0 : $POST->YearTo;
+			$POST->Current = !isset($POST->Current) ? 0 : $POST->Current;
+			return $POST;
+		}
+		public function Save($POST){
+			global $conn;
 
-			if($id == 0) { 
-				$query = $conn->prepare("INSERT INTO tbl_school_year (year_from,year_to) VALUES(?,?)");
-				$query->execute(array($year_from,$year_to));
-			}else{ 
-				$query = $conn->prepare("UPDATE tbl_school_year SET year_from = ? , year_to = ?   WHERE Id = ? ");
-				$query->execute(array($year_from,$year_to,$id));	
+			if($POST->Id == 0){
+				$query = $this->Create();
+			}else{
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
 			}
+			
+			$query->bindParam(':YearFrom', $POST->YearFrom);
+			$query->bindParam(':YearTo', $POST->YearTo);
+			$query->bindParam(':Current', $POST->Current);
+			$query->execute();	
 		}
 }
- $SchoolYearRepo = new SchoolYearRepository();
 ?>

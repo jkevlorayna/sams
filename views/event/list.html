@@ -4,6 +4,19 @@
 											<h3>Event List</h3>
 						</div>
 <div class="row">
+	<div class="col-md-12">
+					<form  class="form-inline filter_form">
+					<div class="form-group">
+							<label>Semester</label>
+							<select ng-change="load()" class="form-control" ng-model="Semester" ng-options="s.Semester as s.Semester for s in SemesterList"></select>
+					</div>
+					<div class="form-group">
+							<label>School Year</label>
+							<select ng-change="load()" class="form-control" ng-model="SchoolYear" ng-options="sy.Id as sy.YearFrom+' - '+sy.YearTo for sy in SchoolYearList"></select>
+					</div>
+					</form>
+					<hr>
+	</div>
 	<div class="col-md-3">
 		<form method="POST"  ng-submit="save()">
 				<div class="form-group">

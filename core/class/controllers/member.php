@@ -30,7 +30,18 @@ $slim_app->post('/signup',function(){
 		
 		$request = \Slim\Slim::getInstance()->request();
 		$POST = json_decode($request->getBody());
-		$MemberRepo->SignUp($MemberRepo->Transform($POST));
+		
+		$p = $MemberRepo->Transform($POST);
+		if($p->Id == 0){
+			if(is_object($MemberRepo->GetByIdNumber($p->IdNumber))){
+				echo 'exist';	
+			}else{
+				$MemberRepo->SignUp($p);	
+			}
+		}else{
+			$MemberRepo->SignUp($p);
+		}
+		
 });
 $slim_app->post('/member/changepassword',function(){
 	 $GLOBALS['MemberRepo']->ChangePassword();

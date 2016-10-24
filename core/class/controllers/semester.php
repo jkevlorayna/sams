@@ -1,16 +1,32 @@
 <?php 
 $slim_app->get('/semester/:id',function($id){
-	$result = $GLOBALS['SemesterRepo']->Get($id);
+	$SemesterRepo = new SemesterRepository();
+	$result = $SemesterRepo->Get($id);
 	echo json_encode($result);
 });
 $slim_app->get('/semester',function(){
-	$result = $GLOBALS['SemesterRepo']->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize']);
+	$SemesterRepo = new SemesterRepository();
+	$result = $SemesterRepo->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize']);
 	echo json_encode($result);
 });
 $slim_app->delete('/semester/:id',function($id){
-	$GLOBALS['SemesterRepo']->Delete($id);
+	$SemesterRepo = new SemesterRepository();
+	$SemesterRepo->Delete($id);
 });
 $slim_app->post('/semester',function(){
-	$GLOBALS['SemesterRepo']->Save();
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+		
+	$SemesterRepo = new SemesterRepository();
+	$SemesterRepo->Save($SemesterRepo->Transform($POST));
+});
+$slim_app->post('/semester/saveall',function(){
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+	
+	$SemesterRepo = new SemesterRepository();
+	foreach($POST as $row){
+		$SemesterRepo->Save($SemesterRepo->Transform($row));
+	}	
 });
 ?>

@@ -22,13 +22,18 @@ $slim_app->post('/event/details',function(){
 	$POST = json_decode($request->getBody());	
 	
 	$Member = $MemberRepo->GetByBarcode($POST->Barcode);
-	if(is_object($Member)){
-		$POST->MemberId = $Member->Id;
-		$EventDetailsRepo->Save($EventDetailsRepo->Transform($POST));
-		echo json_encode($Member);
+
+	if($Member->type == 'Student'){
+		if(is_object($Member)){
+			$POST->MemberId = $Member->Id;
+			$EventDetailsRepo->Save($EventDetailsRepo->Transform($POST));
+			echo json_encode($Member);
+		}else{
+			echo 0;
+		}
 	}else{
 		echo 0;
-	};
+	}
 	
 });
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2016 at 12:22 AM
+-- Generation Time: Oct 24, 2016 at 11:29 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -110,19 +110,21 @@ CREATE TABLE IF NOT EXISTS `tbl_events` (
   `DateCreated` date NOT NULL,
   `Current` int(11) NOT NULL,
   `Place` varchar(100) NOT NULL,
-  `Status` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  `Status` varchar(50) NOT NULL,
+  `SchoolYearId` int(11) NOT NULL,
+  `Semester` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_events`
 --
 
-INSERT INTO `tbl_events` (`Id`, `Name`, `DateCreated`, `Current`, `Place`, `Status`) VALUES
-(8, 'Social Bash', '2016-09-29', 0, 'Open Field', ''),
-(9, 'Intramurals', '2016-09-29', 0, 'Anywhere in the campus', ''),
-(10, 'Teachers Day', '2016-09-29', 0, 'Gym', ''),
-(11, 'College week', '2016-09-29', 0, 'Anywhere in the campus', ''),
-(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', '');
+INSERT INTO `tbl_events` (`Id`, `Name`, `DateCreated`, `Current`, `Place`, `Status`, `SchoolYearId`, `Semester`) VALUES
+(8, 'Social Bash', '2016-09-29', 0, 'Open Field', '', 5, '2nd Semester'),
+(9, 'Intramurals', '2016-09-29', 0, 'Anywhere in the campus', '', 5, '2nd Semester'),
+(10, 'Teachers Day', '2016-09-29', 0, 'Gym', '', 5, '2nd Semester'),
+(11, 'College week', '2016-09-29', 0, 'Anywhere in the campus', '', 5, '2nd Semester'),
+(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', '', 5, '2nd Semester');
 
 -- --------------------------------------------------------
 
@@ -138,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `tbl_event_details` (
   `InAmDateTime` datetime NOT NULL,
   `OutAm` tinyint(1) NOT NULL,
   `OutAmDateTime` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_event_details`
@@ -147,7 +149,9 @@ CREATE TABLE IF NOT EXISTS `tbl_event_details` (
 INSERT INTO `tbl_event_details` (`Id`, `MemberId`, `EventId`, `InAm`, `InAmDateTime`, `OutAm`, `OutAmDateTime`) VALUES
 (26, 40, 9, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
 (27, 40, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
-(28, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+(28, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
+(29, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
+(30, 1, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -173,14 +177,14 @@ CREATE TABLE IF NOT EXISTS `tbl_member` (
   `DateTransfer` date NOT NULL,
   `Transfer` tinyint(1) NOT NULL,
   `Barcode` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_member`
 --
 
 INSERT INTO `tbl_member` (`Id`, `firstname`, `lastname`, `middlename`, `gender`, `address`, `mobile_no`, `email`, `date_registered`, `MemberTypeId`, `CourseId`, `CourseYearId`, `SectionId`, `IdNumber`, `DateTransfer`, `Transfer`, `Barcode`) VALUES
-(39, 'Arnela Mae', 'Mesa', 'G.', 'Female', 'Silay City', '', 'arnelamae@gmail.com', '0000-00-00', 3, 6, 37, 27, '20140001', '0000-00-00', 1, ''),
+(39, 'Arnela Mae', 'Mesa', 'G.', 'Female', 'Silay City', '', 'arnelamae@gmail.com', '0000-00-00', 3, 6, 37, 27, '20140001', '0000-00-00', 1, '888'),
 (40, 'Micole Marie', 'Dioma', 'C.', 'Female', 'Ruins, Talisay City', '', 'Micolemarie@yahoo.com', '0000-00-00', 1, 7, 46, 59, '20140002', '0000-00-00', 0, '123'),
 (41, 'Carlo', 'Siason', 'K.', 'Male', 'Silay City', '', 'carlosiason@gmail.com', '0000-00-00', 1, 9, 34, 19, '20140003', '2016-10-16', 1, '456'),
 (42, 'Elyza Mae', 'Murallo', 'C.', 'Female', 'Silay City', '', 'Meimurallo@gmail.com', '0000-00-00', 1, 2, 19, 18, '20140004', '0000-00-00', 0, ''),
@@ -260,18 +264,20 @@ INSERT INTO `tbl_roles` (`Id`, `role`) VALUES
 
 CREATE TABLE IF NOT EXISTS `tbl_school_year` (
 `Id` int(11) NOT NULL,
-  `year_from` int(5) NOT NULL,
-  `year_to` int(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `YearFrom` int(5) NOT NULL,
+  `YearTo` int(5) NOT NULL,
+  `Current` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_school_year`
 --
 
-INSERT INTO `tbl_school_year` (`Id`, `year_from`, `year_to`) VALUES
-(3, 2013, 2014),
-(4, 2015, 2016),
-(5, 2017, 2018);
+INSERT INTO `tbl_school_year` (`Id`, `YearFrom`, `YearTo`, `Current`) VALUES
+(3, 2013, 2014, 0),
+(4, 2015, 2016, 0),
+(5, 2017, 2018, 1),
+(6, 2012, 2013, 0);
 
 -- --------------------------------------------------------
 
@@ -391,17 +397,18 @@ INSERT INTO `tbl_section` (`Id`, `section`, `CourseYearId`) VALUES
 
 CREATE TABLE IF NOT EXISTS `tbl_semester` (
 `Id` int(11) NOT NULL,
-  `semester` varchar(50) NOT NULL
+  `Semester` varchar(50) NOT NULL,
+  `Current` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_semester`
 --
 
-INSERT INTO `tbl_semester` (`Id`, `semester`) VALUES
-(1, '1st Semester'),
-(2, '2nd Semester'),
-(3, 'Summer');
+INSERT INTO `tbl_semester` (`Id`, `Semester`, `Current`) VALUES
+(1, '1st Semester', 0),
+(2, '2nd Semester', 1),
+(3, 'Summer', 0);
 
 -- --------------------------------------------------------
 
@@ -623,17 +630,17 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `tbl_event_details`
 --
 ALTER TABLE `tbl_event_details`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `tbl_member`
 --
 ALTER TABLE `tbl_member`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
 --
 -- AUTO_INCREMENT for table `tbl_member_type`
 --
@@ -648,7 +655,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `tbl_school_year`
 --
 ALTER TABLE `tbl_school_year`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tbl_section`
 --

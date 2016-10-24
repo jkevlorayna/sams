@@ -49,6 +49,19 @@ app.factory('svcSemester', function ($rootScope, $http, $q) {
             });
             return deferred.promise;
         }
+		,SaveAll: function (postData) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: BasePath+'/class/semester/saveall',
+                data:postData
+            }).success(function (data, status) {
+                deferred.resolve(data);
+            }).error(function (data, status) {
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        }
     };
     return $this;
 });

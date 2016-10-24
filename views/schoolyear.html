@@ -7,11 +7,11 @@
 		<form method="POST" ng-submit="save()">
 				<div class="form-group">
 					<label for="exampleInputPassword1">Year From</label>
-					<input type="text" ng-model="formData.year_from"  class="form-control" required>
+					<input type="text" ng-model="formData.YearFrom"  class="form-control" required>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputPassword1">Year To</label>
-					<input type="text" ng-model="formData.year_to"  class="form-control" required>
+					<input type="text" ng-model="formData.YearTo"  class="form-control" required>
 				</div>
 				<button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
 		</form>
@@ -32,13 +32,17 @@
 					<tr>
 						<th>Year From</th>
 						<th>Year To</th>
+						<th>Current</th>
 						<th width="20%"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="row in list">
-						<td>{{row.year_from}}</td>
-						<td>{{row.year_to}}</td>
+						<td>{{row.YearFrom}}</td>
+						<td>{{row.YearTo}}</td>
+						<td class="text-center">
+						 	<input type="radio" ng-model="row.Current" ng-click="ClearRadio();row.Current=true;SaveAll()" ng-value="true" name="current">
+						</td>
 						<td>
 							<button class="btn btn-success btn-sm" ng-click="getById(row.Id)"> <i class="fa fa-edit"></i> </button>
 							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i>  </button>

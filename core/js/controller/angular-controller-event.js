@@ -1,25 +1,48 @@
-﻿app.controller('AppEventController', function ($scope, $http, $q, $location, svcEvent,growl,$uibModal) {
+﻿app.controller('AppEventController', function ($scope, $http, $q, $location, svcEvent,growl,$uibModal,svcSemester,svcSchoolYear,$filter) {
 		$scope.pageNo = 1;
 		$scope.pageSize = 10;
 		if($scope.searchText == undefined){
 			$scope.searchText = '';
 		} 
+	$q.all([svcSemester.list('',0,0),svcSchoolYear.list('',0,0)]).then(function(r){
+		$scope.SemesterList = r[0].Results;
+		$scope.SchoolYearList = r[1].Results;
 		
-    $scope.load = function () {
+		$scope.CurrentSemester = $filter('filter')($scope.SemesterList, {Current:1})[0];
+		$scope.CurrentSchoolYear = $filter('filter')($scope.SchoolYearList, {Current:1})[0];
+		
+		$scope.Semester = $scope.CurrentSemester.Semester;
+		$scope.SchoolYear = $scope.CurrentSchoolYear.Id
 
-		svcEvent.list($scope.searchText,$scope.pageNo,$scope.pageSize).then(function (r) {
-            $scope.list = r.Results;
-            $scope.count = r.Count;
-        })
-    }
-    $scope.load();
-	
-	$scope.pageChanged = function () { $scope.load();}
+		
+			$scope.formData = {  }
+		
+			$scope.load = function () {
+				svcEvent.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Semester,$scope.SchoolYear).then(function (r) {
+					$scope.list = r.Results;
+					$scope.count = r.Count;
+				})
+			}
+			$scope.load();
+			
+			$scope.pageChanged = function () { $scope.load();}
+		
+		
+			$scope.getById = function (id) {
+				svcEvent.getById(id).then(function (r) {
+						$scope.formData =  r
+				});
+			}
+
+	})
 	
 
-	$scope.formData = {  }
+	
+
+	
 	$scope.save = function () {
-		console.log($scope.formData);
+		$scope.formData.Semester = $scope.Semester;	
+		$scope.formData.SchoolYearId = $scope.SchoolYear;	
 		svcEvent.save($scope.formData).then(function (r) {
 			$scope.load();
 			growl.success("Data Successfully Save");
@@ -27,11 +50,7 @@
         });
     }
 	
-	$scope.getById = function (id) {
-		svcEvent.getById(id).then(function (r) {
-				$scope.formData =  r
-        });
-    }
+
 	
 	$scope.openDeleteModal = function (size,id) {
 			var modal = $uibModal.open({

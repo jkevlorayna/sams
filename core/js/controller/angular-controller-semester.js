@@ -15,7 +15,11 @@ app.controller('AppSemesterController', function ($scope, $http, $q, $location, 
 		
 	$scope.pageChanged = function () { $scope.load(); }
 	
-
+	$scope.ClearRadio = function(){
+		$scope.list.map(function(r){
+			r.Current = 0;
+		})
+	}
 	
 	$scope.formData = { }
 	$scope.save = function () {
@@ -25,6 +29,13 @@ app.controller('AppSemesterController', function ($scope, $http, $q, $location, 
 			growl.success("Data Successfully Save");
         }, function (error) {
 
+        });
+    }
+	
+	$scope.SaveAll = function () {
+		svcSemester.SaveAll($scope.list).then(function (r) {
+			$scope.load();
+			growl.success("Data Successfully Saved!");
         });
     }
 	
