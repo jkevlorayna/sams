@@ -3,7 +3,7 @@ class EventRepository{
 		 function Get($id){
 			global $conn;
 			$query = $conn->query("SELECT * FROM tbl_events  WHERE Id = '$id'");
-			return $query->fetch(PDO::FETCH_ASSOC);	
+			return	$query->fetch(PDO::FETCH_OBJ);
 		}
 		 function Delete($id){
 			global $conn;

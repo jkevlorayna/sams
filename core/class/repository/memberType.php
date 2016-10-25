@@ -3,7 +3,7 @@ class MemberTypeRepository{
 		function Get($id){
 			global $conn;
 			$query = $conn->query("SELECT * FROM tbl_member_type  WHERE Id = '$id'");
-			return $query->fetch(PDO::FETCH_ASSOC);	
+			return $query->fetch(PDO::FETCH_OBJ);	
 		}
 		function Delete($id){
 			global $conn;
@@ -23,23 +23,42 @@ class MemberTypeRepository{
 			$data['Count'] = $count;
 			return $data;	
 		}
-		function Save(){
+		public function Create(){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
+			$query = $conn->prepare("INSERT INTO tbl_member_type (type,EnableAdd,EnableBarcode) VALUES(:type,:EnableAdd,:EnableBarcode)");
+			return $query;
+		}	
+		public function Update(){
+			global $conn;
+			$query = $conn->prepare("UPDATE tbl_member_type SET type = :type  , EnableAdd = :EnableAdd , EnableBarcode = :EnableBarcode WHERE Id = :Id ");
+			return $query;
 			
-			
-			$id = (!isset($POST->Id)) ? 0 : $POST->Id;
-			$type =  $POST->type;
+		}	
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->type = !isset($POST->type) ? '' : $POST->type;
+			$POST->EnableAdd = !isset($POST->EnableAdd) ? '' : $POST->EnableAdd;
+			$POST->EnableBarcode = !isset($POST->EnableBarcode) ? '' : $POST->EnableBarcode;
+			return $POST;
+		}
+		 function Save($POST){
+			global $conn;
 
-			if($id == 0) { 
-				$query = $conn->prepare("INSERT INTO tbl_member_type (type) VALUES(?)");
-				$query->execute(array($type));
-			}else{ 
-				$query = $conn->prepare("UPDATE tbl_member_type SET type = ?   WHERE Id = ? ");
-				$query->execute(array($type,$id));	
+			if($POST->Id == 0){
+				$query = $this->Create();
+			}else{
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
 			}
+			
+
+			$query->bindParam(':type',$POST->type);
+			$query->bindParam(':EnableAdd',$POST->EnableAdd );
+			$query->bindParam(':EnableBarcode',$POST->EnableBarcode );
+
+			$query->execute();	
+
 		}
 }
-$GLOBALS['MemberTypeRepo'] = new MemberTypeRepository();
+
 ?>

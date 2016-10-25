@@ -23,7 +23,7 @@ $slim_app->post('/event/details',function(){
 	
 	$Member = $MemberRepo->GetByBarcode($POST->Barcode);
 
-	if($Member->type == 'Student'){
+	if($Member->EnableBarcode == 1){
 		if(is_object($Member)){
 			$POST->MemberId = $Member->Id;
 			$EventDetailsRepo->Save($EventDetailsRepo->Transform($POST));

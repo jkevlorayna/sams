@@ -22,6 +22,10 @@ body, h1, h2, h3, h4, h5 {
 .nomargin-bottom{ margin-bottom:0 !important; }
 .nomargin-top{ margin-top:0 !important; }
 
+.widget-block .header h3, .block-flat .header h3 {
+	 font-family: Raleway-Regular;
+	 font-weight:normal;	
+}
 .product-details {
     min-height: 335px;
 }

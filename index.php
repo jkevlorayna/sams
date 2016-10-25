@@ -32,7 +32,7 @@ if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAu
 							<li><a href="#/schoolyear">School Year</a></li>
 							<li><a href="#/user/type">User Type</a></li>
 							<li><a href="#/member/type">Member Type</a></li>
-							<li><a href="#/status">Status</a></li>
+							<!-- <li><a href="#/status">Status</a></li> -->
 							<li><a href="#/semester">Semester</a></li>
 					</ul>		
 				</li>

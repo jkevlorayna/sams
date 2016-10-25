@@ -167,16 +167,17 @@ app.controller('AppSignUpController', function ($scope, $http, $q, $filter, svcM
 });
 
 
-app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filter, svcMember,growl,svcCourse,svcCourseYear,svcSection,$stateParams,$location) {
+app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filter,svcMemberType, svcMember,growl,svcCourse,svcCourseYear,svcSection,$stateParams,$location) {
 	$scope.Id = $stateParams.Id;
 	$scope.type = $stateParams.type;
-		
+	$scope.PageTitle = '';
+	svcMemberType.getById($scope.type).then(function(r){
+		$scope.PageTitle = $scope.Id == 0 ? 'Add New ' + r.type  : 'Update ' + r.type + ' Data';
+	})	
 		
 	$scope.loadCourse = function(){
 		svcCourse.list('',0,0).then(function(r){
 			$scope.courseList = r.Results;
-
-
 		})
 	}
 	$scope.loadCourse();

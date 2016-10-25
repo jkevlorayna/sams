@@ -1,7 +1,7 @@
 
 <div class="block-flat">
 						<div class="header">		
-							<div class="pull-right"><a href="#/member/form/{{type}}/0" class="btn btn-info"><i class="fa fa-plus"></i> Add New {{memberType.type}}</a></div>
+							<div ng-if="memberType.EnableAdd==true" class="pull-right"><a href="#/member/form/{{type}}/0" class="btn btn-info"><i class="fa fa-plus"></i> Add New {{memberType.type}}</a></div>
 											<h3>{{memberType.type}} List</h3>
 						</div>
 <div class="row">
