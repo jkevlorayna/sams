@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2016 at 11:29 PM
+-- Generation Time: Oct 25, 2016 at 11:41 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `tbl_events` (
   `Status` varchar(50) NOT NULL,
   `SchoolYearId` int(11) NOT NULL,
   `Semester` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_events`
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `tbl_event_details` (
   `InAmDateTime` datetime NOT NULL,
   `OutAm` tinyint(1) NOT NULL,
   `OutAmDateTime` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_event_details`
@@ -151,7 +151,8 @@ INSERT INTO `tbl_event_details` (`Id`, `MemberId`, `EventId`, `InAm`, `InAmDateT
 (27, 40, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
 (28, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
 (29, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
-(30, 1, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+(30, 1, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
+(31, 1, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -177,44 +178,44 @@ CREATE TABLE IF NOT EXISTS `tbl_member` (
   `DateTransfer` date NOT NULL,
   `Transfer` tinyint(1) NOT NULL,
   `Barcode` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_member`
 --
 
 INSERT INTO `tbl_member` (`Id`, `firstname`, `lastname`, `middlename`, `gender`, `address`, `mobile_no`, `email`, `date_registered`, `MemberTypeId`, `CourseId`, `CourseYearId`, `SectionId`, `IdNumber`, `DateTransfer`, `Transfer`, `Barcode`) VALUES
-(39, 'Arnela Mae', 'Mesa', 'G.', 'Female', 'Silay City', '', 'arnelamae@gmail.com', '0000-00-00', 3, 6, 37, 27, '20140001', '0000-00-00', 1, '888'),
-(40, 'Micole Marie', 'Dioma', 'C.', 'Female', 'Ruins, Talisay City', '', 'Micolemarie@yahoo.com', '0000-00-00', 1, 7, 46, 59, '20140002', '0000-00-00', 0, '123'),
-(41, 'Carlo', 'Siason', 'K.', 'Male', 'Silay City', '', 'carlosiason@gmail.com', '0000-00-00', 1, 9, 34, 19, '20140003', '2016-10-16', 1, '456'),
-(42, 'Elyza Mae', 'Murallo', 'C.', 'Female', 'Silay City', '', 'Meimurallo@gmail.com', '0000-00-00', 1, 2, 19, 18, '20140004', '0000-00-00', 0, ''),
-(43, 'Donard', 'Ytienza', 'M.', 'Male', 'Mandalagan, Bacolod City', '', 'Mcdonard@gmail.com', '0000-00-00', 1, 6, 39, 35, '20140005', '0000-00-00', 0, ''),
-(44, 'Rica', 'Gelera', 'S.', 'Female', 'Victorias City', '', 'Ricabebe@gmail.com', '0000-00-00', 1, 3, 57, 92, '20140006', '0000-00-00', 0, ''),
-(45, 'Eric John', 'Dela Cruz', 'A.', 'Male', 'Talisay City', '', 'Ericjohn@gmail.com', '0000-00-00', 1, 5, 42, 45, '20140007', '0000-00-00', 0, ''),
-(46, 'Jake', 'Cordero', 'S.', 'Male', 'Silay City', '', 'Jakethesnake@gmail.com', '0000-00-00', 1, 2, 19, 18, '20140008', '0000-00-00', 0, ''),
-(47, 'Lourdelyn', 'Bibas', 'H.', 'Female', 'Talisay City', '', 'Bibas_3476@gmail.com', '0000-00-00', 1, 8, 51, 76, '20140009', '0000-00-00', 0, ''),
-(48, 'Giu Matthew', 'Cuesta', 'O.', 'Male', 'Silay City', '', 'Cuesta_giu@gmail.com', '0000-00-00', 1, 2, 19, 18, '20140010', '0000-00-00', 0, ''),
-(49, 'Amira', 'Demavivas', 'L', 'Female', 'E.B Magalona', '', 'Amiracle@gmail.com', '0000-00-00', 1, 8, 49, 69, '20140011', '0000-00-00', 0, ''),
-(50, 'Leah', 'Valente', 'G.', 'Female', 'Silay City', '', 'Leah23@gmail.com', '0000-00-00', 1, 7, 46, 58, '20140012', '0000-00-00', 0, ''),
-(51, 'Jade', 'Solano', 'C.', 'Male', 'Talisay City', '', 'Jade001@gmail.com', '0000-00-00', 1, 5, 43, 50, '20140013', '0000-00-00', 0, ''),
-(52, 'Carl Francis', 'Villanueva', 'L.', 'Male', 'Bacolod City', '', 'Yasuo_carl@gmail.com', '0000-00-00', 1, 3, 54, 83, '20140014', '0000-00-00', 0, ''),
-(53, 'Renzy Ivan', 'Loren', 'Y.', 'Male', 'Silay City', '', 'Babyboy@yahoo.com', '0000-00-00', 1, 9, 35, 22, '20140015', '0000-00-00', 0, ''),
-(54, 'Joven', 'Diojoy', 'B.', 'Male', 'Talisay City', '', 'YouandMe@gmail.com', '0000-00-00', 1, 2, 19, 18, '20140016', '0000-00-00', 0, ''),
-(55, 'Cheska', 'Aposaga', 'S.', 'Female', 'E.B Magalona', '', 'AposagaChess@gmail.com', '0000-00-00', 1, 5, 43, 48, '20140017', '0000-00-00', 0, ''),
-(56, 'Jemelyn', 'Malan', 'E.', 'Female', 'Bacolod City', '', 'MalanJem@gmail.com', '0000-00-00', 1, 5, 41, 43, '20140018', '0000-00-00', 0, ''),
-(57, 'Eduardo', 'LascoÃ±a', 'P.', 'Male', 'Eroreco, Bacolod City', '', 'MrPerfect@gmail.com', '0000-00-00', 1, 8, 52, 77, '20140019', '0000-00-00', 0, ''),
-(58, 'Kevin', 'Grajo', 'D.', 'Male', 'Talisay City', '', 'Kevingrajo@gmail.com', '0000-00-00', 1, 6, 40, 38, '20140020', '0000-00-00', 0, ''),
-(59, 'Ronnel', 'De la torre', 'I.', 'Male', 'Bata, Bacolod City', '', 'ronneldelatorre@yahoo.com', '0000-00-00', 1, 3, 57, 92, '20140021', '0000-00-00', 0, ''),
-(60, 'Deolita Rose', 'Debuyan', 'K.', 'Female', 'E.B Magalona', '', 'Kairuzlee@yahoo.com', '0000-00-00', 1, 7, 45, 56, '20140022', '0000-00-00', 0, ''),
-(61, 'Marefel', 'Panes', 'E.', 'Female', 'Silay City', '', 'Boompanes@gmail.com', '0000-00-00', 1, 5, 41, 40, '20140023', '0000-00-00', 0, ''),
-(62, 'Kimberlyn', 'Mongcal', 'O.', 'Female', 'Talisay City', '', 'Kimkim@gmail.com', '0000-00-00', 1, 7, 46, 59, '20140024', '0000-00-00', 0, ''),
-(63, 'Mernel', 'Seran', 'S.', 'Female', 'E.B Magalona', '', 'Seran@gmail.com', '0000-00-00', 1, 8, 52, 78, '20140025', '0000-00-00', 0, ''),
-(64, 'Nicole', 'Castro', 'V.', 'Female', 'Talisay City', '', 'Nicolebukol@gmail.com', '0000-00-00', 1, 9, 34, 19, '20140026', '0000-00-00', 0, ''),
-(65, 'Rose Ann', 'Balladares', 'C.', 'Female', 'Manapla', '', 'Judyann@yahoo.com', '0000-00-00', 1, 3, 54, 85, '20140027', '0000-00-00', 0, ''),
-(66, 'Axel', 'De Asis', 'T.', 'Male', 'Talisay City', '', 'AxelD@gmail.com', '0000-00-00', 1, 3, 56, 90, '20140028', '0000-00-00', 0, ''),
-(67, 'Kristell Marvie', 'Paclibar', 'D.', 'Female', 'La Carlota City', '', 'Teltel@yahoo.com', '0000-00-00', 1, 2, 19, 18, '20140030', '0000-00-00', 0, ''),
-(68, 'ads', 'asd', 'asd', 'Male', 'asdsad', '232', 'jkevlora@gmail.com', '2016-10-19', 1, 2, 16, 1, '2322', '0000-00-00', 0, ''),
-(69, 'ads', 'asd', 'asd', 'Male', 'asdsad', '232', 'jkevlora@gmail.com', '2016-10-19', 1, 2, 16, 1, '2322', '0000-00-00', 0, '');
+(39, 'Arnela Mae', 'Mesa', 'G.', 'Female', 'Silay City', '', 'arnelamae@gmail.com', '2016-10-16', 3, 6, 37, 27, '20140001', '0000-00-00', 1, '888'),
+(40, 'Micole Marie', 'Dioma', 'C.', 'Female', 'Ruins, Talisay City', '', 'Micolemarie@yahoo.com', '2016-10-16', 1, 7, 46, 59, '20140002', '0000-00-00', 0, '123'),
+(41, 'Carlo', 'Siason', 'K.', 'Male', 'Silay City', '', 'carlosiason@gmail.com', '2016-10-16', 1, 9, 34, 19, '20140003', '2016-10-16', 1, '456'),
+(42, 'Elyza Mae', 'Murallo', 'C.', 'Female', 'Silay City', '', 'Meimurallo@gmail.com', '2016-10-16', 1, 2, 19, 18, '20140004', '0000-00-00', 0, ''),
+(43, 'Donard', 'Ytienza', 'M.', 'Male', 'Mandalagan, Bacolod City', '', 'Mcdonard@gmail.com', '2016-10-16', 1, 6, 39, 35, '20140005', '0000-00-00', 0, ''),
+(44, 'Rica', 'Gelera', 'S.', 'Female', 'Victorias City', '', 'Ricabebe@gmail.com', '2016-10-16', 1, 3, 57, 92, '20140006', '0000-00-00', 0, ''),
+(45, 'Eric John', 'Dela Cruz', 'A.', 'Male', 'Talisay City', '', 'Ericjohn@gmail.com', '2016-10-16', 1, 5, 42, 45, '20140007', '0000-00-00', 0, ''),
+(46, 'Jake', 'Cordero', 'S.', 'Male', 'Silay City', '', 'Jakethesnake@gmail.com', '2016-10-16', 1, 2, 19, 18, '20140008', '0000-00-00', 0, ''),
+(47, 'Lourdelyn', 'Bibas', 'H.', 'Female', 'Talisay City', '', 'Bibas_3476@gmail.com', '2016-10-16', 1, 8, 51, 76, '20140009', '0000-00-00', 0, ''),
+(48, 'Giu Matthew', 'Cuesta', 'O.', 'Male', 'Silay City', '', 'Cuesta_giu@gmail.com', '2016-10-16', 1, 2, 19, 18, '20140010', '0000-00-00', 0, ''),
+(49, 'Amira', 'Demavivas', 'L', 'Female', 'E.B Magalona', '', 'Amiracle@gmail.com', '2016-10-16', 1, 8, 49, 69, '20140011', '0000-00-00', 0, ''),
+(50, 'Leah', 'Valente', 'G.', 'Female', 'Silay City', '', 'Leah23@gmail.com', '2016-10-16', 1, 7, 46, 58, '20140012', '0000-00-00', 0, ''),
+(51, 'Jade', 'Solano', 'C.', 'Male', 'Talisay City', '', 'Jade001@gmail.com', '2016-10-16', 1, 5, 43, 50, '20140013', '0000-00-00', 0, ''),
+(52, 'Carl Francis', 'Villanueva', 'L.', 'Male', 'Bacolod City', '', 'Yasuo_carl@gmail.com', '2016-10-16', 1, 3, 54, 83, '20140014', '0000-00-00', 0, ''),
+(53, 'Renzy Ivan', 'Loren', 'Y.', 'Male', 'Silay City', '', 'Babyboy@yahoo.com', '2016-10-16', 1, 9, 35, 22, '20140015', '0000-00-00', 0, ''),
+(54, 'Joven', 'Diojoy', 'B.', 'Male', 'Talisay City', '', 'YouandMe@gmail.com', '2016-10-16', 1, 2, 19, 18, '20140016', '0000-00-00', 0, ''),
+(55, 'Cheska', 'Aposaga', 'S.', 'Female', 'E.B Magalona', '', 'AposagaChess@gmail.com', '2016-10-16', 1, 5, 43, 48, '20140017', '0000-00-00', 0, ''),
+(56, 'Jemelyn', 'Malan', 'E.', 'Female', 'Bacolod City', '', 'MalanJem@gmail.com', '2016-10-16', 1, 5, 41, 43, '20140018', '0000-00-00', 0, ''),
+(57, 'Eduardo', 'LascoÃ±a', 'P.', 'Male', 'Eroreco, Bacolod City', '', 'MrPerfect@gmail.com', '2016-10-16', 1, 8, 52, 77, '20140019', '0000-00-00', 0, ''),
+(58, 'Kevin', 'Grajo', 'D.', 'Male', 'Talisay City', '', 'Kevingrajo@gmail.com', '2016-10-16', 1, 6, 40, 38, '20140020', '0000-00-00', 0, ''),
+(59, 'Ronnel', 'De la torre', 'I.', 'Male', 'Bata, Bacolod City', '', 'ronneldelatorre@yahoo.com', '2016-10-16', 1, 3, 57, 92, '20140021', '0000-00-00', 0, ''),
+(60, 'Deolita Rose', 'Debuyan', 'K.', 'Female', 'E.B Magalona', '', 'Kairuzlee@yahoo.com', '2016-10-16', 1, 7, 45, 56, '20140022', '0000-00-00', 0, ''),
+(61, 'Marefel', 'Panes', 'E.', 'Female', 'Silay City', '', 'Boompanes@gmail.com', '2016-10-16', 1, 5, 41, 40, '20140023', '0000-00-00', 0, ''),
+(62, 'Kimberlyn', 'Mongcal', 'O.', 'Female', 'Talisay City', '', 'Kimkim@gmail.com', '2016-10-16', 1, 7, 46, 59, '20140024', '0000-00-00', 0, ''),
+(63, 'Mernel', 'Seran', 'S.', 'Female', 'E.B Magalona', '', 'Seran@gmail.com', '2016-10-16', 1, 8, 52, 78, '20140025', '0000-00-00', 0, ''),
+(64, 'Nicole', 'Castro', 'V.', 'Female', 'Talisay City', '', 'Nicolebukol@gmail.com', '2016-10-16', 1, 9, 34, 19, '20140026', '0000-00-00', 0, ''),
+(65, 'Rose Ann', 'Balladares', 'C.', 'Female', 'Manapla', '', 'Judyann@yahoo.com', '2016-10-16', 1, 3, 54, 85, '20140027', '0000-00-00', 0, ''),
+(66, 'Axel', 'De Asis', 'T.', 'Male', 'Talisay City', '', 'AxelD@gmail.com', '2016-10-16', 1, 3, 56, 90, '20140028', '0000-00-00', 0, ''),
+(67, 'Kristell Marvie', 'Paclibar', 'D.', 'Female', 'La Carlota City', '', 'Teltel@yahoo.com', '2016-10-16', 1, 2, 19, 18, '20140030', '0000-00-00', 0, ''),
+(68, 'ads', 'asd', 'asd', 'Male', 'asdsad', '232', 'jkevlora@gmail.com', '2016-10-16', 1, 2, 16, 1, '2322', '0000-00-00', 0, ''),
+(69, 'ads', 'asd', 'asd', 'Male', 'asdsad', '232', 'jkevlora@gmail.com', '2016-10-16', 1, 2, 16, 1, '2322', '0000-00-00', 0, '');
 
 -- --------------------------------------------------------
 
@@ -224,16 +225,18 @@ INSERT INTO `tbl_member` (`Id`, `firstname`, `lastname`, `middlename`, `gender`,
 
 CREATE TABLE IF NOT EXISTS `tbl_member_type` (
 `Id` int(11) NOT NULL,
-  `type` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `type` varchar(50) NOT NULL,
+  `EnableAdd` int(5) NOT NULL,
+  `EnableBarcode` int(5) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_member_type`
 --
 
-INSERT INTO `tbl_member_type` (`Id`, `type`) VALUES
-(1, 'Student'),
-(3, 'Graduates');
+INSERT INTO `tbl_member_type` (`Id`, `type`, `EnableAdd`, `EnableBarcode`) VALUES
+(1, 'Student', 1, 1),
+(3, 'Graduates', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -630,22 +633,22 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `tbl_event_details`
 --
 ALTER TABLE `tbl_event_details`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `tbl_member`
 --
 ALTER TABLE `tbl_member`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT for table `tbl_member_type`
 --
 ALTER TABLE `tbl_member_type`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_roles`
 --
