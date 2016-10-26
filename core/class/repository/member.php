@@ -2,7 +2,9 @@
 class MemberRepository{
 		public function Get($id){
 			global $conn;
-			$query = $conn->query("SELECT * FROM tbl_member  WHERE Id = '$id'");
+			$query = $conn->query("SELECT * FROM tbl_member
+			LEFT JOIN tbl_member_type on tbl_member_type.Id = tbl_member.MemberTypeId
+			WHERE tbl_member.Id = '$id'");
 			return $query->fetch(PDO::FETCH_OBJ);	
 		}
 		public function GetByBarcode($id){
@@ -33,7 +35,17 @@ class MemberRepository{
 			$pageNo = ($pageNo - 1) * $pageSize; 
 			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
 			
-			$query = $conn->query("SELECT * FROM  tbl_member WHERE firstname LIKE '%$searchText%' AND MemberTypeId = '$type'  $limitCondition ");
+			$where = "";
+			if($searchText != ''){
+				$where .= "firstname LIKE '%$searchText%'";	
+			}
+				$where .= "AND MemberTypeId = '$type'";
+			
+			$query = $conn->query("SELECT *,tbl_member.Id as Id FROM  tbl_member 
+			LEFT JOIN tbl_course on tbl_course.Id = tbl_member.CourseId	
+			LEFT JOIN tbl_section on tbl_section.Id = tbl_member.SectionId	
+			LEFT JOIN tbl_course_year on tbl_course_year.Id = tbl_member.CourseYearId	
+			WHERE 1 = 1 $where   $limitCondition ");
 			$count = $searchText != '' ? $query->rowcount() : $conn->query("SELECT * FROM  tbl_member WHERE MemberTypeId = '$type'")->rowcount();
 			
 			$data = array();

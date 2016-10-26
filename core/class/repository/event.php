@@ -57,17 +57,19 @@ class EventRepository{
 			if($POST->Id == 0){
 				$query = $this->Create();
 				$query->bindParam(':DateCreated', $POST->DateCreated);
+				$query->bindParam(':Semester',$POST->Semester );
+				$query->bindParam(':SchoolYearId',$POST->SchoolYearId );
 			}else{
 				$query = $this->Update();
 				$query->bindParam(':Id', $POST->Id);
+
 			}
 			
 
 			$query->bindParam(':Name',$POST->Name);
 			$query->bindParam(':Place',$POST->Place );
 			$query->bindParam(':Status',$POST->Status );
-			$query->bindParam(':Semester',$POST->Semester );
-			$query->bindParam(':SchoolYearId',$POST->SchoolYearId );
+
 
 			$query->execute();	
 

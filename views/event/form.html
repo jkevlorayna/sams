@@ -11,13 +11,14 @@
 											<h1>{{formData.Name}}</h1>
 						</div>
 
-		<div ng-show="Message != null" class="text-center alert alert-info"><h4 >{{Message}}</h4></div>
+		<div ng-show="Message != null" class="text-center alert alert-info"><h4 style="margin:0;">{{Message}}</h4></div>
+		<div ng-show="formData.Status == 'InActive'" class="text-center alert alert-danger"><h4 style="margin:0;"><i class="fa fa-info-circle"></i> !Ops This Event is not Available</h4></div>
 		<form method="POST"  ng-submit="save()">
 				<div class="form-group">
 					<label for="exampleInputPassword1">Barcode No</label>
-					<input type="text" ng-model="formData.Barcode"  class="form-control input-lg" required>
+					<input type="text" ng-model="formData.Barcode"  class="form-control input-lg" required ng-disabled="formData.Status == 'InActive'">
 				</div>
-				<button type="submit"  class="btn btn-success btn-block btn-lg"><i class="fa fa-check"></i> Submit</button>
+				<button type="submit" ng-disabled="formData.Status == 'InActive'"  class="btn btn-success btn-block btn-lg"><i class="fa fa-check"></i> Submit</button>
 		</form>
 	
 </div>

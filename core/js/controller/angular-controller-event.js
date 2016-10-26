@@ -15,7 +15,7 @@
 		$scope.SchoolYear = $scope.CurrentSchoolYear.Id
 
 		
-			$scope.formData = {  }
+
 		
 			$scope.load = function () {
 				svcEvent.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Semester,$scope.SchoolYear).then(function (r) {
@@ -28,11 +28,7 @@
 			$scope.pageChanged = function () { $scope.load();}
 		
 		
-			$scope.getById = function (id) {
-				svcEvent.getById(id).then(function (r) {
-						$scope.formData =  r
-				});
-			}
+
 
 	})
 	
@@ -40,16 +36,7 @@
 	
 
 	
-	$scope.save = function () {
-		$scope.formData.Semester = $scope.Semester;	
-		$scope.formData.SchoolYearId = $scope.SchoolYear;	
-		svcEvent.save($scope.formData).then(function (r) {
-			$scope.load();
-			growl.success("Data Successfully Save");
-			$scope.formData = {  }
-        });
-    }
-	
+
 
 	
 	$scope.openDeleteModal = function (size,id) {
@@ -69,7 +56,56 @@
 	};
 	
 	
+		
+	$scope.openFormModal = function (size,id) {
+			var modal = $uibModal.open({
+			templateUrl: 'views/event/formModal.html',
+			controller: 'AppEventFormModalController',
+			size: size,
+			resolve: {
+				dataId: function () {
+					return id;
+				},Semester: function () {
+					return $scope.Semester;
+				},SchoolYear: function () {
+					return $scope.SchoolYear;
+				}
+			}
+			});
+			modal.result.then(function () { }, function () { 
+				$scope.load();
+			});
+	};
+	
+	
 });
+app.controller('AppEventFormModalController', function ($rootScope,$scope, $http, $q, $location, $filter, svcEvent,growl,$uibModal,dataId,$uibModalInstance,Semester,SchoolYear) {
+	$scope.Id = dataId;
+	$scope.Semester = Semester;
+	$scope.SchoolYear = SchoolYear;
+	$scope.close = function(){
+		$uibModalInstance.dismiss();
+	}
+
+	$scope.getById = function (id) {
+		svcEvent.getById($scope.Id).then(function (r) {
+						$scope.formData =  r;
+		})
+	}
+
+	$scope.formData = $scope.Id == 0 ? {  } : $scope.getById() ;
+	
+	$scope.save = function () {
+		$scope.formData.Semester = $scope.Semester;	
+		$scope.formData.SchoolYearId = $scope.SchoolYear;	
+		svcEvent.save($scope.formData).then(function (r) {
+			growl.success("Data Successfully Save");
+			$scope.close();
+        });
+    }
+	
+	
+});	
 app.controller('AppEventModalController', function ($rootScope,$scope, $http, $q, $location, $filter, svcEvent,growl,$uibModal,dataId,$uibModalInstance) {
 	$scope.id = dataId;
 	$scope.close = function(){
@@ -79,8 +115,6 @@ app.controller('AppEventModalController', function ($rootScope,$scope, $http, $q
 		svcEvent.deleteData($scope.id).then(function (response) {
 			growl.error("Data Successfully Deleted");
 			$scope.close();
-        }, function (error) {
-
         });
     }
 });	
