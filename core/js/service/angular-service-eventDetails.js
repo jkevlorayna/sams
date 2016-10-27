@@ -28,7 +28,7 @@ app.factory('svcEventDetails', function ($rootScope, $http, $q) {
             var deferred = $q.defer();
             $http({
                 method: 'DELETE',
-                url: BasePath+'/class/event/details'+id
+                url: BasePath+'/class/event/details/'+id
             }).success(function (data, status) {
                 deferred.resolve(data);
             }).error(function (data, status) {

@@ -133,6 +133,7 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 		})
 	}	
 	$scope.getById();
+	
 	$scope.load = function(){
 		svcEventDetails.List('',0,0,$scope.Id).then(function(r){
 			$scope.list = r.Results;
@@ -140,7 +141,37 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 		})
 	}
 	$scope.load();
-});
+	
+	$scope.openDeleteModal = function (size,id) {
+			var modal = $uibModal.open({
+			templateUrl: 'views/deletemodal/deleteModal.html',
+			controller: 'AppEventDetailsModalController',
+			size: size,
+			resolve: {
+				dataId: function () {
+					return id;
+				}
+			}
+			});
+			modal.result.then(function () { }, function () { 
+				$scope.load();
+			});
+	};
+
+});	
+app.controller('AppEventDetailsModalController', function ($rootScope,$scope, $http, $q, $location, $filter, svcEventDetails,growl,$uibModal,dataId,$uibModalInstance) {
+	$scope.id = dataId;
+	$scope.close = function(){
+		$uibModalInstance.dismiss();
+	}
+	$scope.delete = function () {
+		svcEventDetails.Delete($scope.id).then(function (response) {
+			growl.error("Data Successfully Deleted");
+			$scope.close();
+        });
+    }
+});	
+
 app.controller('AppEventFormController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,$timeout) {
 $scope.Id = $stateParams.Id;
 

@@ -2,14 +2,14 @@
 class MemberRepository{
 		public function Get($id){
 			global $conn;
-			$query = $conn->query("SELECT * FROM tbl_member
+			$query = $conn->query("SELECT *,tbl_member.Id as Id FROM tbl_member
 			LEFT JOIN tbl_member_type on tbl_member_type.Id = tbl_member.MemberTypeId
 			WHERE tbl_member.Id = '$id'");
 			return $query->fetch(PDO::FETCH_OBJ);	
 		}
 		public function GetByBarcode($id){
 			global $conn;
-			$query = $conn->query("SELECT * FROM tbl_member  
+			$query = $conn->query("SELECT *,tbl_member.Id as Id FROM tbl_member  
 			LEFT JOIN tbl_member_type on tbl_member_type.Id = tbl_member.MemberTypeId
 			WHERE Barcode = '$id'");
 			$count = $query->rowcount();

@@ -19,11 +19,15 @@
 				<thead>
 					<tr>
 						<th>Name</th>
+						<th style="width:10%"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="row in list">
 						<td>{{row.firstname}} {{row.middlename}} {{row.lastname}}</td>
+						<td class="text-center">
+							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i> </button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
