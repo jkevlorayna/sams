@@ -7,6 +7,13 @@ class MemberRepository{
 			WHERE tbl_member.Id = '$id'");
 			return $query->fetch(PDO::FETCH_OBJ);	
 		}
+		public function GetAttendance($id){
+			global $conn;
+			$query = $conn->query("SELECT * FROM tbl_event_details 
+			LEFT JOIN tbl_events on tbl_event_details.EventId = tbl_events.Id
+			WHERE tbl_event_details.MemberId = '$id'");
+			return $query->fetch(PDO::FETCH_OBJ);	
+		}
 		public function GetByBarcode($id){
 			global $conn;
 			$query = $conn->query("SELECT *,tbl_member.Id as Id FROM tbl_member  
@@ -37,7 +44,14 @@ class MemberRepository{
 			
 			$where = "";
 			if($searchText != ''){
-				$where .= "firstname LIKE '%$searchText%'";	
+				$where = "And (
+				firstname  LIKE '%$searchText%' OR 
+				middlename  LIKE '%$searchText%' OR 
+				lastname  LIKE '%$searchText%' OR 
+				code  LIKE '%$searchText%' OR 
+				year  LIKE '%$searchText%' OR
+				section  LIKE '%$searchText%'
+				)";
 			}
 				$where .= "AND MemberTypeId = '$type'";
 			
