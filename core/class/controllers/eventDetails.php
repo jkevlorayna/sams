@@ -23,17 +23,19 @@ $slim_app->post('/event/details',function(){
 	
 	$Member = $MemberRepo->GetByBarcode($POST->Barcode);
 
-	if($Member->EnableBarcode == 1){
+
 		if(is_object($Member)){
-			$POST->MemberId = $Member->Id;
-			$EventDetailsRepo->Save($EventDetailsRepo->Transform($POST));
-			echo json_encode($Member);
+			if($Member->EnableBarcode == 1){
+				$POST->MemberId = $Member->Id;
+				$EventDetailsRepo->Save($EventDetailsRepo->Transform($POST));
+				echo json_encode($Member);
+			}else{
+				echo 0;
+			}
 		}else{
 			echo 0;
 		}
-	}else{
-		echo 0;
-	}
+
 	
 });
 ?>

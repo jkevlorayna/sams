@@ -20,11 +20,7 @@ class MemberRepository{
 			LEFT JOIN tbl_member_type on tbl_member_type.Id = tbl_member.MemberTypeId
 			WHERE Barcode = '$id'");
 			$count = $query->rowcount();
-			if($count == 0){
-				return 0;
-			}else{
-				return $query->fetch(PDO::FETCH_OBJ);	
-			}
+			return $query->fetch(PDO::FETCH_OBJ);	
 		}
 		public function GetByIdNumber($id){
 			global $conn;
