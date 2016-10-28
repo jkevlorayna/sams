@@ -13,10 +13,10 @@ class EventRepository{
 		 function DataList($searchText,$pageNo,$pageSize,$Semester,$SchoolYear){
 			global $conn;
 					$pageNo = ($pageNo - 1) * $pageSize; 
-					
+				
 						$where = "";
-					if($searchText == ''){
-						$where .= "And Name LIKE '%$searchText%'";
+					if($searchText != ''){
+						$where .= "And (Name LIKE '%$searchText%' OR Place LIKE '%$searchText%' OR Status = '$searchText')";
 					}
 						$where .= "And Semester = '$Semester'";
 						$where .= "And SchoolYearId = '$SchoolYear'";

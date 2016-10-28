@@ -14,8 +14,9 @@ class SchoolYearRepository{
 			global $conn;
 			$where = "";
 			if($searchText != ''){
-				$where .= "And YearFrom = '%$searchText%'";
+				$where .= "And (YearFrom LIKE '%$searchText%' OR YearTo LIKE '%$searchText%')";
 			}
+
 			
 			$pageNo = ($pageNo - 1) * $pageSize; 
 			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
