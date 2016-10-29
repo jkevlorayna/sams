@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2016 at 11:41 PM
+-- Generation Time: Oct 29, 2016 at 06:49 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -112,19 +112,20 @@ CREATE TABLE IF NOT EXISTS `tbl_events` (
   `Place` varchar(100) NOT NULL,
   `Status` varchar(50) NOT NULL,
   `SchoolYearId` int(11) NOT NULL,
-  `Semester` varchar(50) NOT NULL
+  `Semester` varchar(50) NOT NULL,
+  `TimeType` varchar(50) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_events`
 --
 
-INSERT INTO `tbl_events` (`Id`, `Name`, `DateCreated`, `Current`, `Place`, `Status`, `SchoolYearId`, `Semester`) VALUES
-(8, 'Social Bash', '2016-09-29', 0, 'Open Field', '', 5, '2nd Semester'),
-(9, 'Intramurals', '2016-09-29', 0, 'Anywhere in the campus', '', 5, '2nd Semester'),
-(10, 'Teachers Day', '2016-09-29', 0, 'Gym', '', 5, '2nd Semester'),
-(11, 'College week', '2016-09-29', 0, 'Anywhere in the campus', '', 5, '2nd Semester'),
-(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', '', 5, '2nd Semester');
+INSERT INTO `tbl_events` (`Id`, `Name`, `DateCreated`, `Current`, `Place`, `Status`, `SchoolYearId`, `Semester`, `TimeType`) VALUES
+(8, 'Social Bash', '2016-09-29', 0, 'Open Field', 'Active', 5, '2nd Semester', 'Time-OUT PM'),
+(9, 'Intramurals', '2016-09-29', 0, 'Anywhere in the campus', 'Active', 5, '2nd Semester', 'Time-IN AM'),
+(10, 'Teachers Day', '2016-09-29', 0, 'Gym', 'InActive', 5, '2nd Semester', 'Time-IN AM'),
+(11, 'College week', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM'),
+(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM');
 
 -- --------------------------------------------------------
 
@@ -139,20 +140,20 @@ CREATE TABLE IF NOT EXISTS `tbl_event_details` (
   `InAm` tinyint(1) NOT NULL,
   `InAmDateTime` datetime NOT NULL,
   `OutAm` tinyint(1) NOT NULL,
-  `OutAmDateTime` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+  `OutAmDateTime` datetime NOT NULL,
+  `InPm` tinyint(4) NOT NULL,
+  `InPmDateTim` datetime NOT NULL,
+  `OutPm` tinyint(4) NOT NULL,
+  `OutPmDateTim` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_event_details`
 --
 
-INSERT INTO `tbl_event_details` (`Id`, `MemberId`, `EventId`, `InAm`, `InAmDateTime`, `OutAm`, `OutAmDateTime`) VALUES
-(26, 40, 9, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
-(27, 40, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
-(28, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
-(29, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
-(30, 1, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00'),
-(31, 1, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+INSERT INTO `tbl_event_details` (`Id`, `MemberId`, `EventId`, `InAm`, `InAmDateTime`, `OutAm`, `OutAmDateTime`, `InPm`, `InPmDateTim`, `OutPm`, `OutPmDateTim`) VALUES
+(47, 40, 8, 1, '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00'),
+(54, 41, 8, 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `tbl_member_type` (
   `type` varchar(50) NOT NULL,
   `EnableAdd` int(5) NOT NULL,
   `EnableBarcode` int(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_member_type`
@@ -638,7 +639,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `tbl_event_details`
 --
 ALTER TABLE `tbl_event_details`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `tbl_member`
 --
@@ -648,7 +649,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 -- AUTO_INCREMENT for table `tbl_member_type`
 --
 ALTER TABLE `tbl_member_type`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbl_roles`
 --
