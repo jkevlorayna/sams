@@ -5,6 +5,12 @@ class EventRepository{
 			$query = $conn->query("SELECT * FROM tbl_events  WHERE Id = '$id'");
 			return	$query->fetch(PDO::FETCH_OBJ);
 		}
+		 function GetMember($EventId,$MemberId){
+			global $conn;
+			$query = $conn->query("SELECT * FROM tbl_event_details  WHERE EventId = '$EventId' AND MemberId = '$MemberId'");
+			return $query->fetch(PDO::FETCH_OBJ);
+
+		}
 		 function Delete($id){
 			global $conn;
 			$query = $conn->prepare("DELETE FROM  tbl_events  WHERE Id = '$id'");
@@ -32,12 +38,12 @@ class EventRepository{
 		}
 		public function Create(){
 			global $conn;
-			$query = $conn->prepare("INSERT INTO tbl_events (Name,DateCreated,Place,Status,Semester,SchoolYearId) VALUES(:Name,:DateCreated,:Place,:Status,:Semester,:SchoolYearId)");
+			$query = $conn->prepare("INSERT INTO tbl_events (Name,DateCreated,Place,Status,Semester,SchoolYearId,TimeType) VALUES(:Name,:DateCreated,:Place,:Status,:Semester,:SchoolYearId,:TimeType)");
 			return $query;
 		}	
 		public function Update(){
 			global $conn;
-			$query = $conn->prepare("UPDATE tbl_events SET Name = :Name  , Place = :Place , Status = :Status WHERE Id = :Id ");
+			$query = $conn->prepare("UPDATE tbl_events SET Name = :Name  , Place = :Place , Status = :Status , TimeType = :TimeType WHERE Id = :Id ");
 			return $query;
 			
 		}	
@@ -48,6 +54,7 @@ class EventRepository{
 			$POST->Status = !isset($POST->Status) ? '' : $POST->Status;
 			$POST->Semester = !isset($POST->Semester) ? '' : $POST->Semester;
 			$POST->SchoolYearId = !isset($POST->SchoolYearId) ? '' : $POST->SchoolYearId;
+			$POST->TimeType = !isset($POST->TimeType) ? '' : $POST->TimeType;
 			$POST->DateCreated = date('Y-m-d');
 			return $POST;
 		}
@@ -69,6 +76,7 @@ class EventRepository{
 			$query->bindParam(':Name',$POST->Name);
 			$query->bindParam(':Place',$POST->Place );
 			$query->bindParam(':Status',$POST->Status );
+			$query->bindParam(':TimeType',$POST->TimeType );
 
 
 			$query->execute();	

@@ -38,6 +38,7 @@
 						<th>Place</th>
 						<th>Status</th>
 						<th>Date Created</th>
+						<th>Current Time In / <br> Time Out Type</th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -53,6 +54,7 @@
 						{{row.Status}}
 						</td>
 						<td>{{row.DateCreated | date:'MM/dd/yyyy'}}</td>
+						<td class="text-center">{{row.TimeType}}</td>
 						<td class="text-center"><a href="#/event/form/{{row.Id}}" target="_blank" class="btn btn-primary btn-sm">Attendance Form</a></td>
 						<td class="text-center"><a href="#/event/details/{{row.Id}}" class="btn btn-info btn-sm">View Details</a></td>
 						<td>

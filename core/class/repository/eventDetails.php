@@ -31,12 +31,12 @@ class EventDetailsRepository{
 		}
 		public function Create(){
 			global $conn;
-			$query = $conn->prepare("INSERT INTO tbl_event_details (MemberId,EventId) VALUES(:MemberId,:EventId)");
+			$query = $conn->prepare("INSERT INTO tbl_event_details (MemberId,EventId,InAm,OutAm,InPm,OutPm) VALUES(:MemberId,:EventId,:InAm,:OutAm,:InPm,:OutPm)");
 			return $query;
 		}	
 		public function Update(){
 			global $conn;
-			$query = $conn->prepare("UPDATE tbl_event_details SET MemberId = :MemberId  , EventId = :EventId WHERE Id = :Id ");
+			$query = $conn->prepare("UPDATE tbl_event_details SET MemberId = :MemberId  , EventId = :EventId , InAm = :InAm , OutAm = :OutAm , InPm = :InPm , OutPm = :OutPm WHERE Id = :Id ");
 			return $query;
 			
 		}	
@@ -44,6 +44,10 @@ class EventDetailsRepository{
 			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
 			$POST->MemberId = !isset($POST->MemberId) ? '' : $POST->MemberId;
 			$POST->EventId = !isset($POST->EventId) ? '' : $POST->EventId;
+			$POST->InAm = !isset($POST->InAm) ? 0 : $POST->InAm;
+			$POST->OutAm = !isset($POST->OutAm) ? 0 : $POST->OutAm;
+			$POST->InPm = !isset($POST->InPm) ? 0 : $POST->InPm;
+			$POST->OutPM = !isset($POST->OutPM) ? 0 : $POST->OutPM;
 			return $POST;
 		}
 		function Save($POST){
@@ -60,6 +64,10 @@ class EventDetailsRepository{
 			
 			$query->bindParam(':MemberId',$POST->MemberId );
 			$query->bindParam(':EventId',$POST->EventId );
+			$query->bindParam(':InAm',$POST->InAm);
+			$query->bindParam(':OutAm',$POST->OutAm);
+			$query->bindParam(':InPm',$POST->InPm);
+			$query->bindParam(':OutPm',$POST->OutPm);
 
 			$query->execute();	
 
