@@ -3,8 +3,10 @@ $slim_app->post('/login',function(){
 	$request = \Slim\Slim::getInstance()->request();
 	$POST = json_decode($request->getBody());
 	$LoginRepo = new LoginRepository();
+	$UserRoleRepo =  new UserRoleRepository();
 
 	$result = $LoginRepo->login($LoginRepo->Transform($POST));
+	$result['Results']->Roles = $UserRoleRepo->UserRoles($result['Results']->Id);
 	echo json_encode($result);
 });
 $slim_app->post('/loginMember',function(){

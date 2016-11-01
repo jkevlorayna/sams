@@ -4,7 +4,7 @@
 <div class="pull-right"><a href="#/event/list" class="btn btn-arrow-left"><i class="fa fa-arrow-left"></i> Back</a></div>												
 											<h3>{{formData.Name}} Attendance List</h3>
 						</div>
-<div class="row">
+<div class="row" ng-if="checkRole('Event','AllowView')">
 	<div class="col-md-12">
 					<form ng-submit="load()">
 						<div class="input-group col-sm-5">
@@ -23,7 +23,7 @@
 						<th class="text-center">Out AM</th>
 						<th class="text-center">In PM</th>
 						<th class="text-center">Out PM</th>
-						<th style="width:10%"></th>
+						<th style="width:10%" ng-if="checkRole('Event','AllowDelete')"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -45,8 +45,8 @@
 							<i ng-if="row.OutPm == 1" class="fa fa-check text-success"></i>
 							<i ng-if="row.OutPm == 0" class="fa fa-times text-danger"></i>
 						</td>
-						<td class="text-center">
-							<button class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i> </button>
+						<td class="text-center" ng-if="checkRole('Event','AllowDelete')">
+							<button  class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i> </button>
 						</td>
 					</tr>
 				</tbody>

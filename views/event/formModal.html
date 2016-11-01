@@ -15,6 +15,19 @@
 							<option>InActive</option>
 					</select>
 				</div>
+				
+				<div class="form-group">
+					<label for="exampleInputPassword1">Event Date</label>
+					<div class="input-group">
+							<input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="formData.EventDate" is-open="popup1" datepicker-options="dateOptions"  close-text="Close" />
+							<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="popup1=true"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+					</div>
+				</div>
+				
+				
+
 				<div class="form-group">
 					<label for="exampleInputPassword1">Current Time Type</label>
 					<select type="text" ng-model="formData.TimeType"  class="form-control" required>

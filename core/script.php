@@ -13,7 +13,9 @@
 	<script src="<?php echo $path; ?>js/angular-sanitize.min.js"></script>  
 	<script src="<?php echo $path; ?>js/angular-io-barcode.js"></script>  
 	<script src="<?php echo $path; ?>js/loading-bar.js"></script>  
-	
+	<script src="<?php echo $path; ?>js/angular-tablesort.js"></script>  
+
+
 	<!-- controller -->
 		<?php foreach (glob($path."js/controller/angular-controller*.js") as $filename) { ?>
 				<script src="<?php echo $filename; ?>"></script>

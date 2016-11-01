@@ -80,25 +80,22 @@ app.controller('AppUserRoleController', function ($scope, $http, $q, $location, 
 $scope.UserId = $stateParams.UserId;
 
     $scope.loadRole = function () {
-		svcUserRole.roles().then(function (r) {
-            $scope.RoleList = r.Results;
+		svcUserRole.roles($scope.UserId).then(function (r) {
+			  
+			angular.forEach(r.Results,function(row){
+				row.UserRole.UserId = $scope.UserId;
+				row.UserRole.RoleId = row.Id;
+			})
+          $scope.RoleList = r.Results;
         })
     }
     $scope.loadRole();
 
-    $scope.load = function () {
-		svcUserRole.list($scope.UserId).then(function (r) {
-			$scope.UserRoles = r.UserRole;
-            $scope.Roles = r.Roles;
-            $scope.count = r.Count;
-        })
-    }
-    $scope.load();
-
-
+   
 	$scope.Save = function () {
-		svcUserRole.save($scope.UserRoles,$scope.UserId).then(function (r) {
-			$scope.load();
+		console.log($scope.RoleList);
+		svcUserRole.save($scope.RoleList).then(function (r) {
+			$scope.loadRole();
 			growl.success("Data Successfully Save");
 			$scope.formData = { UserId:$scope.UserId  }
         });

@@ -1,54 +1,97 @@
 <?php 
 // user
 $slim_app->get('/user/:id',function($id){
-	$result = $GLOBALS['UserRepo']->Get($id);
+	$UserRepo = new UserRepository();
+	$result = $UserRepo->Get($id);
 	echo json_encode($result);
 });
 $slim_app->get('/user',function(){
-	$result = $GLOBALS['UserRepo']->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize']);
+	$UserRepo = new UserRepository();
+	$result = $UserRepo->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize']);
 	echo json_encode($result);
 });
 $slim_app->delete('/user/:id',function($id){
-	$GLOBALS['UserRepo']->Delete($id);
+	$UserRepo = new UserRepository();
+	$UserRepo->Delete($id);
 });
 $slim_app->post('/user',function(){
-	$GLOBALS['UserRepo']->Save();
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+	
+	$UserRepo = new UserRepository();
+	$UserRepo->Save($UserRepo->Transform($POST));
 });
 
 // user type
 $slim_app->get('/userType/:id',function($id){
-	$result =  $GLOBALS['UserTypeRepo']->Get($id);
+	$UserTypeRepo = new UserTypeRepository();
+	$result =  $UserTypeRepo->Get($id);
 	echo json_encode($result);
 });
 $slim_app->get('/userType',function(){
-	$result =  $GLOBALS['UserTypeRepo']->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize']);
+	$UserTypeRepo = new UserTypeRepository();
+	$result =  $UserTypeRepo->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize']);
 	echo json_encode($result);
 });
 $slim_app->delete('/userType/:id',function($id){
-	 $GLOBALS['UserTypeRepo']->Delete($id);
+	$UserTypeRepo = new UserTypeRepository();
+	 $UserTypeRepo->Delete($id);
 });
 $slim_app->post('/userType',function(){
-	 $GLOBALS['UserTypeRepo']->Save();
+	$UserTypeRepo = new UserTypeRepository();
+	 $UserTypeRepo->Save();
 });
 
 // user role
-$slim_app->get('/roles',function(){
-	$result =  $GLOBALS['UserRoleRepo']->RoleList();
+$slim_app->get('/roles/:id',function($id){
+	$UserRoleRepo =  new UserRoleRepository();
+	$result =  $UserRoleRepo->RoleList();
+
+	foreach($result['Results'] as $row){
+		$UserRole = $UserRoleRepo->DataList($id,$row->Id);
+		
+		if(is_object($UserRole)){
+			$row->UserRole = $UserRole;
+			$row->UserRole->AllowView = $row->UserRole->AllowView ==  1 ? TRUE : FALSE;
+			$row->UserRole->AllowAdd = $row->UserRole->AllowAdd ==  1 ? TRUE : FALSE;
+			$row->UserRole->AllowEdit = $row->UserRole->AllowEdit ==  1 ? TRUE : FALSE;
+			$row->UserRole->AllowDelete = $row->UserRole->AllowDelete ==  1 ? TRUE : FALSE;
+		}else{
+			$row->UserRole = new stdClass;
+		}
+	}
+
+	echo json_encode($result);
+});
+$slim_app->get('/userRole/UserRoles/:Id',function($Id){
+	$UserRoleRepo =  new UserRoleRepository();
+	$result =  $UserRoleRepo->UserRoles($Id);
+	
 	echo json_encode($result);
 });
 $slim_app->get('/userRole',function(){
-	$result =  $GLOBALS['UserRoleRepo']->DataList();
+	$UserRoleRepo =  new UserRoleRepository();
+	$result =  $UserRoleRepo->DataList();
 	echo json_encode($result);
 });
 $slim_app->get('/userRole/:id',function($id){
-	$result =  $GLOBALS['UserRoleRepo']->Get($id);
+	$UserRoleRepo =  new UserRoleRepository();
+	$result =  $UserRoleRepo->Get($id);
 	echo json_encode($result);
 });
 $slim_app->delete('/userRole/:id',function($id){
-	$GLOBALS['UserRoleRepo']->Delete($id);
+	$UserRoleRepo =  new UserRoleRepository();
+	$UserRoleRepo->Delete($id);
 });
 $slim_app->post('/userRole',function(){
-	$GLOBALS['UserRoleRepo']->Save();
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+	$UserRoleRepo =  new UserRoleRepository();
+
+	foreach($POST as $row){
+		$r = $UserRoleRepo->Transform($row->UserRole);
+		$UserRoleRepo->Save($r);
+	}
 });
 
 

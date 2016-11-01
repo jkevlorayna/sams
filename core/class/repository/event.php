@@ -38,12 +38,12 @@ class EventRepository{
 		}
 		public function Create(){
 			global $conn;
-			$query = $conn->prepare("INSERT INTO tbl_events (Name,DateCreated,Place,Status,Semester,SchoolYearId,TimeType) VALUES(:Name,:DateCreated,:Place,:Status,:Semester,:SchoolYearId,:TimeType)");
+			$query = $conn->prepare("INSERT INTO tbl_events (Name,DateCreated,Place,Status,Semester,SchoolYearId,TimeType,EventDate) VALUES(:Name,:DateCreated,:Place,:Status,:Semester,:SchoolYearId,:TimeType,:EventDate)");
 			return $query;
 		}	
 		public function Update(){
 			global $conn;
-			$query = $conn->prepare("UPDATE tbl_events SET Name = :Name  , Place = :Place , Status = :Status , TimeType = :TimeType WHERE Id = :Id ");
+			$query = $conn->prepare("UPDATE tbl_events SET Name = :Name  , Place = :Place , Status = :Status , TimeType = :TimeType , EventDate = :EventDate WHERE Id = :Id ");
 			return $query;
 			
 		}	
@@ -56,6 +56,7 @@ class EventRepository{
 			$POST->SchoolYearId = !isset($POST->SchoolYearId) ? '' : $POST->SchoolYearId;
 			$POST->TimeType = !isset($POST->TimeType) ? '' : $POST->TimeType;
 			$POST->DateCreated = date('Y-m-d');
+			$POST->EventDate = !isset($POST->EventDate) ? '0000-00-00' : $POST->EventDate;
 			return $POST;
 		}
 		 function Save($POST){
@@ -74,9 +75,10 @@ class EventRepository{
 			
 
 			$query->bindParam(':Name',$POST->Name);
-			$query->bindParam(':Place',$POST->Place );
-			$query->bindParam(':Status',$POST->Status );
-			$query->bindParam(':TimeType',$POST->TimeType );
+			$query->bindParam(':Place',$POST->Place);
+			$query->bindParam(':Status',$POST->Status);
+			$query->bindParam(':TimeType',$POST->TimeType);
+			$query->bindParam(':EventDate',$POST->EventDate);
 
 
 			$query->execute();	

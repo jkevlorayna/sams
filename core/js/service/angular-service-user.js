@@ -73,11 +73,23 @@ app.factory('svcUser', function ($rootScope, $http, $q) {
 
 app.factory('svcUserRole', function ($rootScope, $http, $q) {
     $this = {
-        roles: function () {
+		 UserRoles: function (UserId) {
             var deferred = $q.defer();
             $http({
                 method: 'GET',
-                url: BasePath+'/class/roles'
+                url: BasePath+'/class/userRole/UserRoles/'+UserId
+            }).success(function (data, status) {
+                deferred.resolve(data);
+            }).error(function (data, status) {
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        },
+        roles: function (UserId) {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: BasePath+'/class/roles/'+UserId
             }).success(function (data, status) {
                 deferred.resolve(data);
             }).error(function (data, status) {
@@ -121,11 +133,11 @@ app.factory('svcUserRole', function ($rootScope, $http, $q) {
             });
             return deferred.promise;
         }
-		,save: function (postData,UserId) {
+		,save: function (postData) {
             var deferred = $q.defer();
             $http({
                 method: 'POST',
-                url: BasePath+'/class/userRole?UserId='+UserId,
+                url: BasePath+'/class/userRole',
                 data:postData
             }).success(function (data, status) {
                 deferred.resolve(data);

@@ -20,24 +20,25 @@ if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAu
 		</div>	
           <ul class="cl-vnavigation">
 			        <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
-					<li ng-repeat="mtrow in memberTypeList"><a href="#/member/list/{{mtrow.Id}}"><i class="fa fa-group"></i>  
-					{{mtrow.type}}</a></li>
-					<li><a href="#/user/list"><i class="fa fa-group"></i> User List</a></li>
-					<li><a href="#/event/list"><i class="fa fa-file"></i> Event</a></li>
-					<li><a href="#/barcode/generate"><i class="fa fa-barcode"></i> Genrate Barcode</a></li>
+					<li ng-repeat="mtrow in memberTypeList" ng-if="checkRole('Member','AllowView')">
+						<a href="#/member/list/{{mtrow.Id}}"><i class="fa fa-group"></i>  {{mtrow.type}}</a>
+					</li>
+					<li ng-if="checkRole('User List','AllowView')"><a href="#/user/list"><i class="fa fa-group"></i> User List</a></li>
+					<li ng-if="checkRole('Event','AllowView')"><a href="#/event/list"><i class="fa fa-file"></i> Event</a></li>
+					<li ng-if="checkRole('Generate Barcode','AllowView')"><a href="#/barcode/generate"><i class="fa fa-barcode"></i> Generate Barcode</a></li>
 				<li>
 					<a href="#"><i class="fa fa-folder"></i><span>Selection Menu</span></a> 
 					<ul class="sub-menu">						
-							<li><a href="#/course/list">Course</a></li>
-							<li><a href="#/schoolyear">School Year</a></li>
-							<li><a href="#/user/type">User Type</a></li>
-							<li><a href="#/member/type">Member Type</a></li>
-							<!-- <li><a href="#/status">Status</a></li> -->
-							<li><a href="#/semester">Semester</a></li>
+							<li ng-if="checkRole('Course','AllowView')"><a href="#/course/list">Course</a></li>
+							<li ng-if="checkRole('School Year','AllowView')"><a href="#/schoolyear" >School Year</a></li>
+							<li ng-if="checkRole('User Type','AllowView')"><a href="#/user/type" >User Type</a></li>
+							<li ng-if="checkRole('Member Type','AllowView')"><a href="#/member/type" >Member Type</a></li>
+							<li ng-if="checkRole('Semester','AllowView')"><a href="#/semester">Semester</a></li>
 					</ul>		
 				</li>
 
           </ul>
+
         </div>
       </div>
     </div>

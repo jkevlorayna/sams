@@ -22,25 +22,39 @@ class CourseRepository{
 			$data['Count'] = $count;
 			return $data;	
 		}
-		 function Save(){
-			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
-			
-		
-			$id  = (!isset($POST->Id))? 0 : $POST->Id;
-			$code = $POST->code;
-			$course = $POST->course;
-			$description  = (!isset($POST->description))? '' : $POST->description;
-	
-			if($id == 0) { 
-				$query = $conn->prepare("INSERT INTO tbl_course (course,description,code) VALUES(?,?,?)");
-				$query->execute(array($course,$description,$code));	
-			}else{
-				$query = $conn->prepare("UPDATE tbl_course SET course = ?  , description = ? , code = ?   WHERE Id = ? ");
-				$query->execute(array($course,$description,$code,$id));	
-			}
 
+		public function Create(){
+			global $conn;
+			$query = $conn->prepare("INSERT INTO tbl_course (course,description,code) VALUES(:course,:description,:code)");
+			return $query;
+		}	
+		public function Update(){
+			global $conn;
+			$query = $conn->prepare("UPDATE tbl_course SET course = :course  , description = :description , code = :code  WHERE Id = :Id ");
+			return $query;
+			
+		}	
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->course = !isset($POST->course) ? '' : $POST->course;
+			$POST->description = !isset($POST->description) ? '' : $POST->description;
+			$POST->code = !isset($POST->code) ? '' : $POST->code;
+			return $POST;
+		}
+		 function Save($POST){
+			global $conn;
+
+			if($POST->Id == 0){
+				$query = $this->Create();
+			}else{
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
+
+			}
+			$query->bindParam(':course',$POST->course);
+			$query->bindParam(':description',$POST->description);
+			$query->bindParam(':code',$POST->code);
+			$query->execute();	
 		}
 }
 ?>

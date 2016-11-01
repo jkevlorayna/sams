@@ -28,27 +28,38 @@ class CourseYearRepository{
 			$data['Count'] = $count;
 			return $data;	
 		}
-		 public function Save(){
+		public function Create(){
 			global $conn;
-			$request = \Slim\Slim::getInstance()->request();
-			$POST = json_decode($request->getBody());
+			$query = $conn->prepare("INSERT INTO tbl_course_year (CourseId,year) VALUES(:CourseId,:year)");
+			return $query;
+		}	
+		public function Update(){
+			global $conn;
+			$query = $conn->prepare("UPDATE tbl_course_year SET CourseId = :CourseId  , year = :year  WHERE Id = :Id ");
+			return $query;
 			
-			$id  = (!isset($POST->Id))? 0 : $POST->Id;
-			$CourseId = $POST->CourseId;
-			$year = $POST->year;
+		}	
+		public function Transform($POST){
+			$POST->Id = !isset($POST->Id) ? 0 : $POST->Id;
+			$POST->CourseId = !isset($POST->CourseId) ? 0 : $POST->CourseId;
+			$POST->year = !isset($POST->year) ? 0 : $POST->year;
+			return $POST;
+		}
+		 function Save($POST){
+			global $conn;
 
-			if($id == 0) { 
-				$query = $conn->prepare("INSERT INTO tbl_course_year (CourseId,year) VALUES(?,?)");
-				$query->execute(array($CourseId,$year));	
+			if($POST->Id == 0){
+				$query = $this->Create();
 			}else{
-				$query = $conn->prepare("UPDATE tbl_course_year SET year = ?   WHERE Id = ? ");
-				$query->execute(array($year,$id));	
+				$query = $this->Update();
+				$query->bindParam(':Id', $POST->Id);
+
 			}
+			
+			$query->bindParam(':CourseId',$POST->CourseId);
+			$query->bindParam(':year',$POST->year);
+			$query->execute();	
 
 		}
 }
-$GLOBALS['CourseYearRepo'] = new CourseYearRepository();
-
-
-
 ?>

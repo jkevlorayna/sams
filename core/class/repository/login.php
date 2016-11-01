@@ -36,13 +36,13 @@ class LoginRepository{
 			if($count > 0){
 					session_start();
 					
-					$row = $query->fetch(PDO::FETCH_ASSOC);
-					$userData = array(
-					"Id" => $row['Id'] ,
-					"firstname" => $row['firstname'],
-					"lastname" => $row['lastname']
-					);
-					$_SESSION['Id'] = $row['Id'];
+					$row = $query->fetch(PDO::FETCH_OBJ);
+					$userData = new stdClass;
+					$userData->Id = $row->Id;
+					$userData->firstname = $row->firstname;
+					$userData->lastname = $row->lastname;
+
+					$_SESSION['Id'] = $row->Id;
 					$_SESSION['isAuthenticated'] = "true";
 					$data['granted'] = "true";
 					$data['Results'] = $userData;
@@ -66,7 +66,9 @@ class LoginRepository{
 			global $conn;
 
 		
-			$query = $conn->prepare("SELECT * FROM tbl_user WHERE username =  :username  AND password = :password ");
+			$query = $conn->prepare("SELECT * FROM tbl_user
+			LEFT JOIN tbl_user_type ON tbl_user_type.Id = tbl_user.UserTypeId
+			WHERE username =  :username  AND password = :password ");
 			$query->bindParam(':username', $POST->username);
 			$query->bindParam(':password', $POST->password);
 			$query->execute();
@@ -76,8 +78,19 @@ class LoginRepository{
 			if($count > 0){
 					session_start();
 					
-					$row = $query->fetch(PDO::FETCH_ASSOC);
-					$userData = array("user_id" => $row['user_id'] , "name" => $row['name']);
+					$row = $query->fetch(PDO::FETCH_OBJ);
+					$userData = new stdClass;
+					$userData->Id = $row->user_id;
+					$userData->name = $row->name;
+					if($row->user_type == null){
+						$userData->UserType = 'Administrator';
+					}else{
+						$userData->UserType = $row->user_type;
+					}
+					
+				
+
+					$_SESSION['Id'] = $row->user_id;
 					$_SESSION['isAuthenticated'] = "true";
 					$data['granted'] = "true";
 					$data['Results'] = $userData;

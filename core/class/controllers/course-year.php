@@ -14,7 +14,10 @@ $slim_app->delete('/course-year/:id',function($id){
 	$CourseYearRepo->Delete($id);
 });
 $slim_app->post('/course-year',function(){
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+
 	$CourseYearRepo = new CourseYearRepository();
-	$CourseYearRepo->Save();
+	$CourseYearRepo->Save($CourseYearRepo->Transform($POST));
 });
 ?>

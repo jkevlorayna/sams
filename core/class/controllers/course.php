@@ -15,7 +15,10 @@ $slim_app->delete('/course/:id',function($id){
 	$CourseRepo->DeleteByCourse($id);
 });
 $slim_app->post('/course',function(){
+	$request = \Slim\Slim::getInstance()->request();
+	$POST = json_decode($request->getBody());
+
 	$CourseRepo = new CourseRepository();
-	$CourseRepo->Save();
+	$CourseRepo->Save($CourseRepo->Transform($POST));
 });
 ?>

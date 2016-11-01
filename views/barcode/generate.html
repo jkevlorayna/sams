@@ -3,8 +3,8 @@
 						<div class="header">							
 											<h3>Generate Barcode</h3>
 						</div>
-<div class="row">
-	<div class="col-md-2">
+<div class="row" ng-if="checkRole('Generate Barcode','AllowView')">
+	<div class="col-md-2" ng-if="checkRole('Generate Barcode','AllowAdd')">
 		<form method="POST"  ng-submit="save()">
 				<div class="form-group">
 					<label for="exampleInputPassword1">Number</label>

@@ -90,10 +90,18 @@ app.controller('AppEventFormModalController', function ($rootScope,$scope, $http
 	$scope.getById = function (id) {
 		svcEvent.getById($scope.Id).then(function (r) {
 						$scope.formData =  r;
+						$scope.formData.EventDate = new Date(r.EventDate);
 		})
 	}
 
-	$scope.formData = $scope.Id == 0 ? {  } : $scope.getById() ;
+
+	
+	if($scope.Id == 0){
+		$scope.formData = {};
+		$scope.formData.EventDate = new Date();
+	}else{
+		$scope.getById()
+	}
 	
 	$scope.save = function () {
 		$scope.formData.Semester = $scope.Semester;	
