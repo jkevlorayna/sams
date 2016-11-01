@@ -1,17 +1,32 @@
 ﻿
-app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcMember,svcMemberType,growl,$uibModal,$stateParams ) {
+app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcMember,svcMemberType,growl,$uibModal,$stateParams,svcSemester,svcSchoolYear) {
 		$scope.pageNo = 1;
 		$scope.pageSize = 10;
 		$scope.type = $stateParams.type;
 		if($scope.searchText == undefined){ $scope.searchText = '';} 
 		
-    $scope.load = function () {
-		svcMember.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.type).then(function (r) {
-            $scope.list = r.Results;
-            $scope.count = r.Count;
-        })
-    }
-    $scope.load();
+		
+		$q.all([svcSemester.list('',0,0),svcSchoolYear.list('',0,0)]).then(function(r){
+		$scope.SemesterList = r[0].Results;
+		$scope.SchoolYearList = r[1].Results;
+		
+		$scope.CurrentSemester = $filter('filter')($scope.SemesterList, {Current:1})[0];
+		$scope.CurrentSchoolYear = $filter('filter')($scope.SchoolYearList, {Current:1})[0];
+		
+		$scope.Semester = $scope.CurrentSemester.Semester;
+		$scope.SchoolYear = $scope.CurrentSchoolYear.Id
+
+		$scope.load = function () {
+			svcMember.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.type).then(function (r) {
+				$scope.list = r.Results;
+				$scope.count = r.Count;
+			})
+		}
+		$scope.load();
+	})
+		
+		
+
 	
 	
 	 $scope.loadMemberType = function () {

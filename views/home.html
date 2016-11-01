@@ -1,1 +1,23 @@
-home
+<div class="row">
+      
+      <div class="col-md-3 col-sm-6" >
+        <div class="fd-tile detail clean tile-purple">
+          <div class="content"><h1 class="text-left">170</h1><p></p></div>
+          <div class="icon"><i class="fa fa-group"></i></div>
+          <span class="details">Total Member </a>
+        </div>
+      </div>
+
+	        
+      <div class="col-md-3 col-sm-6" ng-repeat="row in memberTypeList">
+        <div class="fd-tile detail clean tile-purple">
+          <div class="content"><h1 class="text-left">{{row.MemberCount}}</h1></div>
+          <div class="icon"><i class="fa fa-group"></i></div>
+              <span class="details">Total {{row.type}} </a>
+        </div>
+      </div>
+	  
+      
+
+    
+    </div>

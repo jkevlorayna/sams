@@ -26,10 +26,6 @@
 			$scope.load();
 			
 			$scope.pageChanged = function () { $scope.load();}
-		
-		
-
-
 	})
 	
 
