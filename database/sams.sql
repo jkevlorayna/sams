@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2016 at 06:49 PM
+-- Generation Time: Nov 01, 2016 at 09:15 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `tbl_course_year` (
 `Id` int(11) NOT NULL,
   `CourseId` int(11) NOT NULL,
   `year` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_course_year`
@@ -96,7 +96,8 @@ INSERT INTO `tbl_course_year` (`Id`, `CourseId`, `year`) VALUES
 (54, 3, '2nd Year'),
 (55, 3, '3rd Year'),
 (56, 3, '4th Year'),
-(57, 3, '5th Year');
+(57, 3, '5th Year'),
+(58, 9, '3rd year');
 
 -- --------------------------------------------------------
 
@@ -113,19 +114,20 @@ CREATE TABLE IF NOT EXISTS `tbl_events` (
   `Status` varchar(50) NOT NULL,
   `SchoolYearId` int(11) NOT NULL,
   `Semester` varchar(50) NOT NULL,
-  `TimeType` varchar(50) NOT NULL
+  `TimeType` varchar(50) NOT NULL,
+  `EventDate` date NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_events`
 --
 
-INSERT INTO `tbl_events` (`Id`, `Name`, `DateCreated`, `Current`, `Place`, `Status`, `SchoolYearId`, `Semester`, `TimeType`) VALUES
-(8, 'Social Bash', '2016-09-29', 0, 'Open Field', 'Active', 5, '2nd Semester', 'Time-OUT PM'),
-(9, 'Intramurals', '2016-09-29', 0, 'Anywhere in the campus', 'Active', 5, '2nd Semester', 'Time-IN AM'),
-(10, 'Teachers Day', '2016-09-29', 0, 'Gym', 'InActive', 5, '2nd Semester', 'Time-IN AM'),
-(11, 'College week', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM'),
-(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM');
+INSERT INTO `tbl_events` (`Id`, `Name`, `DateCreated`, `Current`, `Place`, `Status`, `SchoolYearId`, `Semester`, `TimeType`, `EventDate`) VALUES
+(8, 'Social Bash', '2016-09-29', 0, 'Open Field', 'Active', 5, '2nd Semester', 'Time-OUT PM', '2016-11-21'),
+(9, 'Intramurals', '2016-09-29', 0, 'Anywhere in the campus', 'Active', 5, '2nd Semester', 'Time-IN AM', '2016-11-22'),
+(10, 'Teachers Day', '2016-09-29', 0, 'Gym', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-08'),
+(11, 'College week', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-29'),
+(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-20');
 
 -- --------------------------------------------------------
 
@@ -247,18 +249,24 @@ INSERT INTO `tbl_member_type` (`Id`, `type`, `EnableAdd`, `EnableBarcode`) VALUE
 
 CREATE TABLE IF NOT EXISTS `tbl_roles` (
 `Id` int(11) NOT NULL,
-  `role` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `role` varchar(100) NOT NULL,
+  `OrderNo` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_roles`
 --
 
-INSERT INTO `tbl_roles` (`Id`, `role`) VALUES
-(1, 'Member'),
-(2, 'Product'),
-(3, 'Setting'),
-(4, 'OrderList');
+INSERT INTO `tbl_roles` (`Id`, `role`, `OrderNo`) VALUES
+(1, 'Member', 0),
+(2, 'User List', 0),
+(3, 'Event', 0),
+(4, 'Generate Barcode', 0),
+(5, 'School Year', 0),
+(6, 'User Type', 0),
+(7, 'Member Type', 0),
+(8, 'Semester', 0),
+(9, 'Course', 0);
 
 -- --------------------------------------------------------
 
@@ -453,10 +461,10 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`user_id`, `name`, `username`, `password`, `UserTypeId`, `status`) VALUES
-(4, 'Administrator', 'admin', 'admin', 0, 'Active'),
+(4, 'Super Administrator', 'admin', 'admin', 0, 'Active'),
 (8, 'Eliseo Beatingo', 'ilesh16', 'hyperlink', 1, 'Active'),
 (9, 'Razel Joy Bacan', 'razz', '12345', 3, 'Active'),
-(10, 'Daniel Robert Padilla', 'snorlax', 'ggwp', 3, 'InActive'),
+(10, 'Daniel Robert Padilla', 'q', 'q', 3, 'InActive'),
 (11, 'Paul Lusyon', 'Imcute', '1234567', 3, 'Active');
 
 -- --------------------------------------------------------
@@ -468,16 +476,27 @@ INSERT INTO `tbl_user` (`user_id`, `name`, `username`, `password`, `UserTypeId`,
 CREATE TABLE IF NOT EXISTS `tbl_user_roles` (
 `Id` int(11) NOT NULL,
   `RoleId` int(11) NOT NULL,
-  `UserId` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+  `UserId` int(11) NOT NULL,
+  `AllowView` tinyint(4) NOT NULL,
+  `AllowAdd` tinyint(4) NOT NULL,
+  `AllowEdit` tinyint(4) NOT NULL,
+  `AllowDelete` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user_roles`
 --
 
-INSERT INTO `tbl_user_roles` (`Id`, `RoleId`, `UserId`) VALUES
-(49, 3, 5),
-(50, 4, 5);
+INSERT INTO `tbl_user_roles` (`Id`, `RoleId`, `UserId`, `AllowView`, `AllowAdd`, `AllowEdit`, `AllowDelete`) VALUES
+(70, 1, 10, 1, 0, 0, 0),
+(71, 2, 10, 0, 0, 0, 0),
+(72, 3, 10, 1, 0, 0, 0),
+(73, 4, 10, 1, 0, 0, 0),
+(74, 5, 10, 1, 0, 0, 0),
+(75, 6, 10, 0, 0, 0, 0),
+(76, 7, 10, 0, 0, 0, 0),
+(77, 8, 10, 1, 0, 0, 0),
+(78, 9, 10, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -629,7 +648,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `tbl_course_year`
 --
 ALTER TABLE `tbl_course_year`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `tbl_events`
 --
@@ -654,7 +673,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tbl_school_year`
 --
@@ -684,7 +703,7 @@ MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `tbl_user_roles`
 --
 ALTER TABLE `tbl_user_roles`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=79;
 --
 -- AUTO_INCREMENT for table `tbl_user_type`
 --
