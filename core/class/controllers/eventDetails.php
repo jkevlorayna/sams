@@ -30,18 +30,20 @@ $slim_app->post('/event/details',function(){
 				$POST->MemberId = $Member->Id;
 
 				$MemberEvent = $EventRepo->GetMember($POST->EventId,$POST->MemberId);
-				
+
 				if(is_object($MemberEvent)){
 					$POST->Id = $MemberEvent->Id;
 					$POST->InAm = $MemberEvent->InAm;
 					$POST->OutAm = $MemberEvent->OutAm;
 					$POST->InPm = $MemberEvent->InPm;
 					$POST->OutPm = $MemberEvent->OutPm;
+					
 				}
 				if($POST->TimeType == "Time-IN AM"){ $POST->InAm = 1; }
 				if($POST->TimeType == "Time-OUT AM"){ $POST->OutAm = 1; }
 				if($POST->TimeType == "Time-IN PM"){ $POST->InPm = 1; }
 				if($POST->TimeType == "Time-OUT PM"){ $POST->OutPm = 1; }
+				
 				$EventDetailsRepo->Save($EventDetailsRepo->Transform($POST));
 				echo json_encode($Member);
 			}else{

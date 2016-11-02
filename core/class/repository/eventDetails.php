@@ -57,7 +57,7 @@ class EventDetailsRepository{
 			$POST->InAm = !isset($POST->InAm) ? 0 : $POST->InAm;
 			$POST->OutAm = !isset($POST->OutAm) ? 0 : $POST->OutAm;
 			$POST->InPm = !isset($POST->InPm) ? 0 : $POST->InPm;
-			$POST->OutPM = !isset($POST->OutPM) ? 0 : $POST->OutPM;
+			$POST->OutPm = !isset($POST->OutPm) ? 0 : $POST->OutPm;
 			return $POST;
 		}
 		function Save($POST){
