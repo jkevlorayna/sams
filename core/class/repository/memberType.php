@@ -25,12 +25,12 @@ class MemberTypeRepository{
 		}
 		public function Create(){
 			global $conn;
-			$query = $conn->prepare("INSERT INTO tbl_member_type (type,EnableAdd,EnableBarcode) VALUES(:type,:EnableAdd,:EnableBarcode)");
+			$query = $conn->prepare("INSERT INTO tbl_member_type (type,EnableAdd,EnableBarcode,:Movable) VALUES(:type,:EnableAdd,:EnableBarcode,:Movable)");
 			return $query;
 		}	
 		public function Update(){
 			global $conn;
-			$query = $conn->prepare("UPDATE tbl_member_type SET type = :type  , EnableAdd = :EnableAdd , EnableBarcode = :EnableBarcode WHERE Id = :Id ");
+			$query = $conn->prepare("UPDATE tbl_member_type SET type = :type  , EnableAdd = :EnableAdd , EnableBarcode = :EnableBarcode , Movable = :Movable WHERE Id = :Id ");
 			return $query;
 			
 		}	
@@ -39,6 +39,7 @@ class MemberTypeRepository{
 			$POST->type = !isset($POST->type) ? '' : $POST->type;
 			$POST->EnableAdd = !isset($POST->EnableAdd) ? '' : $POST->EnableAdd;
 			$POST->EnableBarcode = !isset($POST->EnableBarcode) ? '' : $POST->EnableBarcode;
+			$POST->Movable = !isset($POST->Movable) ? '' : $POST->Movable;
 			return $POST;
 		}
 		 function Save($POST){
@@ -55,6 +56,7 @@ class MemberTypeRepository{
 			$query->bindParam(':type',$POST->type);
 			$query->bindParam(':EnableAdd',$POST->EnableAdd );
 			$query->bindParam(':EnableBarcode',$POST->EnableBarcode );
+			$query->bindParam(':Movable',$POST->Movable);
 
 			$query->execute();	
 

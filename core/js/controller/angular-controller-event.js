@@ -139,7 +139,8 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 	$scope.getById();
 	
 	$scope.load = function(){
-		svcEventDetails.List('',0,0,$scope.Id).then(function(r){
+		console.log($scope.searchText);
+		svcEventDetails.List($scope.searchText,0,0,$scope.Id).then(function(r){
 			$scope.list = r.Results;
 			$scope.count = r.Count;
 		})

@@ -13,6 +13,13 @@ class EventDetailsRepository{
 		 function DataList($searchText,$pageNo,$pageSize,$EventId){
 			global $conn;
 			$where = "";
+			if($searchText != ''){
+				$where .= "And (
+				tbl_member.firstname  LIKE '%$searchText%' OR 
+				tbl_member.middlename  LIKE '%$searchText%' OR 
+				tbl_member.lastname  LIKE '%$searchText%'  
+				)";
+			}
 			$where .= "And EventId = '$EventId'";
 			
 			$pageNo = ($pageNo - 1) * $pageSize; 
@@ -20,6 +27,9 @@ class EventDetailsRepository{
 			
 			$query = $conn->query("SELECT *,tbl_event_details.Id As Id FROM  tbl_event_details 
 			LEFT JOIN tbl_member On tbl_event_details.MemberId = tbl_member.Id
+			LEFT JOIN tbl_course on tbl_course.Id = tbl_member.CourseId	
+			LEFT JOIN tbl_section on tbl_section.Id = tbl_member.SectionId	
+			LEFT JOIN tbl_course_year on tbl_course_year.Id = tbl_member.CourseYearId	
 			WHERE 1 = 1 $where
 			$limitCondition ");
 			$count = $searchText != '' ?   $query->rowcount() : $conn->query("SELECT * FROM  tbl_event_details WHERE EventId = '$EventId' ")->rowcount();

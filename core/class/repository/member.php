@@ -40,7 +40,7 @@ class MemberRepository{
 			
 			$where = "";
 			if($searchText != ''){
-				$where = "And (
+				$where .= "And (
 				firstname  LIKE '%$searchText%' OR 
 				middlename  LIKE '%$searchText%' OR 
 				lastname  LIKE '%$searchText%' OR 

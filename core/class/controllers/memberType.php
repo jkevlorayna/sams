@@ -4,6 +4,7 @@ $slim_app->get('/memberType/:id',function($id){
 	$result = $MemberTypeRepo->Get($id);
 	$result->EnableAdd = $result->EnableAdd ==  1 ? TRUE : FALSE;
 	$result->EnableBarcode = $result->EnableBarcode ==  1 ? TRUE : FALSE;
+	$result->Movable = $result->Movable ==  1 ? TRUE : FALSE;
 
 	echo json_encode($result);
 });

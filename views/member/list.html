@@ -1,12 +1,12 @@
 
 <div class="block-flat">
 						<div class="header">		
-							<div ng-if="memberType.EnableAdd==true && checkRole('Member','AllowAdd')" class="pull-right">
+							<div ng-show="memberType.EnableAdd==true && checkRole('Member','AllowAdd')" class="pull-right">
 								<a href="#/member/form/{{type}}/0" class="btn btn-info"><i class="fa fa-plus"></i> Add New {{memberType.type}}</a>
 							</div>
 											<h3>{{memberType.type}} List</h3>
 						</div>
-<div class="row" ng-if="checkRole('Member','AllowView')">
+<div class="row" ng-show="checkRole('Member','AllowView')">
 <!-- 	<div class="col-md-12">
 					<form  class="form-inline filter_form">
 					<div class="form-group">
@@ -56,7 +56,7 @@
 						<td class="text-center">{{row.section}}</td>
 						<td>
 							<a href="javascript:void(0)" ng-click="viewFullInfoModal('md',row.Id)" class="btn btn-info btn-sm">View Full Info </a>
-							<a ng-if="checkRole('Member','AllowEdit')" href="javascript:void(0)" ng-click="moveToModal('md',row.Id)" class="btn btn-primary btn-sm">Move to </a>
+							<a ng-show="memberType.Movable==1" ng-if="checkRole('Member','AllowEdit')" href="javascript:void(0)" ng-click="moveToModal('md',row.Id)" class="btn btn-primary btn-sm">Move to </a>
 							<a ng-if="checkRole('Member','AllowEdit')" class="btn btn-success btn-sm" href="#/member/form/{{type}}/{{row.Id}}">  <i class="fa fa-edit"></i> </a>
 							<button ng-if="checkRole('Member','AllowDelete')" class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)">  <i class="fa fa-trash-o"></i> </button>
 						</td>

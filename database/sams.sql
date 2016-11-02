@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2016 at 09:15 PM
+-- Generation Time: Nov 02, 2016 at 11:04 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `tbl_course` (
   `course` varchar(100) NOT NULL,
   `code` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_course`
@@ -44,7 +44,13 @@ INSERT INTO `tbl_course` (`Id`, `course`, `code`, `description`) VALUES
 (6, 'Bachelor of Science in Industrial Technology', 'BSIT', ''),
 (7, 'Bachelor of Secondary Education', 'BSED', ''),
 (8, 'Bachelor of Elementary Education', 'BEED', ''),
-(9, 'Bachelor of Arts', 'AB', '');
+(9, 'Bachelor of Arts', 'AB', ''),
+(10, 'ertwerwerwe', 'abs', ''),
+(11, 'sdaggs', 'gdfgdfgas', ''),
+(12, 'fhgdfgdfgd', 'fghfgafa', ''),
+(13, 'afsadfasd', 'dfhfgjfgj', ''),
+(14, 'dfasdfsdf', 'kkfhdf', ''),
+(15, 'gfjgfhsdf', 'fgsdfasda', '');
 
 -- --------------------------------------------------------
 
@@ -56,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `tbl_course_year` (
 `Id` int(11) NOT NULL,
   `CourseId` int(11) NOT NULL,
   `year` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_course_year`
@@ -97,7 +103,8 @@ INSERT INTO `tbl_course_year` (`Id`, `CourseId`, `year`) VALUES
 (55, 3, '3rd Year'),
 (56, 3, '4th Year'),
 (57, 3, '5th Year'),
-(58, 9, '3rd year');
+(58, 9, '3rd year'),
+(59, 9, '4th Year');
 
 -- --------------------------------------------------------
 
@@ -116,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `tbl_events` (
   `Semester` varchar(50) NOT NULL,
   `TimeType` varchar(50) NOT NULL,
   `EventDate` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_events`
@@ -127,7 +134,14 @@ INSERT INTO `tbl_events` (`Id`, `Name`, `DateCreated`, `Current`, `Place`, `Stat
 (9, 'Intramurals', '2016-09-29', 0, 'Anywhere in the campus', 'Active', 5, '2nd Semester', 'Time-IN AM', '2016-11-22'),
 (10, 'Teachers Day', '2016-09-29', 0, 'Gym', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-08'),
 (11, 'College week', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-29'),
-(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-20');
+(12, 'Intercampus Meet', '2016-09-29', 0, 'Anywhere in the campus', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-20'),
+(13, 'dfgdsfgasdfa', '2016-11-01', 0, 'dasda', 'Active', 5, '2nd Semester', 'Time-IN AM', '2016-11-01'),
+(14, 'hjsdfasdf', '2016-11-01', 0, 'dsgdfgasd', 'Active', 5, '2nd Semester', 'Time-IN AM', '2016-11-01'),
+(15, 'dfhfgjfg', '2016-11-01', 0, 'asqert', 'InActive', 5, '2nd Semester', 'Time-IN AM', '2016-11-01'),
+(16, 'dasfsdf', '2016-11-01', 0, 'gfjawer', 'Active', 5, '2nd Semester', 'Time-IN AM', '2016-11-01'),
+(17, 'dfhdgasd', '2016-11-01', 0, 'fgsdf', 'Active', 5, '2nd Semester', 'Time-IN AM', '2016-11-01'),
+(18, 'gdgsdfh', '2016-11-01', 0, 'ashsdf', 'Active', 5, '2nd Semester', 'Time-OUT AM', '2016-11-01'),
+(19, 'dfgdsfs', '2016-11-01', 0, 'asgs', 'Active', 5, '2nd Semester', 'Time-IN AM', '2016-11-01');
 
 -- --------------------------------------------------------
 
@@ -181,15 +195,15 @@ CREATE TABLE IF NOT EXISTS `tbl_member` (
   `DateTransfer` date NOT NULL,
   `Transfer` tinyint(1) NOT NULL,
   `Barcode` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_member`
 --
 
 INSERT INTO `tbl_member` (`Id`, `firstname`, `lastname`, `middlename`, `gender`, `address`, `mobile_no`, `email`, `date_registered`, `MemberTypeId`, `CourseId`, `CourseYearId`, `SectionId`, `IdNumber`, `DateTransfer`, `Transfer`, `Barcode`) VALUES
-(39, 'Arnela Mae', 'Mesa', 'G.', 'Female', 'Silay City', '', 'arnelamae@gmail.com', '2016-10-16', 3, 6, 37, 27, '20140001', '0000-00-00', 1, '888'),
-(40, 'Micole Marie', 'Dioma', 'C.', 'Female', 'Ruins, Talisay City', '', 'Micolemarie@yahoo.com', '2016-10-16', 1, 7, 46, 59, '20140002', '0000-00-00', 0, '123'),
+(39, 'Arnela Mae', 'Mesa', 'G.', 'Female', 'Silay City', '', 'arnelamae@gmail.com', '2016-10-16', 1, 6, 37, 27, '20140001', '0000-00-00', 1, '888'),
+(40, 'Micole Marie', 'Dioma', 'C.', 'Female', 'Ruins, Talisay City', '656234236', 'Micolemarie@yahoo.com', '2016-10-16', 1, 7, 46, 59, '20140002', '0000-00-00', 1, '123'),
 (41, 'Carlo', 'Siason', 'K.', 'Male', 'Silay City', '', 'carlosiason@gmail.com', '2016-10-16', 1, 9, 34, 19, '20140003', '2016-10-16', 1, '456'),
 (42, 'Elyza Mae', 'Murallo', 'C.', 'Female', 'Silay City', '', 'Meimurallo@gmail.com', '2016-10-16', 1, 2, 19, 18, '20140004', '0000-00-00', 0, ''),
 (43, 'Donard', 'Ytienza', 'M.', 'Male', 'Mandalagan, Bacolod City', '', 'Mcdonard@gmail.com', '2016-10-16', 1, 6, 39, 35, '20140005', '0000-00-00', 0, ''),
@@ -197,8 +211,8 @@ INSERT INTO `tbl_member` (`Id`, `firstname`, `lastname`, `middlename`, `gender`,
 (45, 'Eric John', 'Dela Cruz', 'A.', 'Male', 'Talisay City', '', 'Ericjohn@gmail.com', '2016-10-16', 1, 5, 42, 45, '20140007', '0000-00-00', 0, ''),
 (46, 'Jake', 'Cordero', 'S.', 'Male', 'Silay City', '', 'Jakethesnake@gmail.com', '2016-10-16', 1, 2, 19, 18, '20140008', '0000-00-00', 0, ''),
 (47, 'Lourdelyn', 'Bibas', 'H.', 'Female', 'Talisay City', '', 'Bibas_3476@gmail.com', '2016-10-16', 1, 8, 51, 76, '20140009', '0000-00-00', 0, ''),
-(48, 'Giu Matthew', 'Cuesta', 'O.', 'Male', 'Silay City', '', 'Cuesta_giu@gmail.com', '2016-10-16', 1, 2, 19, 18, '20140010', '0000-00-00', 0, ''),
-(49, 'Amira', 'Demavivas', 'L', 'Female', 'E.B Magalona', '', 'Amiracle@gmail.com', '2016-10-16', 1, 8, 49, 69, '20140011', '0000-00-00', 0, ''),
+(48, 'Giu Matthew', 'Cuesta', 'O.', 'Male', 'Silay City', '', 'Cuesta_giu@gmail.com', '2016-10-16', 3, 2, 19, 18, '20140010', '0000-00-00', 1, ''),
+(49, 'Amira', 'Demavivas', 'L', 'Female', 'E.B Magalona', '', 'Amiracle@gmail.com', '2016-10-16', 3, 8, 49, 69, '20140011', '0000-00-00', 1, ''),
 (50, 'Leah', 'Valente', 'G.', 'Female', 'Silay City', '', 'Leah23@gmail.com', '2016-10-16', 1, 7, 46, 58, '20140012', '0000-00-00', 0, ''),
 (51, 'Jade', 'Solano', 'C.', 'Male', 'Talisay City', '', 'Jade001@gmail.com', '2016-10-16', 1, 5, 43, 50, '20140013', '0000-00-00', 0, ''),
 (52, 'Carl Francis', 'Villanueva', 'L.', 'Male', 'Bacolod City', '', 'Yasuo_carl@gmail.com', '2016-10-16', 1, 3, 54, 83, '20140014', '0000-00-00', 0, ''),
@@ -216,9 +230,7 @@ INSERT INTO `tbl_member` (`Id`, `firstname`, `lastname`, `middlename`, `gender`,
 (64, 'Nicole', 'Castro', 'V.', 'Female', 'Talisay City', '', 'Nicolebukol@gmail.com', '2016-10-16', 1, 9, 34, 19, '20140026', '0000-00-00', 0, ''),
 (65, 'Rose Ann', 'Balladares', 'C.', 'Female', 'Manapla', '', 'Judyann@yahoo.com', '2016-10-16', 1, 3, 54, 85, '20140027', '0000-00-00', 0, ''),
 (66, 'Axel', 'De Asis', 'T.', 'Male', 'Talisay City', '', 'AxelD@gmail.com', '2016-10-16', 1, 3, 56, 90, '20140028', '0000-00-00', 0, ''),
-(67, 'Kristell Marvie', 'Paclibar', 'D.', 'Female', 'La Carlota City', '', 'Teltel@yahoo.com', '2016-10-16', 1, 2, 19, 18, '20140030', '0000-00-00', 0, ''),
-(68, 'ads', 'asd', 'asd', 'Male', 'asdsad', '232', 'jkevlora@gmail.com', '2016-10-16', 1, 2, 16, 1, '2322', '0000-00-00', 0, ''),
-(69, 'ads', 'asd', 'asd', 'Male', 'asdsad', '232', 'jkevlora@gmail.com', '2016-10-16', 1, 2, 16, 1, '2322', '0000-00-00', 0, '');
+(67, 'Kristell Marvie', 'Paclibar', 'D.', 'Female', 'La Carlota City', '', 'Teltel@yahoo.com', '2016-10-16', 1, 2, 19, 18, '20140030', '0000-00-00', 0, '');
 
 -- --------------------------------------------------------
 
@@ -230,16 +242,17 @@ CREATE TABLE IF NOT EXISTS `tbl_member_type` (
 `Id` int(11) NOT NULL,
   `type` varchar(50) NOT NULL,
   `EnableAdd` int(5) NOT NULL,
-  `EnableBarcode` int(5) NOT NULL
+  `EnableBarcode` int(5) NOT NULL,
+  `Movable` tinyint(4) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_member_type`
 --
 
-INSERT INTO `tbl_member_type` (`Id`, `type`, `EnableAdd`, `EnableBarcode`) VALUES
-(1, 'Student', 1, 1),
-(3, 'Graduates', 0, 0);
+INSERT INTO `tbl_member_type` (`Id`, `type`, `EnableAdd`, `EnableBarcode`, `Movable`) VALUES
+(1, 'Student', 1, 1, 1),
+(3, 'Graduates', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -279,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `tbl_school_year` (
   `YearFrom` int(5) NOT NULL,
   `YearTo` int(5) NOT NULL,
   `Current` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_school_year`
@@ -289,7 +302,15 @@ INSERT INTO `tbl_school_year` (`Id`, `YearFrom`, `YearTo`, `Current`) VALUES
 (3, 2013, 2014, 0),
 (4, 2015, 2016, 0),
 (5, 2017, 2018, 1),
-(6, 2012, 2013, 0);
+(6, 2012, 2013, 0),
+(8, 2018, 2019, 0),
+(9, 2019, 2020, 0),
+(10, 2020, 2021, 0),
+(11, 2021, 2022, 0),
+(12, 2022, 2023, 0),
+(13, 2023, 2024, 0),
+(14, 2024, 2025, 0),
+(15, 2025, 2026, 0);
 
 -- --------------------------------------------------------
 
@@ -301,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `tbl_section` (
 `Id` int(11) NOT NULL,
   `section` varchar(100) NOT NULL,
   `CourseYearId` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_section`
@@ -399,7 +420,9 @@ INSERT INTO `tbl_section` (`Id`, `section`, `CourseYearId`) VALUES
 (90, 'A', 56),
 (91, 'B', 56),
 (92, 'A', 57),
-(93, 'B', 57);
+(93, 'B', 57),
+(94, 'C', 34),
+(104, 'D', 34);
 
 -- --------------------------------------------------------
 
@@ -454,18 +477,25 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `password` varchar(100) NOT NULL,
   `UserTypeId` int(11) NOT NULL,
   `status` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`user_id`, `name`, `username`, `password`, `UserTypeId`, `status`) VALUES
-(4, 'Super Administrator', 'admin', 'admin', 0, 'Active'),
+(4, 'Administrator', 'admin', 'admin', 0, 'Active'),
 (8, 'Eliseo Beatingo', 'ilesh16', 'hyperlink', 1, 'Active'),
 (9, 'Razel Joy Bacan', 'razz', '12345', 3, 'Active'),
-(10, 'Daniel Robert Padilla', 'q', 'q', 3, 'InActive'),
-(11, 'Paul Lusyon', 'Imcute', '1234567', 3, 'Active');
+(20, 'sdahfasd', 'sdfasd', 'hsdfgsa', 1, 'Active'),
+(21, 'fgdfgasdfa', 'gdsgadgf', 'fghdfghdf', 1, 'Active'),
+(22, 'fgdfgasdfa', 'gdsgadgf', 'fghdfghdf', 1, 'Active'),
+(23, 'fgdfgdf', 'gdfgdfg', 'hfghfg', 1, 'Active'),
+(24, 'ghjdfsdf', 'asdfi5twe', '453451', 1, 'Active'),
+(25, 'adasda', 'dfgdsgf', 'fwerwe', 1, 'Active'),
+(26, 'passive', 'pass', '1234', 1, 'InActive'),
+(27, 'dfgdfgd', 'kighf', '123621', 1, 'Active'),
+(28, 'fgjgkgjh', 'asfdfhdfgh', '56f3w24', 1, 'Active');
 
 -- --------------------------------------------------------
 
@@ -481,22 +511,31 @@ CREATE TABLE IF NOT EXISTS `tbl_user_roles` (
   `AllowAdd` tinyint(4) NOT NULL,
   `AllowEdit` tinyint(4) NOT NULL,
   `AllowDelete` tinyint(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user_roles`
 --
 
 INSERT INTO `tbl_user_roles` (`Id`, `RoleId`, `UserId`, `AllowView`, `AllowAdd`, `AllowEdit`, `AllowDelete`) VALUES
-(70, 1, 10, 1, 0, 0, 0),
-(71, 2, 10, 0, 0, 0, 0),
-(72, 3, 10, 1, 0, 0, 0),
-(73, 4, 10, 1, 0, 0, 0),
-(74, 5, 10, 1, 0, 0, 0),
-(75, 6, 10, 0, 0, 0, 0),
-(76, 7, 10, 0, 0, 0, 0),
-(77, 8, 10, 1, 0, 0, 0),
-(78, 9, 10, 1, 0, 0, 0);
+(79, 1, 8, 1, 1, 1, 1),
+(80, 2, 8, 0, 0, 0, 0),
+(81, 3, 8, 0, 0, 0, 0),
+(82, 4, 8, 1, 1, 1, 1),
+(83, 5, 8, 0, 0, 0, 0),
+(84, 6, 8, 0, 0, 0, 0),
+(85, 7, 8, 0, 0, 0, 0),
+(86, 8, 8, 0, 0, 0, 0),
+(87, 9, 8, 0, 0, 0, 0),
+(88, 1, 9, 0, 0, 0, 0),
+(89, 2, 9, 0, 0, 0, 0),
+(90, 3, 9, 1, 1, 1, 1),
+(91, 4, 9, 0, 0, 0, 0),
+(92, 5, 9, 1, 1, 1, 1),
+(93, 6, 9, 0, 0, 0, 0),
+(94, 7, 9, 0, 0, 0, 0),
+(95, 8, 9, 1, 1, 1, 1),
+(96, 9, 9, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -507,15 +546,25 @@ INSERT INTO `tbl_user_roles` (`Id`, `RoleId`, `UserId`, `AllowView`, `AllowAdd`,
 CREATE TABLE IF NOT EXISTS `tbl_user_type` (
 `Id` int(11) NOT NULL,
   `user_type` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user_type`
 --
 
 INSERT INTO `tbl_user_type` (`Id`, `user_type`) VALUES
-(1, 'Staff'),
-(3, 'Staff assistant');
+(1, 'Registration Staff'),
+(3, 'Attendance Staff'),
+(4, 'asdasd'),
+(5, 'asdasd'),
+(6, 'asdasd'),
+(7, 'asdasda'),
+(8, 'asgsdfgdf'),
+(9, 'dffjfgh'),
+(10, 'sdfsdfsdf'),
+(12, 'asdasd'),
+(13, 'dfgdfg'),
+(14, 'fhdghfg');
 
 -- --------------------------------------------------------
 
@@ -643,17 +692,17 @@ ALTER TABLE `tbl_year`
 -- AUTO_INCREMENT for table `tbl_course`
 --
 ALTER TABLE `tbl_course`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `tbl_course_year`
 --
 ALTER TABLE `tbl_course_year`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
 --
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `tbl_event_details`
 --
@@ -663,7 +712,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
 -- AUTO_INCREMENT for table `tbl_member`
 --
 ALTER TABLE `tbl_member`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
 --
 -- AUTO_INCREMENT for table `tbl_member_type`
 --
@@ -678,12 +727,12 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `tbl_school_year`
 --
 ALTER TABLE `tbl_school_year`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `tbl_section`
 --
 ALTER TABLE `tbl_section`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=94;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT for table `tbl_semester`
 --
@@ -698,17 +747,17 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `tbl_user_roles`
 --
 ALTER TABLE `tbl_user_roles`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=79;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=97;
 --
 -- AUTO_INCREMENT for table `tbl_user_type`
 --
 ALTER TABLE `tbl_user_type`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tbl_year`
 --

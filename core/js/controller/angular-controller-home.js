@@ -18,13 +18,15 @@ app.controller('AppHomeController', function ($scope, $http, $q, $filter, svcMem
 
 
 		
-		
+			
 			$scope.loadMemberType = function () {
 				svcMemberType.list('',0,0).then(function (r) {
 					$scope.memberTypeList = r.Results;
+					$scope.TotalMember = 0;
 					angular.forEach($scope.memberTypeList,function(rr){
 						svcMember.list($scope.searchText,0,0,rr.Id).then(function (rMember) {
-							rr.MemberCount = $scope.count = rMember.Count;
+							 rr.MemberCount = rMember.Count;
+							$scope.TotalMember += rMember.Count;
 						})
 					})
 				})
