@@ -113,7 +113,7 @@ class MemberRepository{
 			$POST->MemberTypeId = !isset($POST->MemberTypeId) ? '' : $POST->MemberTypeId;
 			$POST->IdNumber = !isset($POST->IdNumber) ? '' : $POST->IdNumber;
 			$POST->Transfer = !isset($POST->Transfer) ? null : $POST->Transfer;
-			$POST->DateTransfer = !isset($POST->DateTransfer) ? '' : $POST->DateTransfer;
+			$POST->DateTransfer = !isset($POST->DateTransfer) ? '0000-00-00' : date('Y-m-d');
 			$POST->Barcode = !isset($POST->Barcode) ? '' : $POST->Barcode;
 			$POST->date_registered = date('Y-m-d');
 
