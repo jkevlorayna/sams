@@ -1,6 +1,14 @@
 ﻿
 app.controller('AppMainController', function ($rootScope,$scope, $http, $q, $location, $filter, $window,$cookieStore,$uibModal,svcLogin,svcMemberType,svcUserRole) {
-   
+    $rootScope.BarcodeType = 'CODE128B';
+    $rootScope.BarcodeOptions = {
+       // width: 3,
+       // height: 100,
+       displayValue: true,
+       font: 'monospace',
+       textAlign: 'center',
+     }
+	 
 	$rootScope.Sidebar = true;
 	$rootScope.Navigation = true;
 	

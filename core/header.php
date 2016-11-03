@@ -17,6 +17,7 @@
 	<link href="<?php echo $path; ?>css/style.css" rel="stylesheet" />	
 	<link href="<?php echo $path; ?>css/tablesort.css" rel="stylesheet" />	
 	<link href="<?php echo $path; ?>css/sass/custom.css" rel="stylesheet" />
+	<link href="<?php echo $path; ?>css/print.css" rel="stylesheet" />
 	
 
 	

@@ -1,14 +1,7 @@
 ﻿
 app.controller('AppBarcodeController', function ($scope, $http, $q, $location, svcCategory,growl,$uibModal) {
-     $scope.type = 'CODE128B'
-	
-     $scope.options = {
-       // width: 3,
-       // height: 100,
-       displayValue: true,
-       font: 'monospace',
-       textAlign: 'center',
-     }
+    
+
 		  
 	$scope.randomCode = [];		
 	$scope.formData = {  }

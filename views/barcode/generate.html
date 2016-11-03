@@ -17,7 +17,7 @@
 			<button ng-if="randomCode.length > 0" type="button" ng-click="printDiv('print')" class="btn btn-info btn-sm"><i class="fa fa-print"></i> Print Barcode</button>
 		<div id="print">
 				<div ng-repeat="row in randomCode" style="float:left;margin-bottom:10px;">
-						<io-barcode  code="{{row.Code}}" type="{{ type }}" options="options"></io-barcode>
+						<io-barcode  code="{{row.Code}}" type="{{ BarcodeType }}" options="BarcodeOptions"></io-barcode>
 				</div>
 		</div>
 	</div>

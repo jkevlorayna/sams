@@ -170,6 +170,15 @@ app.controller('AppMemberFullInfoModalController', function ($rootScope,$scope, 
 		})
 	}
 	$scope.getById();	
+	
+	$scope.printDiv = function(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var popupWin = window.open('', '_blank', 'width=700,height=700');
+		popupWin.document.open();
+		popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="core/css/print.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+		popupWin.document.close();
+	} 
+	
 });	
 app.controller('AppSignUpController', function ($scope, $http, $q, $filter, svcMember,growl,$stateParams) {
 

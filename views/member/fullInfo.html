@@ -5,45 +5,57 @@
 		</div>
         <div class="modal-body">
 			<table class="table">
+			
+				<tr>
+					<td class="text-right">Barcode:</td>
+					<td>
+						<span id="print">
+							<io-barcode  code="{{formData.Barcode}}" type="{{ BarcodeType }}" options="BarcodeOptions"></io-barcode>
+						</span>
+					</td>
+					<td class="text-center">
+							<button type="button" class="btn btn-info" ng-click="printDiv('print')" ><i class="fa fa-print"></i> Print Barcode</button>
+					</td>
+				</tr>
 				<tr>
 					<td class="text-right">Name:</td>
-					<td>{{formData.firstname}} {{formData.lastname}}  {{formData.middlename}}</td>
+					<td colspan="2">{{formData.firstname}} {{formData.lastname}}  {{formData.middlename}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Gender:</td>
-					<td>{{formData.gender}}</td>
+					<td colspan="2">{{formData.gender}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Address:</td>
-					<td>{{formData.address}}</td>
+					<td colspan="2">{{formData.address}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Mobile No:</td>
-					<td>{{formData.mobile_no}}</td>
+					<td colspan="2">{{formData.mobile_no}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Email:</td>
-					<td>{{formData.email}}</td>
+					<td colspan="2">{{formData.email}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Course:</td>
-					<td>{{formData.Course.course}}</td>
+					<td colspan="2">{{formData.Course.course}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Year:</td>
-					<td>{{formData.CourseYear.year}}</td>
+					<td colspan="2">{{formData.CourseYear.year}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Section:</td>
-					<td>{{formData.Section.section}}</td>
+					<td colspan="2">{{formData.Section.section}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Date Registered:</td>
-					<td>{{formData.date_registered | date:'MM/dd/yyyy'}}</td>
+					<td colspan="2">{{formData.date_registered | date:'MM/dd/yyyy'}}</td>
 				</tr>
 				<tr ng-if="formData.Transfer==1">
 					<td class="text-right">Date Graduated:</td>
-					<td>{{formData.DateTransfer | date:'MM/dd/yyyy'}}</td>
+					<td colspan="2">{{formData.DateTransfer | date:'MM/dd/yyyy'}}</td>
 				</tr>
 			</table>
         </div>

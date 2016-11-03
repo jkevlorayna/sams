@@ -138,6 +138,15 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 	}	
 	$scope.getById();
 	
+	
+	$scope.printDiv = function(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var popupWin = window.open('', '_blank', 'width=700,height=700');
+		popupWin.document.open();
+		popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="core/css/print.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+		popupWin.document.close();
+	} 
+	
 	$scope.load = function(){
 		console.log($scope.searchText);
 		svcEventDetails.List($scope.searchText,0,0,$scope.Id).then(function(r){
