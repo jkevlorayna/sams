@@ -25,7 +25,7 @@ class MemberTypeRepository{
 		}
 		public function Create(){
 			global $conn;
-			$query = $conn->prepare("INSERT INTO tbl_member_type (type,EnableAdd,EnableBarcode,:Movable) VALUES(:type,:EnableAdd,:EnableBarcode,:Movable)");
+			$query = $conn->prepare("INSERT INTO tbl_member_type (type,EnableAdd,EnableBarcode,Movable) VALUES(:type,:EnableAdd,:EnableBarcode,:Movable)");
 			return $query;
 		}	
 		public function Update(){
