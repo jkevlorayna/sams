@@ -11,9 +11,20 @@
 											<h1>{{formData.Name}}</h1>
 											<h4>{{formData.TimeType}}</h1>
 						</div>
+						<div class="row" ng-show="Message != null">
+							<div class="col-md-3">
+									<div ng-if="Message != null" class="text-center">
+										<img  check-image ng-src="{{ImageUrl}}" class="img-circle" style="max-height:120px;max-width:120px">
+									</div>	
+							</div>
+							<div class="col-md-9">
+									<div style="margin-top: 29px;" ng-show="Message != null" class="text-center alert alert-info"><h4 style="margin:0;">{{Message}}</h4></div>
+							</div>
+						</div>
 
-		<div ng-show="Message != null" class="text-center alert alert-info"><h4 style="margin:0;">{{Message}}</h4></div>
+		
 		<div ng-show="formData.Status == 'InActive'" class="text-center alert alert-danger"><h4 style="margin:0;"><i class="fa fa-info-circle"></i> !Ops This Event is not Available</h4></div>
+
 		<form method="POST"  ng-submit="save()">
 				<div class="form-group">
 					<label for="exampleInputPassword1">Barcode No</label>

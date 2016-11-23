@@ -63,7 +63,7 @@ if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAu
             </ul>
           </li>
         </ul>	
-			<h3><i class="fa fa-gears"></i>Student Attendance Management System</h3>
+			<h3><i class="fa fa-gears"></i>SSG STUDENT ACTIVITY MANAGEMENT SYSTEM</h3>
       </div>
     </div>
   </div>

@@ -43,6 +43,7 @@
 						<th ts-criteria="year">Year</th>
 						<th ts-criteria="section">Section</th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,8 +55,13 @@
 						<td>{{row.code}}</td>
 						<td>{{row.year}}</td>
 						<td class="text-center">{{row.section}}</td>
+						<td class="text-center">
+							<a ng-href="core/class/uploads/{{row.ImageUrl}}" data-lightbox="roadtrip">
+								<img  check-image ng-src="core/class/uploads/{{row.ImageUrl}}" class="img-circle" style="max-height:60px;max-width:60px">
+							</a>
+						</td>
 						<td>
-							<a href="javascript:void(0)" ng-click="viewFullInfoModal('md',row.Id)" class="btn btn-info btn-sm">View Full Info </a>
+							<a href="javascript:void(0)" ng-click="viewFullInfoModal('lg',row.Id)" class="btn btn-info btn-sm">View Full Info </a>
 							<a ng-show="memberType.Movable==1" ng-if="checkRole('Member','AllowEdit')" href="javascript:void(0)" ng-click="moveToModal('md',row.Id)" class="btn btn-primary btn-sm">Move to </a>
 							<a ng-if="checkRole('Member','AllowEdit')" class="btn btn-success btn-sm" href="#/member/form/{{type}}/{{row.Id}}">  <i class="fa fa-edit"></i> </a>
 							<button ng-if="checkRole('Member','AllowDelete')" class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)">  <i class="fa fa-trash-o"></i> </button>

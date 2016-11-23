@@ -4,7 +4,21 @@
 			<h3>{{formData.type}} Information</h3>
 		</div>
         <div class="modal-body">
-			<table class="table">
+		
+		
+		<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="javascript:void(0)" data-target="#details" aria-controls="home" role="tab" data-toggle="tab">Details</a></li>
+    <li role="presentation"><a href="javascript:void(0)" data-target="#attendance" aria-controls="profile" role="tab" data-toggle="tab">Attendance</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="details">
+			
+						<table class="table">
 			
 				<tr>
 					<td class="text-right">Barcode:</td>
@@ -58,6 +72,68 @@
 					<td colspan="2">{{formData.DateTransfer | date:'MM/dd/yyyy'}}</td>
 				</tr>
 			</table>
+			
+	</div>
+    <div role="tabpanel" class="tab-pane" id="attendance">
+						<form  class="form-inline filter_form">
+					<div class="form-group">
+							<label>Semester</label>
+							<select ng-change="GetAttendance()" class="form-control" ng-model="Semester" ng-options="s.Semester as s.Semester for s in SemesterList"></select>
+					</div>
+					<div class="form-group">
+							<label>School Year</label>
+							<select ng-change="GetAttendance()" class="form-control" ng-model="SchoolYear" ng-options="sy.Id as sy.YearFrom+' - '+sy.YearTo for sy in SchoolYearList"></select>
+					</div>
+					</form>
+					<hr>
+					<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Event Data</th>
+						<th class="text-center">In AM</th>
+						<th class="text-center">Out AM</th>
+						<th class="text-center">In PM</th>
+						<th class="text-center">Out PM</th>
+						<th class="print-hidden" style="width:10%" ng-if="checkRole('Event','AllowDelete')"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in AttendanceList">
+						<td>{{row.Name}}</td>
+						<td>{{row.EventDate | date:'MM/dd/yyyy'}}</td>
+						<td class="text-center">
+							<i ng-if="row.InAm == 1" class="fa fa-check text-success"></i>
+							<i ng-if="row.InAm == 0" class="fa fa-times text-danger"></i>
+						</td>
+						<td class="text-center">
+							<i ng-if="row.OutAm == 1" class="fa fa-check  text-success"></i>
+							<i ng-if="row.OutAm == 0" class="fa fa-times text-danger"></i>
+						</td>
+						<td class="text-center">
+							<i ng-if="row.InPm == 1" class="fa fa-check  text-success"></i>
+							<i ng-if="row.InPm == 0" class="fa fa-times text-danger"></i>
+						</td>
+						<td class="text-center">
+							<i ng-if="row.OutPm == 1" class="fa fa-check text-success"></i>
+							<i ng-if="row.OutPm == 0" class="fa fa-times text-danger"></i>
+						</td>
+						<td class="text-center print-hidden" ng-if="checkRole('Event','AllowDelete')">
+							<button  class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)"> <i class="fa fa-trash-o"></i> </button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	
+	
+	
+	
+	</div>
+  </div>
+		
+		
+		
+
         </div>
         <div class="modal-footer text-center">
             <button class="btn btn-default" type="button" ng-click="close()"><i class="fa fa-times"></i> Cancel</button>

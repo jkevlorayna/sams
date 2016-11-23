@@ -7,12 +7,18 @@ class MemberRepository{
 			WHERE tbl_member.Id = '$id'");
 			return $query->fetch(PDO::FETCH_OBJ);	
 		}
-		public function GetAttendance($id){
+		public function GetAttendance($id,$Semester,$SchoolYear){
 			global $conn;
+			$where = "";
+			$where .= "AND tbl_event_details.MemberId = '$id'";
+			$where .= "And tbl_events.Semester = '$Semester'";
+			$where .= "And tbl_events.SchoolYearId = '$SchoolYear'";
+						
 			$query = $conn->query("SELECT * FROM tbl_event_details 
 			LEFT JOIN tbl_events on tbl_event_details.EventId = tbl_events.Id
-			WHERE tbl_event_details.MemberId = '$id'");
-			return $query->fetch(PDO::FETCH_OBJ);	
+			LEFT JOIN tbl_member on tbl_member.Id = tbl_event_details.MemberId
+			WHERE 1 = 1 $where");
+			return $query->fetchAll(PDO::FETCH_OBJ);	
 		}
 		public function GetByBarcode($id){
 			global $conn;
@@ -69,8 +75,8 @@ class MemberRepository{
 			$query = $conn->prepare("
 				INSERT INTO 
 					   tbl_member 
-					  (firstname,lastname,middlename,gender,address,mobile_no,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber,Barcode) 
-				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber,:Barcode)
+					  (firstname,lastname,middlename,gender,address,mobile_no,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber,Barcode,ImageUrl) 
+				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber,:Barcode,:ImageUrl)
 				");
 			return $query;	
 		}
@@ -93,7 +99,8 @@ class MemberRepository{
 					   IdNumber = :IdNumber,
 					   DateTransfer = :DateTransfer,
 					   Transfer = :Transfer,
-					   Barcode = :Barcode
+					   Barcode = :Barcode,
+					   ImageUrl = :ImageUrl
 					   WHERE Id = :Id
 				");
 			return $query;	
@@ -115,6 +122,7 @@ class MemberRepository{
 			$POST->Transfer = !isset($POST->Transfer) ? null : $POST->Transfer;
 			$POST->DateTransfer = !isset($POST->DateTransfer) ? '0000-00-00' : date('Y-m-d');
 			$POST->Barcode = !isset($POST->Barcode) ? '' : $POST->Barcode;
+			$POST->ImageUrl = !isset($POST->ImageUrl) ? '' : $POST->ImageUrl;
 			$POST->date_registered = date('Y-m-d');
 
 			return $POST;
@@ -146,19 +154,23 @@ class MemberRepository{
 			$query->bindParam(':MemberTypeId', $POST->MemberTypeId );
 			$query->bindParam(':IdNumber', $POST->IdNumber );
 			$query->bindParam(':Barcode', $POST->Barcode);
+			$query->bindParam(':ImageUrl', $POST->ImageUrl);
 
 			if($POST->Transfer != null){
 				 $query->bindParam(':Transfer',$POST->Transfer);
 				 $query->bindParam(':DateTransfer',$POST->DateTransfer);
 			} 
-			
-			
-			
+		
 			$query->execute();	
-			
+			if($POST->Id == 0){
+				$Id = $conn->lastInsertId(); 
+			}else{
+				$Id = $POST->Id;
+			}	
+			return $this->Get($Id);
 		}
 		public function SignUp($POST){
-			$this->Save($POST);		
+			return $this->Save($POST);		
 		}
 		public function ChangePassword(){
 			global $conn;

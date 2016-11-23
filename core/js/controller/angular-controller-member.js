@@ -158,11 +158,39 @@ app.controller('AppMemberMoveModalController', function ($rootScope,$scope, $htt
 
 });	
 
-app.controller('AppMemberFullInfoModalController', function ($rootScope,$scope, $http, $q,  $filter, svcMember,svcMemberType,growl,$uibModal,dataId,$uibModalInstance) {
+app.controller('AppMemberFullInfoModalController', function (svcSemester,svcSchoolYear,$rootScope,$scope, $http, $q,  $filter, svcMember,svcMemberType,growl,$uibModal,dataId,$uibModalInstance) {
 	$scope.id = dataId;
 	$scope.close = function(){
 		$uibModalInstance.dismiss();
 	}
+	
+			$scope.pageNo = 1;
+		$scope.pageSize = 10;
+		if($scope.searchText == undefined){
+			$scope.searchText = '';
+		} 
+	$q.all([svcSemester.list('',0,0),svcSchoolYear.list('',0,0)]).then(function(r){
+		$scope.SemesterList = r[0].Results;
+		$scope.SchoolYearList = r[1].Results;
+		
+		$scope.CurrentSemester = $filter('filter')($scope.SemesterList, {Current:1})[0];
+		$scope.CurrentSchoolYear = $filter('filter')($scope.SchoolYearList, {Current:1})[0];
+		
+		$scope.Semester = $scope.CurrentSemester.Semester;
+		$scope.SchoolYear = $scope.CurrentSchoolYear.Id
+
+			$scope.GetAttendance = function(){
+			svcMember.GetAttendance($scope.id,$scope.Semester,$scope.SchoolYear).then(function(r){
+					$scope.AttendanceList = r;
+				})
+			}
+			$scope.GetAttendance();	
+	
+
+	})
+	
+	
+	
 	$scope.formData = {};
 	$scope.getById = function(){
 		svcMember.getById($scope.id).then(function(r){
@@ -171,6 +199,7 @@ app.controller('AppMemberFullInfoModalController', function ($rootScope,$scope, 
 	}
 	$scope.getById();	
 	
+
 	$scope.printDiv = function(divName) {
 		var printContents = document.getElementById(divName).innerHTML;
 		var popupWin = window.open('', '_blank', 'width=700,height=700');
@@ -218,15 +247,23 @@ app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filte
 		})
 	}
 	
-
+	$scope.fileData = new FormData();
+    $scope.getTheFiles = function (files) {
+        angular.forEach(files, function (value, key) {
+            $scope.fileData.append(key, value);
+        });
+    };
 
 	$scope.save = function () {
-		svcMember.signUp($scope.formData).then(function (r) {
+		svcMember.signUp($scope.formData).then(function (r) {     
 			if(r == 'exist'){
 				growl.error('Id Number Already Exist');
 			}else{
 				growl.success('Data Successfully Saved');
-				$location.path('/member/list/'+$scope.type);
+				svcMember.Upload($scope.fileData,r.Id).then(function(r){
+					$location.path('/member/list/'+$scope.type);
+				})
+				
 			}
 			
 			

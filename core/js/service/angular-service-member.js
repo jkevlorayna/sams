@@ -24,11 +24,18 @@ app.factory('svcMember', function ($rootScope, $http, $q) {
                 url: BasePath+'/class/member/'+id
             }).success(function (data, status) {
                 deferred.resolve(data);
-                $this.objects = data;
-                $this.count = data.length;
             }).error(function (data, status) {
-                $this.objectes = [];
-                $this.count = 0;
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        }, GetAttendance: function (id,Semester,SchoolYear) {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: BasePath+'/class/member/attendance/'+id+'?Semester='+Semester+'&SchoolYear='+SchoolYear
+            }).success(function (data, status) {
+                deferred.resolve(data);
+            }).error(function (data, status) {
                 deferred.reject(data);
             });
             return deferred.promise;
@@ -95,6 +102,19 @@ app.factory('svcMember', function ($rootScope, $http, $q) {
             }).error(function (data, status) {
                 $this.objectes = [];
                 $this.count = 0;
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        },Upload: function (postData,Id) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+				headers: {'Content-Type': undefined},
+                url: BasePath+'/class/member/upload/'+Id,
+                data:postData,
+            }).success(function (data, status) {
+                deferred.resolve(data);
+            }).error(function (data, status) {
                 deferred.reject(data);
             });
             return deferred.promise;

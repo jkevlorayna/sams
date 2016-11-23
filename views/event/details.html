@@ -22,13 +22,13 @@
 				<h2>{{formData.Name}} Attendance List</h2>
 				<h3>Event Date : {{formData.EventDate | date:'MM/dd/yyyy'}}</h3>
 				</div>
-				<table class="table table-bordered" ng-if="count > 0">
+				<table class="table table-bordered" ng-if="count > 0" ts-wrapper>
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Course</th>
-						<th>Year</th>
-						<th>Section</th>
+						<th ts-criteria="firstname" ts-default>Name</th>
+						<th ts-criteria="code">Course</th>
+						<th ts-criteria="year">Year</th>
+						<th ts-criteria="section">Section</th>
 						<th class="text-center">In AM</th>
 						<th class="text-center">Out AM</th>
 						<th class="text-center">In PM</th>
@@ -37,7 +37,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="row in list">
+					<tr ng-repeat="row in list" ts-repeat>
 						<td>{{row.firstname}} {{row.middlename}} {{row.lastname}}</td>
 						<td class="text-center">{{row.code}}</td>
 						<td class="text-center">{{row.year}}</td>

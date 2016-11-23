@@ -1,5 +1,7 @@
     <script src="<?php echo $path; ?>js/theme/jquery.min.js"></script>
 	<script src="<?php echo $path; ?>js/moment.js"></script> 
+	<script src="<?php echo $path; ?>js/jasny-bootstrap.js"></script> 
+	<script src="<?php echo $path; ?>js/lightbox.js"></script> 
 	<script src="<?php echo $path; ?>js/angular.min.js"></script> 
 	<script src="<?php echo $path; ?>js/angular-ui-router.js"></script> 
 
@@ -14,8 +16,8 @@
 	<script src="<?php echo $path; ?>js/angular-io-barcode.js"></script>  
 	<script src="<?php echo $path; ?>js/loading-bar.js"></script>  
 	<script src="<?php echo $path; ?>js/angular-tablesort.js"></script>  
-
-
+	<script src="<?php echo $path; ?>js/angular-file-upload.js"></script> 
+	<script src="<?php echo $path; ?>js/console-sham.js"></script> 
 	<!-- controller -->
 		<?php foreach (glob($path."js/controller/angular-controller*.js") as $filename) { ?>
 				<script src="<?php echo $filename; ?>"></script>

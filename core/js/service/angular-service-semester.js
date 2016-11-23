@@ -41,7 +41,7 @@ app.factory('svcSemester', function ($rootScope, $http, $q) {
             $http({
                 method: 'POST',
                 url: BasePath+'/class/semester',
-                data:postData
+                data:postData,
             }).success(function (data, status) {
                 deferred.resolve(data);
             }).error(function (data, status) {

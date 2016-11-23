@@ -36,3 +36,31 @@
 	   templateUrl: 'views/changePassword/form.html',
     };
  });
+app.directive('ngFiles', ['$parse', function ($parse) {
+
+            function fn_link(scope, element, attrs) {
+                var onChange = $parse(attrs.ngFiles);
+                element.on('change', function (event) {
+                    onChange(scope, { $files: event.target.files });
+                });
+            };
+
+            return {
+                link: fn_link
+            }
+}]);
+app.directive('checkImage', function($http) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            attrs.$observe('ngSrc', function(ngSrc) {
+                $http.get(ngSrc).success(function(){
+                    // alert('image exist');
+                }).error(function(){
+                    // alert('image not exist');
+                    element.attr('src', 'core/images/noimage.png'); // set default image
+                });
+            });
+        }
+    };
+});

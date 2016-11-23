@@ -14,7 +14,7 @@ $slim_app->get('/member/:id',function($id){
 $slim_app->get('/member/attendance/:id',function($id){
 	$MemberRepo = new MemberRepository();
 
-	$result = $MemberRepo->GetAttendance($id);
+	$result = $MemberRepo->GetAttendance($id,$_GET['Semester'],$_GET['SchoolYear']);
 
 	echo json_encode($result);
 });
@@ -38,19 +38,51 @@ $slim_app->post('/signup',function(){
 		$request = \Slim\Slim::getInstance()->request();
 		$POST = json_decode($request->getBody());
 		
+		
+
 		$p = $MemberRepo->Transform($POST);
 		if($p->Id == 0){
 			if(is_object($MemberRepo->GetByIdNumber($p->IdNumber))){
 				echo 'exist';	
 			}else{
-				$MemberRepo->SignUp($p);	
+				echo json_encode($MemberRepo->SignUp($p));				
 			}
 		}else{
-			$MemberRepo->SignUp($p);
+				echo json_encode($MemberRepo->SignUp($p));
 		}
 		
 });
+
 $slim_app->post('/member/changepassword',function(){
 	 $GLOBALS['MemberRepo']->ChangePassword();
 });
+
+$slim_app->post('/member/upload/:Id',function($Id){
+	$MemberRepo = new MemberRepository();
+	$result = $MemberRepo->Get($Id);
+
+		if ( !empty( $_FILES ) ) {
+			foreach($_FILES as $row){
+				$tempPath = $row[ 'tmp_name' ];
+				$rd2 = mt_rand(1000, 9999);
+				$filename = $rd2. "_" .$row[ 'name' ];
+				$uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . '../uploads/' . DIRECTORY_SEPARATOR . $filename;
+				
+				
+				$result->ImageUrl = $filename;
+				$MemberRepo->SignUp($result);
+				$location = move_uploaded_file( $tempPath, $uploadPath );
+				$answer = array( 'answer' => 'File transfer completed' );
+				$json = json_encode( $answer );
+			
+				echo $json;
+			}
+		} else {
+		
+			echo 'No files';
+		}
+});
+
+
+		
 ?>

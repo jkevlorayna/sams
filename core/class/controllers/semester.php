@@ -16,7 +16,7 @@ $slim_app->delete('/semester/:id',function($id){
 $slim_app->post('/semester',function(){
 	$request = \Slim\Slim::getInstance()->request();
 	$POST = json_decode($request->getBody());
-		
+
 	$SemesterRepo = new SemesterRepository();
 	$SemesterRepo->Save($SemesterRepo->Transform($POST));
 });

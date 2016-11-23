@@ -15,8 +15,6 @@
 		$scope.SchoolYear = $scope.CurrentSchoolYear.Id
 
 		
-
-		
 			$scope.load = function () {
 				svcEvent.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Semester,$scope.SchoolYear).then(function (r) {
 					$scope.list = r.Results;
@@ -209,8 +207,9 @@ $scope.Message = null;
 				growl.error("Member Does Not Exist");
 			}else{
 				growl.success("Data Successfully Save");
-				$scope.Message = "Welcome " + r.firstname + " " + r.lastname;
 				
+				$scope.Message = "Welcome " + r.firstname + " " + r.lastname;
+				$scope.ImageUrl = 'core/class/uploads/'+r.ImageUrl;
 				    $timeout(function() { $scope.Message = null; }, 5000);
 			}
 				

@@ -24,15 +24,15 @@
 						</div>
 					</form>
 					
-				<table class="table table-bordered table-condensed">
+				<table class="table table-bordered table-condensed" ts-wrapper>
 				<thead>
 					<tr>
-						<th>year</th>
+						<th ts-criteria="year" ts-default>year</th>
 						<th width="40%"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="row in list">
+					<tr ng-repeat="row in list" ts-repeat>
 						<td>{{row.year}}</td>
 						<td>
 							<button class="btn btn-info btn-sm" ng-click="openSection('lg',row.Id)"> View Section  </button>

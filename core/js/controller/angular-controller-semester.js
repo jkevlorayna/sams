@@ -20,15 +20,13 @@ app.controller('AppSemesterController', function ($scope, $http, $q, $location, 
 			r.Current = 0;
 		})
 	}
-	
-	$scope.formData = { }
+	$scope.formData = {}
+
 	$scope.save = function () {
 		svcSemester.save($scope.formData).then(function (r) {
 			$scope.load();
 			$scope.formData = { }
 			growl.success("Data Successfully Save");
-        }, function (error) {
-
         });
     }
 	
