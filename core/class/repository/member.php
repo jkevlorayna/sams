@@ -162,11 +162,7 @@ class MemberRepository{
 			} 
 		
 			$query->execute();	
-			if($POST->Id == 0){
-				$Id = $conn->lastInsertId(); 
-			}else{
-				$Id = $POST->Id;
-			}	
+			if($POST->Id == 0){ $POST->Id = $conn->lastInsertId(); }
 			return $this->Get($Id);
 		}
 		public function SignUp($POST){

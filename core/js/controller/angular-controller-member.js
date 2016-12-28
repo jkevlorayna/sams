@@ -111,6 +111,25 @@ app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcM
 			});
 	};
 	
+	$scope.ChangePicture = function (size,id) {
+			var modal = $uibModal.open({
+			templateUrl: 'views/member/changePicture.html',
+			controller: 'AppChangePictureModalController',
+			size: size,
+			resolve: {
+				dataId: function () {
+					return id;
+				}
+			}
+			});
+			modal.result.then(function () { 
+				$scope.load();
+			}, function () { 
+				$scope.load();
+			});
+	};
+	
+	
 });
 app.controller('AppMemberModalController', function ($rootScope,$scope, $http, $q,  $filter, svcMember,growl,$uibModal,dataId,$uibModalInstance) {
 	$scope.id = dataId;
@@ -157,6 +176,41 @@ app.controller('AppMemberMoveModalController', function ($rootScope,$scope, $htt
 	
 
 });	
+
+app.controller('AppChangePictureModalController', function (svcSemester,svcSchoolYear,$rootScope,$scope, $http, $q,  $filter, svcMember,svcMemberType,growl,$uibModal,dataId,$uibModalInstance) {
+	$scope.id = dataId;
+	$scope.close = function(){
+		$uibModalInstance.dismiss();
+	}
+	
+	$scope.formData = {};
+	$scope.getById = function(){
+		svcMember.getById($scope.id).then(function(r){
+			$scope.formData = r;
+		})
+	}
+	$scope.getById();	
+	
+	$scope.fileData = new FormData();
+    $scope.getTheFiles = function (files) {
+        angular.forEach(files, function (value, key) {
+            $scope.fileData.append(key, value);
+        });
+    };
+		$scope.save = function () {
+		svcMember.signUp($scope.formData).then(function (r) {     
+				svcMember.Upload($scope.fileData,r.Id).then(function(r){
+					$scope.close();
+				})
+        },function(){
+			growl.error('Ops Something Went Wrong');
+		});
+    }
+
+
+	
+});	
+
 
 app.controller('AppMemberFullInfoModalController', function (svcSemester,svcSchoolYear,$rootScope,$scope, $http, $q,  $filter, svcMember,svcMemberType,growl,$uibModal,dataId,$uibModalInstance) {
 	$scope.id = dataId;
