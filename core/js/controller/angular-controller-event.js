@@ -121,7 +121,7 @@ app.controller('AppEventModalController', function ($rootScope,$scope, $http, $q
     }
 });	
 
-app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,svcEvent) {
+app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection) {
 	$scope.Id = $stateParams.Id;
 	
 	$scope.pageNo = 1;
@@ -136,6 +136,35 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 	}	
 	$scope.getById();
 	
+	// Course / year / section filter
+	$scope.CourseId = null;	
+	$scope.CourseYearId = null;	
+	$scope.SectionId = null;
+	$scope.loadCourse = function(){
+		svcCourse.list('',0,0).then(function(r){
+			$scope.courseList = r.Results;
+		})
+	}
+	$scope.loadCourse();
+	
+	$scope.loadCourseYear = function(CourseId){
+		svcCourseYear.list(CourseId,'',0,0).then(function(r){
+			$scope.yearList = r.Results;
+		})
+		$scope.load();
+	}
+	
+	$scope.loadSection = function(YearId){
+		svcSection.list(YearId,'',0,0).then(function(r){
+			$scope.sectionList = YearId != null ?  r.Results : null;
+		})
+		$scope.load();
+	}
+	
+	$scope.selectSection = function(){
+		$scope.load();
+	}
+	// end Course / year / section filter
 	
 	$scope.printDiv = function(divName) {
 		var printContents = document.getElementById(divName).innerHTML;
@@ -147,7 +176,7 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 	
 	$scope.load = function(){
 		console.log($scope.searchText);
-		svcEventDetails.List($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Id).then(function(r){
+		svcEventDetails.List($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Id,$scope.CourseId,$scope.CourseYearId,$scope.SectionId).then(function(r){
 			$scope.list = r.Results;
 			$scope.count = r.Count;
 		})

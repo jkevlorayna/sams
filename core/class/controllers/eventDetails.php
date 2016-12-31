@@ -7,7 +7,7 @@ $slim_app->get('/event/details/:id',function($id){
 $slim_app->get('/eventDetail/list',function(){
 	$EventDetailsRepo = new EventDetailsRepository();
 	
-	$result = $EventDetailsRepo->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize'],$_GET['EventId']);
+	$result = $EventDetailsRepo->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize'],$_GET['EventId'],$_GET['CourseId'],$_GET['CourseYearId'],$_GET['SectionId']);
 	echo json_encode($result);
 });
 $slim_app->delete('/event/details/:id',function($id){

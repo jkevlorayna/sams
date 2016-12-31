@@ -5,10 +5,10 @@ app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcM
 	$scope.type = $stateParams.type;
 	if($scope.searchText == undefined){ $scope.searchText = '';} 
 	
+	// Course / year / section filter
 	$scope.CourseId = null;	
 	$scope.CourseYearId = null;	
-	$scope.SectionId = null;	
-		
+	$scope.SectionId = null;
 	$scope.loadCourse = function(){
 		svcCourse.list('',0,0).then(function(r){
 			$scope.courseList = r.Results;
@@ -33,6 +33,7 @@ app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcM
 	$scope.selectSection = function(){
 		$scope.load();
 	}
+	// end Course / year / section filter
 		
 		
 		$q.all([svcSemester.list('',0,0),svcSchoolYear.list('',0,0)]).then(function(r){

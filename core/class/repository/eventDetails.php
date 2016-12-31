@@ -10,7 +10,7 @@ class EventDetailsRepository{
 			$query = $conn->prepare("DELETE FROM  tbl_event_details  WHERE Id = '$id'");
 			$query->execute();	
 		}
-		 function DataList($searchText,$pageNo,$pageSize,$EventId){
+		 function DataList($searchText,$pageNo,$pageSize,$EventId,$CourseId,$CourseYearId,$SectionId){
 			global $conn;
 			$where = "";
 			if($searchText != ''){
@@ -21,6 +21,16 @@ class EventDetailsRepository{
 				)";
 			}
 			$where .= "And EventId = '$EventId'";
+			
+			if($CourseId != 'null'){
+				$where .= "AND tbl_member.CourseId = '$CourseId'";
+			}	
+			if($CourseYearId != 'null'){
+				$where .= "AND tbl_member.CourseYearId = '$CourseYearId'";
+			}
+			if($SectionId != 'null'){
+				$where .= "AND tbl_member.SectionId = '$SectionId'";
+			}
 			
 			$pageNo = ($pageNo - 1) * $pageSize; 
 			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;		

@@ -1,10 +1,10 @@
 app.factory('svcEventDetails', function ($rootScope, $http, $q) {
     $this = {
-        List: function (searchText,pageNo,pageSize,EventId) {
+        List: function (searchText,pageNo,pageSize,EventId,CourseId,CourseYearId,SectionId) {
             var deferred = $q.defer();
             $http({
                 method: 'GET',
-                url: BasePath+'/class/eventDetail/list?searchText='+searchText+'&pageNo='+pageNo+'&pageSize='+pageSize+'&EventId='+EventId
+                url: BasePath+'/class/eventDetail/list?searchText='+searchText+'&pageNo='+pageNo+'&pageSize='+pageSize+'&EventId='+EventId+'&CourseId='+CourseId+'&CourseYearId='+CourseYearId+'&SectionId='+SectionId
             }).success(function (data, status) {
                 deferred.resolve(data);
             }).error(function (data, status) {

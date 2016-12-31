@@ -17,6 +17,29 @@
 							</span>
 						</div>
 					</form>
+					
+					<form ng-submit="load()" class="form-inline filter_form">
+						<div class="form-group">
+							<label>Course</label>
+							<select type="text" ng-model="CourseId" ng-change="loadCourseYear(CourseId)"  ng-options="row.Id as row.code for row in courseList" class="form-control">
+								<option></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Year</label>
+							<select type="text" ng-model="CourseYearId" ng-change="loadSection(CourseYearId)"  ng-options="row.Id as row.year for row in yearList" class="form-control">
+								<option></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Section</label>
+							<select type="text" ng-model="SectionId"  ng-change="selectSection()"  ng-options="row.Id as row.section for row in sectionList" class="form-control">
+								<option></option>
+							</select>
+						</div>
+					</form>
+					
+					
 				<div id="print">	
 				<div class="text-center visible-print-block reportHeader">
 				<h2>{{formData.Name}} Attendance List</h2>
