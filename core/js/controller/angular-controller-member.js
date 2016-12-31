@@ -1,9 +1,38 @@
 ﻿
-app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcMember,svcMemberType,growl,$uibModal,$stateParams,svcSemester,svcSchoolYear) {
-		$scope.pageNo = 1;
-		$scope.pageSize = 10;
-		$scope.type = $stateParams.type;
-		if($scope.searchText == undefined){ $scope.searchText = '';} 
+app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcMember,svcMemberType,growl,$uibModal,$stateParams,svcSemester,svcSchoolYear,svcCourse,svcCourseYear,svcSection) {
+	$scope.pageNo = 1;
+	$scope.pageSize = 10;
+	$scope.type = $stateParams.type;
+	if($scope.searchText == undefined){ $scope.searchText = '';} 
+	
+	$scope.CourseId = null;	
+	$scope.CourseYearId = null;	
+	$scope.SectionId = null;	
+		
+	$scope.loadCourse = function(){
+		svcCourse.list('',0,0).then(function(r){
+			$scope.courseList = r.Results;
+		})
+	}
+	$scope.loadCourse();
+	
+	$scope.loadCourseYear = function(CourseId){
+		svcCourseYear.list(CourseId,'',0,0).then(function(r){
+			$scope.yearList = r.Results;
+		})
+		$scope.load();
+	}
+	
+	$scope.loadSection = function(YearId){
+		svcSection.list(YearId,'',0,0).then(function(r){
+			$scope.sectionList = YearId != null ?  r.Results : null;
+		})
+		$scope.load();
+	}
+	
+	$scope.selectSection = function(){
+		$scope.load();
+	}
 		
 		
 		$q.all([svcSemester.list('',0,0),svcSchoolYear.list('',0,0)]).then(function(r){
@@ -17,7 +46,7 @@ app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcM
 		$scope.SchoolYear = $scope.CurrentSchoolYear.Id
 
 		$scope.load = function () {
-			svcMember.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.type).then(function (r) {
+			svcMember.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.type,$scope.CourseId,$scope.CourseYearId,$scope.SectionId).then(function (r) {
 				$scope.list = r.Results;
 				$scope.count = r.Count;
 			})
@@ -274,7 +303,7 @@ app.controller('AppSignUpController', function ($scope, $http, $q, $filter, svcM
 });
 
 
-app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filter,svcMemberType, svcMember,growl,svcCourse,svcCourseYear,svcSection,$stateParams,$location) {
+app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filter,svcMemberType, svcMember,growl,svcCourse,svcCourseYear,svcSection,$stateParams,$location,svcOrganization) {
 	$scope.Id = $stateParams.Id;
 	$scope.type = $stateParams.type;
 	$scope.PageTitle = '';
@@ -288,6 +317,13 @@ app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filte
 		})
 	}
 	$scope.loadCourse();
+	
+	$scope.loadOrganization = function(){
+		svcOrganization.list('',0,0).then(function(r){
+			$scope.OrganizationList = r.Results;
+		})
+	}
+	$scope.loadOrganization();
 	
 	$scope.loadCourseYear = function(CourseId){
 		svcCourseYear.list(CourseId,'',0,0).then(function(r){

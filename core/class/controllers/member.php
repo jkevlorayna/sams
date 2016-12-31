@@ -19,7 +19,7 @@ $slim_app->get('/member/attendance/:id',function($id){
 	echo json_encode($result);
 });
 $slim_app->get('/member',function(){
-	$result = $GLOBALS['MemberRepo']->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize'],$_GET['type']);
+	$result = $GLOBALS['MemberRepo']->DataList($_GET['searchText'],$_GET['pageNo'],$_GET['pageSize'],$_GET['type'],$_GET['CourseId'],$_GET['CourseYearId'],$_GET['SectionId']);
 	echo json_encode($result);
 });
 $slim_app->delete('/member/:id',function($id){

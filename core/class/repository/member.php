@@ -38,13 +38,14 @@ class MemberRepository{
 			$query = $conn->prepare("DELETE FROM  tbl_member  WHERE Id = '$id'");
 			$query->execute();	
 		}
-		public function DataList($searchText,$pageNo,$pageSize,$type){
+		public function DataList($searchText,$pageNo,$pageSize,$type,$CourseId,$CourseYearId,$SectionId){
 			global $conn;
 	
 			$pageNo = ($pageNo - 1) * $pageSize; 
 			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
 			
 			$where = "";
+			$whereCount = "";
 			if($searchText != ''){
 				$where .= "And (
 				firstname  LIKE '%$searchText%' OR 
@@ -52,17 +53,33 @@ class MemberRepository{
 				lastname  LIKE '%$searchText%' OR 
 				code  LIKE '%$searchText%' OR 
 				year  LIKE '%$searchText%' OR
-				section  LIKE '%$searchText%'
+				section  LIKE '%$searchText%' OR
+				Organization  LIKE '%$Organization%' OR
+				Major  LIKE '%$Major%' 
 				)";
 			}
 				$where .= "AND MemberTypeId = '$type'";
+				$whereCount .= "AND MemberTypeId = '$type'";
+				
+			if($CourseId != 'null'){
+				$where .= "AND tbl_member.CourseId = '$CourseId'";
+				$whereCount .= "AND tbl_member.CourseId = '$CourseId'";
+			}	
+			if($CourseYearId != 'null'){
+				$where .= "AND tbl_member.CourseYearId = '$CourseYearId'";
+				$whereCount .= "AND tbl_member.CourseYearId = '$CourseYearId'";
+			}
+			if($SectionId != 'null'){
+				$where .= "AND tbl_member.SectionId = '$SectionId'";
+				$whereCount .= "AND tbl_member.SectionId = '$SectionId'";
+			}
 			
 			$query = $conn->query("SELECT *,tbl_member.Id as Id FROM  tbl_member 
 			LEFT JOIN tbl_course on tbl_course.Id = tbl_member.CourseId	
 			LEFT JOIN tbl_section on tbl_section.Id = tbl_member.SectionId	
 			LEFT JOIN tbl_course_year on tbl_course_year.Id = tbl_member.CourseYearId	
 			WHERE 1 = 1 $where   $limitCondition ");
-			$count = $searchText != '' ? $query->rowcount() : $conn->query("SELECT * FROM  tbl_member WHERE MemberTypeId = '$type'")->rowcount();
+			$count = $searchText != '' ? $query->rowcount() : $conn->query("SELECT * FROM  tbl_member WHERE 1 = 1 $whereCount")->rowcount();
 			
 			$data = array();
 			$data['Results'] = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -75,8 +92,8 @@ class MemberRepository{
 			$query = $conn->prepare("
 				INSERT INTO 
 					   tbl_member 
-					  (firstname,lastname,middlename,gender,address,mobile_no,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber,Barcode,ImageUrl) 
-				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber,:Barcode,:ImageUrl)
+					  (firstname,lastname,middlename,gender,address,mobile_no,email,date_registered,MemberTypeId,CourseId,CourseYearId,SectionId,IdNumber,Barcode,ImageUrl,Organization,Major) 
+				VALUES(:firstname,:lastname,:middlename,:gender,:address,:mobile_no,:email,:date_registered,:MemberTypeId,:CourseId,:CourseYearId,:SectionId,:IdNumber,:Barcode,:ImageUrl,:Organization,:Major)
 				");
 			return $query;	
 		}
@@ -100,7 +117,9 @@ class MemberRepository{
 					   DateTransfer = :DateTransfer,
 					   Transfer = :Transfer,
 					   Barcode = :Barcode,
-					   ImageUrl = :ImageUrl
+					   ImageUrl = :ImageUrl,
+					   Organization = :Organization,
+					   Major = :Major
 					   WHERE Id = :Id
 				");
 			return $query;	
@@ -123,6 +142,8 @@ class MemberRepository{
 			$POST->DateTransfer = !isset($POST->DateTransfer) ? '0000-00-00' : date('Y-m-d');
 			$POST->Barcode = !isset($POST->Barcode) ? '' : $POST->Barcode;
 			$POST->ImageUrl = !isset($POST->ImageUrl) ? '' : $POST->ImageUrl;
+			$POST->Organization = !isset($POST->Organization) ? '' : $POST->Organization;
+			$POST->Major = !isset($POST->Major) ? '' : $POST->Major;
 			$POST->date_registered = date('Y-m-d');
 
 			return $POST;
@@ -139,8 +160,6 @@ class MemberRepository{
 			}
 			
 
-		
-
 			$query->bindParam(':firstname', $POST->firstname);
 			$query->bindParam(':lastname', $POST->lastname);
 			$query->bindParam(':middlename', $POST->middlename);
@@ -155,6 +174,8 @@ class MemberRepository{
 			$query->bindParam(':IdNumber', $POST->IdNumber );
 			$query->bindParam(':Barcode', $POST->Barcode);
 			$query->bindParam(':ImageUrl', $POST->ImageUrl);
+			$query->bindParam(':Organization', $POST->Organization);
+			$query->bindParam(':Major', $POST->Major);
 
 			if($POST->Transfer != null){
 				 $query->bindParam(':Transfer',$POST->Transfer);
@@ -163,7 +184,7 @@ class MemberRepository{
 		
 			$query->execute();	
 			if($POST->Id == 0){ $POST->Id = $conn->lastInsertId(); }
-			return $this->Get($Id);
+			return $this->Get($POST->Id);
 		}
 		public function SignUp($POST){
 			return $this->Save($POST);		

@@ -19,6 +19,7 @@
 	<link href="<?php echo $path; ?>css/jasny-bootstrap.css" rel="stylesheet" />	
 	<link href="<?php echo $path; ?>css/lightbox.css" rel="stylesheet" />	
 	<link href="<?php echo $path; ?>css/sass/custom.css" rel="stylesheet" />
+	<link href="<?php echo $path; ?>css/loading-bar.css" rel="stylesheet" />
 	<link href="<?php echo $path; ?>css/print.css" rel="stylesheet" />
 	
 

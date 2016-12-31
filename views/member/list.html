@@ -7,25 +7,22 @@
 											<h3>{{memberType.type}} List</h3>
 						</div>
 <div class="row" ng-show="checkRole('Member','AllowView')">
-<!-- 	<div class="col-md-12">
-					<form  class="form-inline filter_form">
-					<div class="form-group">
-							<label>Semester</label>
-							<select ng-change="load()" class="form-control" ng-model="Semester" ng-options="s.Semester as s.Semester for s in SemesterList"></select>
-					</div>
-					<div class="form-group">
-							<label>School Year</label>
-							<select ng-change="load()" class="form-control" ng-model="SchoolYear" ng-options="sy.Id as sy.YearFrom+' - '+sy.YearTo for sy in SchoolYearList"></select>
-					</div>
-					</form>
-					<hr>
-	</div> -->
 	<div class="col-md-12">
 					<form ng-submit="load()" class="form-inline filter_form">
-
-																<div class="form-group">
-							<input type="text" class="form-control" ng-model="searchText">
-
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="searchText" placeholder="search">
+						</div>
+						<div class="form-group">
+							<label>Course</label>
+							<select type="text" ng-model="CourseId" ng-change="loadCourseYear(CourseId)"  ng-options="row.Id as row.code for row in courseList" class="form-control" required></select>
+						</div>
+						<div class="form-group">
+							<label>Year</label>
+							<select type="text" ng-model="CourseYearId" ng-change="loadSection(CourseYearId)"  ng-options="row.Id as row.year for row in yearList" class="form-control" required></select>
+						</div>
+						<div class="form-group">
+							<label>Section</label>
+							<select type="text" ng-model="SectionId"  ng-change="selectSection()"  ng-options="row.Id as row.section for row in sectionList" class="form-control" required></select>
 						</div>
 						<div class="form-group">
 							<button class="btn btn-primary nomargin" type="submit"><i class="fa fa-search"></i>	 Search</button>
@@ -35,26 +32,30 @@
 				<table class="table table-bordered table-condensed" ts-wrapper>
 				<thead>
 					<tr>
-						<th ts-criteria="IdNumber" ts-default>Id Number</th>
-						<th ts-criteria="Barcode">Barcode No.</th>
+<!-- 						<th ts-criteria="IdNumber" ts-default>Id Number</th>
+						<th ts-criteria="Barcode">Barcode No.</th> -->
 						<th ts-criteria="firstname">Name</th>
 						<th ts-criteria="gender">Gender</th>
 						<th ts-criteria="code">Course </th>
 						<th ts-criteria="year">Year</th>
 						<th ts-criteria="section">Section</th>
+						<th ts-criteria="Major">Major</th>
+						<th ts-criteria="Organization">Organization</th>
 						<th></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="row in list" ts-repeat>
-						<td>{{row.IdNumber}}</td>
-						<td>{{row.Barcode}}</td>
+<!-- 						<td>{{row.IdNumber}}</td>
+						<td>{{row.Barcode}}</td> -->
 						<td>{{row.firstname}} {{row.middlename}} {{row.lastname}}</td>
 						<td>{{row.gender}}</td>
 						<td>{{row.code}}</td>
 						<td>{{row.year}}</td>
 						<td class="text-center">{{row.section}}</td>
+						<td class="text-center">{{row.Major}}</td>
+						<td class="text-center">{{row.Organization}}</td>
 						<td class="text-center">
 							<a ng-href="core/class/uploads/{{row.ImageUrl}}" data-lightbox="roadtrip">
 								<img  check-image ng-src="core/class/uploads/{{row.ImageUrl}}" class="img-circle" style="max-height:60px;max-width:60px">
@@ -64,6 +65,7 @@
 						<td>
 							<a href="javascript:void(0)" ng-click="viewFullInfoModal('lg',row.Id)" class="btn btn-info btn-sm">View Full Info </a>
 							<a ng-show="memberType.Movable==1" ng-if="checkRole('Member','AllowEdit')" href="javascript:void(0)" ng-click="moveToModal('md',row.Id)" class="btn btn-primary btn-sm">Transfer</a>
+							<hr style="margin:2px 0 2px 0">	
 							<a ng-if="checkRole('Member','AllowEdit')" class="btn btn-success btn-sm" href="#/member/form/{{type}}/{{row.Id}}">  <i class="fa fa-edit"></i> </a>
 							<button ng-if="checkRole('Member','AllowDelete')" class="btn btn-danger btn-sm" ng-click="openDeleteModal('md',row.Id)">  <i class="fa fa-trash-o"></i> </button>
 						</td>

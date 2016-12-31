@@ -1,18 +1,14 @@
 app.factory('svcMember', function ($rootScope, $http, $q) {
     $this = {
 
-        list: function (searchText,pageNo,pageSize,type) {
+        list: function (searchText,pageNo,pageSize,type,CourseId,CourseYearId,SectionId) {
             var deferred = $q.defer();
             $http({
                 method: 'GET',
-                url: BasePath+'/class/member?searchText='+searchText+'&pageNo='+pageNo+'&pageSize='+pageSize+'&type='+type
+                url: BasePath+'/class/member?searchText='+searchText+'&pageNo='+pageNo+'&pageSize='+pageSize+'&type='+type+'&CourseId='+CourseId+'&CourseYearId='+CourseYearId+'&SectionId='+SectionId
             }).success(function (data, status) {
                 deferred.resolve(data);
-                $this.objects = data;
-                $this.count = data.length;
             }).error(function (data, status) {
-                $this.objectes = [];
-                $this.count = 0;
                 deferred.reject(data);
             });
             return deferred.promise;
@@ -47,11 +43,7 @@ app.factory('svcMember', function ($rootScope, $http, $q) {
                 url: BasePath+'/class/member/'+id
             }).success(function (data, status) {
                 deferred.resolve(data);
-                $this.objects = data;
-                $this.count = data.length;
             }).error(function (data, status) {
-                $this.objectes = [];
-                $this.count = 0;
                 deferred.reject(data);
             });
             return deferred.promise;
@@ -64,11 +56,7 @@ app.factory('svcMember', function ($rootScope, $http, $q) {
                 data:postData
             }).success(function (data, status) {
                 deferred.resolve(data);
-                $this.objects = data.Results;
-                $this.count = data.Count;
             }).error(function (data, status) {
-                $this.objectes = [];
-                $this.count = 0;
                 deferred.reject(data);
             });
             return deferred.promise;
@@ -80,11 +68,7 @@ app.factory('svcMember', function ($rootScope, $http, $q) {
                 data:postData
             }).success(function (data, status) {
                 deferred.resolve(data);
-                $this.objects = data.Results;
-                $this.count = data.Count;
             }).error(function (data, status) {
-                $this.objectes = [];
-                $this.count = 0;
                 deferred.reject(data);
             });
             return deferred.promise;
@@ -97,11 +81,7 @@ app.factory('svcMember', function ($rootScope, $http, $q) {
                 data:postData
             }).success(function (data, status) {
                 deferred.resolve(data);
-                $this.objects = data.Results;
-                $this.count = data.Count;
             }).error(function (data, status) {
-                $this.objectes = [];
-                $this.count = 0;
                 deferred.reject(data);
             });
             return deferred.promise;

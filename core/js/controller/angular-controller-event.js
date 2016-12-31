@@ -147,12 +147,16 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 	
 	$scope.load = function(){
 		console.log($scope.searchText);
-		svcEventDetails.List($scope.searchText,0,0,$scope.Id).then(function(r){
+		svcEventDetails.List($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Id).then(function(r){
 			$scope.list = r.Results;
 			$scope.count = r.Count;
 		})
 	}
 	$scope.load();
+	
+	$scope.pageChanged = function(){
+		$scope.load();
+	}
 	
 	$scope.openDeleteModal = function (size,id) {
 			var modal = $uibModal.open({

@@ -197,8 +197,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "views/semester.html",
             controller: "AppSemesterController",
         })
-
-
+		.state('organization',
+        {
+            url: '/organization',
+            templateUrl: "views/organization.html",
+            controller: "AppOrganizationController",
+        })
 		.state('signUp',
         {
             url: '/signup',

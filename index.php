@@ -34,6 +34,7 @@ if(!isset($_SESSION['isAuthenticated'])){ $isAuthenticated = false; }else{ $isAu
 							<li ng-if="checkRole('User Type','AllowView')"><a href="#/user/type" >User Type</a></li>
 							<li ng-if="checkRole('Member Type','AllowView')"><a href="#/member/type" >Member Type</a></li>
 							<li ng-if="checkRole('Semester','AllowView')"><a href="#/semester">Semester</a></li>
+							<li ng-if="checkRole('Organization','AllowView')"><a href="#/organization">Organization</a></li>
 					</ul>		
 				</li>
 

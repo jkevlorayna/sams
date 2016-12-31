@@ -64,6 +64,7 @@
 					</tr>
 				</tbody>
 			</table>
+			 <uib-pagination ng-model="pageNo" ng-click="pageChanged()" items-per-page="pageSize" total-items="count"  max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></uib-pagination>
 			</div>
 			<div class="alert alert-danger" ng-if="count <= 0">No Result Found</div>
 			 
