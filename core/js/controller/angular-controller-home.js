@@ -24,7 +24,7 @@ app.controller('AppHomeController', function ($scope, $http, $q, $filter, svcMem
 					$scope.memberTypeList = r.Results;
 					$scope.TotalMember = 0;
 					angular.forEach($scope.memberTypeList,function(rr){
-						svcMember.list($scope.searchText,0,0,rr.Id).then(function (rMember) {
+						svcMember.list($scope.searchText,0,0,rr.Id,null,null,null).then(function (rMember) {
 							 rr.MemberCount = rMember.Count;
 							$scope.TotalMember += rMember.Count;
 						})
