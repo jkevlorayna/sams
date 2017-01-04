@@ -37,9 +37,13 @@ $slim_app->post('/event/details',function(){
 					$POST->OutAm = $MemberEvent->OutAm;
 					$POST->InPm = $MemberEvent->InPm;
 					$POST->OutPm = $MemberEvent->OutPm;
-					
+
+					$POST->InAmDateTime = !isset($POST->InAmDateTime) ? $MemberEvent->InAmDateTime : $POST->InAmDateTime;
+					$POST->OutAmDateTime = !isset($POST->OutAmDateTime) ? $MemberEvent->OutAmDateTime : $POST->OutAmDateTime;
+					$POST->InPmDateTime = !isset($POST->InPmDateTime) ? $MemberEvent->InPmDateTime : $POST->InPmDateTime;
+					$POST->OutPmDateTime = !isset($POST->OutPmDateTime) ? $MemberEvent->OutPmDateTime : $POST->OutPmDateTime;
 				}
-				if($POST->TimeType == "Time-IN AM"){ $POST->InAm = 1; }
+				if($POST->TimeType == "Time-IN AM"){ $POST->InAm = 1;  }
 				if($POST->TimeType == "Time-OUT AM"){ $POST->OutAm = 1; }
 				if($POST->TimeType == "Time-IN PM"){ $POST->InPm = 1; }
 				if($POST->TimeType == "Time-OUT PM"){ $POST->OutPm = 1; }

@@ -90,6 +90,11 @@ app.controller('AppMainController', function ($rootScope,$scope, $http, $q, $loc
 				
 			});
 	};
+	
+	$rootScope.FormatDate = function(TDate){
+		return moment(TDate).format("DD/MM/YYYY hh:mm a");
+	}
+	
 });
 
 

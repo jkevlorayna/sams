@@ -66,19 +66,19 @@
 						<td class="text-center">{{row.year}}</td>
 						<td class="text-center">{{row.section}}</td>
 						<td class="text-center">
-							<i ng-if="row.InAm == 1" class="fa fa-check text-success"></i>
+							<span ng-if="row.InAm == 1">{{FormatDate(row.InAmDateTime)}}</span>
 							<i ng-if="row.InAm == 0" class="fa fa-times text-danger"></i>
 						</td>
 						<td class="text-center">
-							<i ng-if="row.OutAm == 1" class="fa fa-check  text-success"></i>
+							<span ng-if="row.OutAm == 1">{{FormatDate(row.OutAmDateTime)}}</span>
 							<i ng-if="row.OutAm == 0" class="fa fa-times text-danger"></i>
 						</td>
 						<td class="text-center">
-							<i ng-if="row.InPm == 1" class="fa fa-check  text-success"></i>
+							<span ng-if="row.InPm == 1">{{FormatDate(row.InPmDateTime)}}</span>
 							<i ng-if="row.InPm == 0" class="fa fa-times text-danger"></i>
 						</td>
 						<td class="text-center">
-							<i ng-if="row.OutPm == 1" class="fa fa-check text-success"></i>
+							<span ng-if="row.OutPm == 1">{{FormatDate(row.OutPmDateTime)}}</span>
 							<i ng-if="row.OutPm == 0" class="fa fa-times text-danger"></i>
 						</td>
 <!-- 						<td class="text-center print-hidden" ng-if="checkRole('Event','AllowDelete')">

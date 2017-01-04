@@ -39,18 +39,18 @@
 					<td class="text-right">Gender:</td>
 					<td colspan="2">{{formData.gender}}</td>
 				</tr>
-				<tr>
+<!-- 				<tr>
 					<td class="text-right">Address:</td>
 					<td colspan="2">{{formData.address}}</td>
-				</tr>
-				<tr>
+				</tr> -->
+<!-- 				<tr>
 					<td class="text-right">Mobile No:</td>
 					<td colspan="2">{{formData.mobile_no}}</td>
 				</tr>
 				<tr>
 					<td class="text-right">Email:</td>
 					<td colspan="2">{{formData.email}}</td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td class="text-right">Course:</td>
 					<td colspan="2">{{formData.Course.course}}</td>
@@ -71,19 +71,29 @@
 					<td class="text-right">Organization:</td>
 					<td colspan="2">{{formData.Organization}}</td>
 				</tr>
-				<tr>
+<!-- 				<tr>
 					<td class="text-right">Date Registered:</td>
 					<td colspan="2">{{formData.date_registered | date:'MM/dd/yyyy'}}</td>
 				</tr>
 				<tr ng-if="formData.Transfer==1">
 					<td class="text-right">Date Graduated:</td>
 					<td colspan="2">{{formData.DateTransfer | date:'MM/dd/yyyy'}}</td>
+				</tr> -->
+				<tr>
+					<td class="text-right">Picture:</td>
+					<td colspan="2">
+							<img  check-image ng-src="core/class/uploads/{{formData.ImageUrl}}" class="img-circle" style="max-height:160px;max-width:160px">
+					</td>
 				</tr>
 			</table>
 			
 	</div>
     <div role="tabpanel" class="tab-pane" id="attendance">
-						<form  class="form-inline filter_form">
+	<div class="pull-right">
+		<button type="button" class="btn btn-info" ng-click="printDiv('printAttendance')" ><i class="fa fa-print"></i> Print</button>
+	</div>
+	<div id="printAttendance">
+						<form  class="form-inline filter_form print-hidden">
 					<div class="form-group">
 							<label>Semester</label>
 							<select ng-change="GetAttendance()" class="form-control" ng-model="Semester" ng-options="s.Semester as s.Semester for s in SemesterList"></select>
@@ -93,12 +103,20 @@
 							<select ng-change="GetAttendance()" class="form-control" ng-model="SchoolYear" ng-options="sy.Id as sy.YearFrom+' - '+sy.YearTo for sy in SchoolYearList"></select>
 					</div>
 					</form>
-					<hr>
+
+					<hr class="print-hidden">
+
+				<div class="text-center visible-print-block reportHeader">
+					<h2>{{formData.firstname}} {{formData.lastname}}  {{formData.middlename}}</h2>
+					<h3>Attendance List</h3>
+					<h3>{{Semester}} - School Year :  {{SchoolYearLabel}}</h3>
+				</div>
+				
 					<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Event Data</th>
+						<th>Event Date</th>
 						<th class="text-center">In AM</th>
 						<th class="text-center">Out AM</th>
 						<th class="text-center">In PM</th>
@@ -111,19 +129,19 @@
 						<td>{{row.Name}}</td>
 						<td>{{row.EventDate | date:'MM/dd/yyyy'}}</td>
 						<td class="text-center">
-							<i ng-if="row.InAm == 1" class="fa fa-check text-success"></i>
+							<span ng-if="row.InAm == 1">{{FormatDate(row.InAmDateTime)}}</span>
 							<i ng-if="row.InAm == 0" class="fa fa-times text-danger"></i>
 						</td>
 						<td class="text-center">
-							<i ng-if="row.OutAm == 1" class="fa fa-check  text-success"></i>
+							<span ng-if="row.OutAm == 1">{{FormatDate(row.OutAmDateTime)}}</span>
 							<i ng-if="row.OutAm == 0" class="fa fa-times text-danger"></i>
 						</td>
 						<td class="text-center">
-							<i ng-if="row.InPm == 1" class="fa fa-check  text-success"></i>
+							<span ng-if="row.InPm == 1">{{FormatDate(row.InPmDateTime)}}</span>
 							<i ng-if="row.InPm == 0" class="fa fa-times text-danger"></i>
 						</td>
 						<td class="text-center">
-							<i ng-if="row.OutPm == 1" class="fa fa-check text-success"></i>
+							<span ng-if="row.OutPm == 1">{{FormatDate(row.OutPmDateTime)}}</span>
 							<i ng-if="row.OutPm == 0" class="fa fa-times text-danger"></i>
 						</td>
 						<td class="text-center print-hidden" ng-if="checkRole('Event','AllowDelete')">
@@ -136,6 +154,7 @@
 	
 	
 	
+	</div>
 	</div>
   </div>
 		

@@ -203,6 +203,8 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 			});
 	};
 
+
+	
 });	
 app.controller('AppEventDetailsModalController', function ($rootScope,$scope, $http, $q, $location, $filter, svcEventDetails,growl,$uibModal,dataId,$uibModalInstance) {
 	$scope.id = dataId;
@@ -232,16 +234,33 @@ $scope.Message = null;
 	$scope.getById();
 
 
+
 	$scope.save = function () {
 		$scope.formData.EventId = $scope.Id;
+		if($scope.formData.TimeType == 'Time-IN AM'){
+			$scope.formData.InAmDateTime = moment(new Date).format("YYYY-MM-DD HH:mm");
+		}
+		if($scope.formData.TimeType == 'Time-OUT AM'){
+			$scope.formData.OutAmDateTime = moment(new Date).format("YYYY-MM-DD HH:mm");
+		}
+		if($scope.formData.TimeType == 'Time-IN PM'){
+			$scope.formData.InPmDateTime = moment(new Date).format("YYYY-MM-DD HH:mm");
+		}
+		if($scope.formData.TimeType == 'Time-OUT PM'){
+			$scope.formData.OutPmDateTime = moment(new Date).format("YYYY-MM-DD HH:mm");
+		}
 		svcEventDetails.Save($scope.formData).then(function (r) {
 			// console.log(r);
 			if(r == 0){
 				growl.error("Member Does Not Exist");
 			}else{
 				growl.success("Data Successfully Save");
-				
-				$scope.Message = "Welcome " + r.firstname + " " + r.lastname;
+				if($scope.formData.TimeType == 'Time-IN AM' || $scope.formData.TimeType == 'Time-IN PM'){
+					$scope.Message = "Welcome " + r.firstname + " " + r.lastname;
+				}
+				if($scope.formData.TimeType == 'Time-OUT AM' || $scope.formData.TimeType == 'Time-OUT PM'){
+					$scope.Message = "Goodbye " + r.firstname + " " + r.lastname;
+				}
 				$scope.ImageUrl = 'core/class/uploads/'+r.ImageUrl;
 				    $timeout(function() { $scope.Message = null; }, 5000);
 			}

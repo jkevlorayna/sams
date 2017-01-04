@@ -267,6 +267,10 @@ app.controller('AppMemberFullInfoModalController', function (svcSemester,svcScho
 			svcMember.GetAttendance($scope.id,$scope.Semester,$scope.SchoolYear).then(function(r){
 					$scope.AttendanceList = r;
 				})
+				
+				$scope.ObjSchoolYear = $filter('filter')($scope.SchoolYearList,{Id:$scope.SchoolYear})[0];
+				console.log($scope.ObjSchoolYear);
+				$scope.SchoolYearLabel = $scope.ObjSchoolYear.YearFrom+" "+$scope.ObjSchoolYear.YearTo;
 			}
 			$scope.GetAttendance();	
 	

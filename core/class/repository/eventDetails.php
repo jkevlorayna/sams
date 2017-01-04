@@ -51,12 +51,23 @@ class EventDetailsRepository{
 		}
 		public function Create(){
 			global $conn;
-			$query = $conn->prepare("INSERT INTO tbl_event_details (MemberId,EventId,InAm,OutAm,InPm,OutPm) VALUES(:MemberId,:EventId,:InAm,:OutAm,:InPm,:OutPm)");
+			$query = $conn->prepare("INSERT INTO tbl_event_details (MemberId,EventId,InAm,OutAm,InPm,OutPm,InAmDateTime,OutAmDateTime,InPmDateTime,OutPmDateTime) VALUES(:MemberId,:EventId,:InAm,:OutAm,:InPm,:OutPm,:InAmDateTime,:OutAmDateTime,:InPmDateTime,:OutPmDateTime)");
 			return $query;
 		}	
 		public function Update(){
 			global $conn;
-			$query = $conn->prepare("UPDATE tbl_event_details SET MemberId = :MemberId  , EventId = :EventId , InAm = :InAm , OutAm = :OutAm , InPm = :InPm , OutPm = :OutPm WHERE Id = :Id ");
+			$query = $conn->prepare("UPDATE tbl_event_details SET 
+			MemberId = :MemberId  , 
+			EventId = :EventId , 
+			InAm = :InAm , 
+			OutAm = :OutAm , 
+			InPm = :InPm ,
+			OutPm = :OutPm ,
+			InAmDateTime = :InAmDateTime,
+			OutAmDateTime = :OutAmDateTime,
+			InPmDateTime = :InPmDateTime,
+			OutPmDateTime = :OutPmDateTime
+			WHERE Id = :Id ");
 			return $query;
 			
 		}	
@@ -68,26 +79,30 @@ class EventDetailsRepository{
 			$POST->OutAm = !isset($POST->OutAm) ? 0 : $POST->OutAm;
 			$POST->InPm = !isset($POST->InPm) ? 0 : $POST->InPm;
 			$POST->OutPm = !isset($POST->OutPm) ? 0 : $POST->OutPm;
+			$POST->InAmDateTime = !isset($POST->InAmDateTime) ? 0 : $POST->InAmDateTime;
+			$POST->OutAmDateTime = !isset($POST->OutAmDateTime) ? 0 : $POST->OutAmDateTime;
+			$POST->InPmDateTime = !isset($POST->InPmDateTime) ? 0 : $POST->InPmDateTime;
+			$POST->OutPmDateTime = !isset($POST->OutPmDateTime) ? 0 : $POST->OutPmDateTime;
 			return $POST;
 		}
 		function Save($POST){
 			global $conn;
-
-
 			if($POST->Id == 0){
 				$query = $this->Create();
 			}else{
 				$query = $this->Update();
 				$query->bindParam(':Id', $POST->Id);
 			}
-			
-			
 			$query->bindParam(':MemberId',$POST->MemberId );
 			$query->bindParam(':EventId',$POST->EventId );
 			$query->bindParam(':InAm',$POST->InAm);
 			$query->bindParam(':OutAm',$POST->OutAm);
 			$query->bindParam(':InPm',$POST->InPm);
 			$query->bindParam(':OutPm',$POST->OutPm);
+			$query->bindParam(':InAmDateTime',$POST->InAmDateTime);
+			$query->bindParam(':OutAmDateTime',$POST->OutAmDateTime);
+			$query->bindParam(':InPmDateTime',$POST->InPmDateTime);
+			$query->bindParam(':OutPmDateTime',$POST->OutPmDateTime);
 
 			$query->execute();	
 
