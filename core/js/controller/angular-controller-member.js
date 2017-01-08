@@ -3,6 +3,7 @@ app.controller('AppMemberController', function ($scope, $http, $q, $filter, svcM
 	$scope.pageNo = 1;
 	$scope.pageSize = 10;
 	$scope.type = $stateParams.type;
+	$scope.SearchBy = 'Name';
 	if($scope.searchText == undefined){ $scope.searchText = '';} 
 	
 	// Course / year / section filter

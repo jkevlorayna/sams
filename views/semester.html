@@ -2,7 +2,7 @@
 						<div class="header">							
 											<h3>Semester List</h3>
 						</div>
-<div class="row"  ng-if="checkRole('Semester','AllowView')">
+<div class="row"  ng-show="checkRole('Semester','AllowView')">
 	<div class="col-md-3">
 		<form method="POST" ng-submit="save()">
 				<div class="form-group">

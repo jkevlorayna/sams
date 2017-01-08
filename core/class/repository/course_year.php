@@ -24,7 +24,7 @@ class CourseYearRepository{
 			$count = $searchText != '' ?  $query->rowcount() : $conn->query("SELECT * FROM  tbl_course_year WHERE CourseId = '$CourseId' ")->rowcount();
 
 			$data = array();
-			$data['Results'] = $query->fetchAll(PDO::FETCH_ASSOC);
+			$data['Results'] = $query->fetchAll(PDO::FETCH_OBJ);
 			$data['Count'] = $count;
 			return $data;	
 		}

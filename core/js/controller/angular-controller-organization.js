@@ -32,7 +32,7 @@ app.controller('AppOrganizationController', function ($scope, $http, $q, $locati
 	$scope.openDeleteModal = function (size,id) {
 			var modal = $uibModal.open({
 			templateUrl: 'views/deletemodal/deleteModal.html',
-			controller: 'AppCourseModalController',
+			controller: 'AppOrganizationModalController',
 			size: size,
 			resolve: {
 				dataId: function () {

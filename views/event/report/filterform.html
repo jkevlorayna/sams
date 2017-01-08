@@ -1,0 +1,34 @@
+
+        <div class="modal-body">
+	<form method="POST" class="form-horizontal" name="YearForm" ng-submit="save()">
+					<div class="form-group">
+					<label class="control-label col-md-4">Course</label>
+					<div class="col-md-8">
+						<select type="text" ng-model="formData.CourseId" ng-change="loadCourseYear(formData.CourseId)"  ng-options="row.Id as row.course for row in courseList" class="form-control" required>
+
+						</select>
+					</div>
+				</div>
+<!-- 				<div class="form-group">
+					<label class="control-label col-md-4">Year</label>
+					<div class="col-md-8">
+						<select type="text" ng-model="formData.CourseYearId" ng-change="loadSection(formData.CourseYearId)"  ng-options="row.Id as row.year for row in yearList" class="form-control" required>
+
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-4">Section</label>
+					<div class="col-md-8">
+						<select type="text" ng-model="formData.SectionId"  ng-options="row.Id as row.section for row in sectionList" class="form-control" required>
+
+						</select>
+					</div>
+				</div> -->
+			</form>
+        </div>
+        <div class="modal-footer text-center">
+            <button class="btn btn-danger" type="button" ng-click="ViewReport()"><i class="fa fa-trash-o"></i> Yes</button>
+            <button class="btn btn-default" type="button" ng-click="close()"><i class="fa fa-times"></i> Cancel</button>
+        </div>			
+

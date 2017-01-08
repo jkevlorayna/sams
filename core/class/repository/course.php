@@ -18,7 +18,7 @@ class CourseRepository{
 					$count = $searchText != '' ?   $query->rowcount() : $conn->query("SELECT * FROM  tbl_course")->rowcount();
 			
 			$data = array();
-			$data['Results'] = $query->fetchAll(PDO::FETCH_ASSOC);
+			$data['Results'] = $query->fetchAll(PDO::FETCH_OBJ);
 			$data['Count'] = $count;
 			return $data;	
 		}

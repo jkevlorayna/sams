@@ -203,8 +203,57 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 			});
 	};
 
+	$scope.openFilterModal = function (size,EventId,Report) {
+			var modal = $uibModal.open({
+			templateUrl: 'views/event/report/filterform.html',
+			controller: 'AppEventDetailsFilterModalController',
+			size: size,
+			resolve: {
+				EventId:function(){
+					return EventId;
+				},Report:function(){
+					return Report;
+				}
+			}
+			});
+			modal.result.then(function () { }, function () { 
+				$scope.load();
+			});
+	};
 
 	
+});	
+app.controller('AppEventDetailsFilterModalController', function ($state,EventId,$rootScope,$location,$scope,growl,$uibModalInstance,svcCourse,svcCourseYear,svcSection) {
+	// Course / year / section filter
+	$scope.formData = {};
+	$scope.CourseId = null;	
+	$scope.CourseYearId = null;	
+	$scope.SectionId = null;
+	$scope.loadCourse = function(){
+		svcCourse.list('',0,0).then(function(r){
+			$scope.courseList = r.Results;
+		})
+	}
+	$scope.loadCourse();
+	
+	$scope.loadCourseYear = function(CourseId){
+		svcCourseYear.list(CourseId,'',0,0).then(function(r){
+			$scope.yearList = r.Results;
+		})
+	}
+	
+	$scope.loadSection = function(YearId){
+		svcSection.list(YearId,'',0,0).then(function(r){
+			$scope.sectionList = YearId != null ?  r.Results : null;
+		})
+	}
+	
+	$scope.ViewReport = function(){
+		  $state.go('eventReportCourseYear', {Id: EventId,CourseId:$scope.formData.CourseId});
+		  	$uibModalInstance.dismiss();
+	}
+
+	// end Course / year / section filter
 });	
 app.controller('AppEventDetailsModalController', function ($rootScope,$scope, $http, $q, $location, $filter, svcEventDetails,growl,$uibModal,dataId,$uibModalInstance) {
 	$scope.id = dataId;
@@ -271,3 +320,26 @@ $scope.Message = null;
     }
 	
 });
+
+
+app.controller('AppEventDetailsReportCourseController', function ($rootScope,$scope, $http, $q, $location, svcEventDetailsReport,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection) {
+	$scope.Id = $stateParams.Id;
+	
+	svcEventDetailsReport.ReportByCourse($scope.Id,null,null,null).then(function(r){
+		$scope.reportlist = r.Results;
+	})
+	
+});	
+app.controller('AppEventDetailsReportCourseYearController', function ($rootScope,$scope, $http, $q, $location, svcEventDetailsReport,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection) {
+	$scope.Id = $stateParams.Id;
+	$scope.CourseId = $stateParams.CourseId;
+	$q.all([svcCourse.getById($scope.CourseId)]).then(function(r){
+		$scope.Course = r[0];
+		svcEventDetailsReport.ReportByCourse($scope.Id,$scope.CourseId,null,null).then(function(r){
+			$scope.reportlist = r.Results;
+		})
+	})
+	
+
+	
+});	

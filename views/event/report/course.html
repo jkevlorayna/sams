@@ -1,0 +1,36 @@
+
+<div class="block-flat">
+						<div class="header">		
+<div class="pull-right"><a href="#/event/details/{{Id}}" class="btn btn-arrow-left"><i class="fa fa-arrow-left"></i> Back</a></div>												
+											<h3>Attendance Number Count per Course</h3>
+						</div>
+<div class="row" >
+	<div class="col-md-12">
+
+				<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Course</th>
+						<th class="text-center">In AM</th>
+						<th class="text-center">Out AM</th>
+						<th class="text-center">In PM</th>
+						<th class="text-center">Out PM</th>
+					</tr>
+				</thead>
+				<tbody>
+						<tr ng-repeat="row in reportlist">
+							<td>{{row.course}}  <strong>({{row.code}})</strong> </td>
+							<td class="text-center">{{row.TotalInAm}}</td>	
+							<td class="text-center">{{row.TotalOutAm}}</td>	
+							<td class="text-center">{{row.TotalInPm}}</td>	
+							<td class="text-center">{{row.TotalOutPm}}</td>	
+						</tr>
+				</tbody>
+			</table>
+			
+			</div>
+		
+			 
+	</div>
+</div>
+</div>
