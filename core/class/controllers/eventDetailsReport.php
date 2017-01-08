@@ -24,10 +24,10 @@ $slim_app->get('/event-report/:EventId/:CourseId/:CourseYearId/:SectionId',funct
 		}
 
 		 if($data != null){
-			 $row->TotalInAm  = $data->TotalInAm == null ? 0 : $data->TotalInAm;
-			 $row->TotalOutAm = $data->TotalOutAm == null ? 0 : $data->TotalOutAm;
-			 $row->TotalInPm = $data->TotalInPm == null ? 0 : $data->TotalInPm;
-			 $row->TotalOutPm = $data->TotalOutPm == null ? 0 : $data->TotalOutPm;
+			 $row->TotalInAm  = $data->TotalInAm == null ? (int) 0 : (int) $data->TotalInAm;
+			 $row->TotalOutAm = $data->TotalOutAm == null ? (int) 0 : (int) $data->TotalOutAm;
+			 $row->TotalInPm = $data->TotalInPm == null ?  (int) 0 : (int) $data->TotalInPm;
+			 $row->TotalOutPm = $data->TotalOutPm == null ? (int) 0 : (int) $data->TotalOutPm;
 		 }
 	}
 	echo json_encode($result);

@@ -1,12 +1,21 @@
 
 <div class="block-flat">
 						<div class="header">		
-<div class="pull-right"><a href="#/event/details/{{Id}}" class="btn btn-arrow-left"><i class="fa fa-arrow-left"></i> Back</a></div>												
+<div class="pull-right">
+<button type="button" class="btn btn-info" ng-click="printDiv('print')" ><i class="fa fa-print"></i> Print</button>
+<a href="#/event/details/{{Id}}" class="btn btn-arrow-left"><i class="fa fa-arrow-left"></i> Back</a>
+
+</div>												
 											<h3>Attendance Number Count per Course</h3>
 						</div>
 <div class="row" >
 	<div class="col-md-12">
-
+	<h4>Event : {{formData.Name}} </h4>
+				<div id="print">	
+				<div class="text-center visible-print-block reportHeader">
+				<h2>Attendance Number Count per Course</h2>
+				<h3>Event : {{formData.Name}}</h3>
+				</div>
 				<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -25,9 +34,16 @@
 							<td class="text-center">{{row.TotalInPm}}</td>	
 							<td class="text-center">{{row.TotalOutPm}}</td>	
 						</tr>
+						<tr>
+							<td class="text-right">Total</td>
+							<td class="text-center">{{TotalInAmTotal}}</td>	
+							<td class="text-center">{{TotalOutAmTotal}}</td>	
+							<td class="text-center">{{TotalInPmTotal}}</td>	
+							<td class="text-center">{{TotalOutPmTotal}}</td>	
+						</tr>
 				</tbody>
 			</table>
-			
+				</div>
 			</div>
 		
 			 

@@ -5,7 +5,7 @@ class EventDetailsReportRepository{
 			$where = "";
 			$where .= "AND tbl_event_details.EventId = '$EventId'";
 			
-			if($CourseId == 'null' && $CourseYearId == 'null' && $SectionId == 'null'){
+			if($CourseId != 'null' && $CourseYearId == 'null' && $SectionId == 'null'){
 				$where .= "AND tbl_member.CourseId = '$CourseId'";
 			}
 			if($CourseId != 'null' && $CourseYearId != 'null' && $SectionId == 'null'){

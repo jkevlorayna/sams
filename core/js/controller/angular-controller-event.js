@@ -324,22 +324,68 @@ $scope.Message = null;
 
 app.controller('AppEventDetailsReportCourseController', function ($rootScope,$scope, $http, $q, $location, svcEventDetailsReport,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection) {
 	$scope.Id = $stateParams.Id;
+	svcEvent.getById($scope.Id).then(function(r){
+		$scope.formData = r;
+	})
+	$scope.TotalInAmTotal = 0;
+	$scope.TotalOutAmTotal = 0;
+	$scope.TotalInPmTotal = 0;
+	$scope.TotalOutPmTotal = 0;
 	
 	svcEventDetailsReport.ReportByCourse($scope.Id,null,null,null).then(function(r){
 		$scope.reportlist = r.Results;
+		angular.forEach($scope.reportlist,function(row){
+			$scope.TotalInAmTotal += row.TotalInAm;
+			$scope.TotalOutAmTotal += row.TotalOutAm;
+			$scope.TotalInPmTotal += row.TotalInPm;
+			$scope.TotalOutPmTotal += row.TotalOutPm;
+		})
 	})
+	
+	$scope.printDiv = function(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var popupWin = window.open('', '_blank', 'width=700,height=700');
+		popupWin.document.open();
+		popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="core/css/print.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+		popupWin.document.close();
+	} 
 	
 });	
 app.controller('AppEventDetailsReportCourseYearController', function ($rootScope,$scope, $http, $q, $location, svcEventDetailsReport,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection) {
 	$scope.Id = $stateParams.Id;
 	$scope.CourseId = $stateParams.CourseId;
+	
+	svcEvent.getById($scope.Id).then(function(r){
+		$scope.formData = r;
+	})
+	
 	$q.all([svcCourse.getById($scope.CourseId)]).then(function(r){
 		$scope.Course = r[0];
+		
+			$scope.TotalInAmTotal = 0;
+			$scope.TotalOutAmTotal = 0;
+			$scope.TotalInPmTotal = 0;
+			$scope.TotalOutPmTotal = 0;
+	
 		svcEventDetailsReport.ReportByCourse($scope.Id,$scope.CourseId,null,null).then(function(r){
 			$scope.reportlist = r.Results;
+			
+			angular.forEach($scope.reportlist,function(row){
+				$scope.TotalInAmTotal += row.TotalInAm;
+				$scope.TotalOutAmTotal += row.TotalOutAm;
+				$scope.TotalInPmTotal += row.TotalInPm;
+				$scope.TotalOutPmTotal += row.TotalOutPm;
+			})
+			
 		})
 	})
 	
-
+	$scope.printDiv = function(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var popupWin = window.open('', '_blank', 'width=700,height=700');
+		popupWin.document.open();
+		popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="core/css/print.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+		popupWin.document.close();
+	} 
 	
 });	
