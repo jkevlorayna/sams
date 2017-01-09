@@ -27,17 +27,17 @@
 						</div>
 					</form>
 					
-				<table class="table table-bordered table-condensed">
+				<table class="table table-bordered table-condensed" ts-wrapper>
 				<thead>
 					<tr>
-						<th>Year From</th>
-						<th>Year To</th>
+						<th ts-criteria="YearFrom" ts-default>Year From</th>
+						<th ts-criteria="YearTo">Year To</th>
 						<th>Current</th>
 						<th width="20%"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="row in list">
+					<tr ng-repeat="row in list" ts-repeat>
 						<td>{{row.YearFrom}}</td>
 						<td>{{row.YearTo}}</td>
 						<td class="text-center">

@@ -1,11 +1,11 @@
 app.factory('svcEvent', function ($rootScope, $http, $q) {
     $this = {
 
-        list: function (searchText,pageNo,pageSize,Semester,SchoolYear) {
+        list: function (searchText,pageNo,pageSize,Semester,SchoolYear,Status) {
             var deferred = $q.defer();
             $http({
                 method: 'GET',
-                url: BasePath+'/class/event?searchText='+searchText+'&pageNo='+pageNo+'&pageSize='+pageSize+'&Semester='+Semester+'&SchoolYear='+SchoolYear
+                url: BasePath+'/class/event?searchText='+searchText+'&pageNo='+pageNo+'&pageSize='+pageSize+'&Semester='+Semester+'&SchoolYear='+SchoolYear+'&Status='+Status
             }).success(function (data, status) {
                 deferred.resolve(data);
             }).error(function (data, status) {

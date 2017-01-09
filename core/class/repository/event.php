@@ -16,7 +16,7 @@ class EventRepository{
 			$query = $conn->prepare("DELETE FROM  tbl_events  WHERE Id = '$id'");
 			$query->execute();	
 		}
-		 function DataList($searchText,$pageNo,$pageSize,$Semester,$SchoolYear){
+		 function DataList($searchText,$pageNo,$pageSize,$Semester,$SchoolYear,$Status){
 			global $conn;
 					$pageNo = ($pageNo - 1) * $pageSize; 
 				
@@ -24,8 +24,16 @@ class EventRepository{
 					if($searchText != ''){
 						$where .= "And (Name LIKE '%$searchText%' OR Place LIKE '%$searchText%' OR Status = '$searchText')";
 					}
+					if($Semester != ''){
 						$where .= "And Semester = '$Semester'";
+					}
+					if($SchoolYear != ''){
 						$where .= "And SchoolYearId = '$SchoolYear'";
+					}
+					if($Status != ''){
+						$where .= "And Status = '$Semester'";
+					}					
+							
 					
 					$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;					
 					$query = $conn->query("SELECT * FROM  tbl_events WHERE 1 = 1 $where ORDER BY DateCreated DESC $limitCondition ");

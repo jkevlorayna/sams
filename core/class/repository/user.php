@@ -12,13 +12,20 @@ class UserRepository{
 		}
 		 public function DataList($searchText,$pageNo,$pageSize){
 			global $conn;
-
+			$where = "";
+			if($searchText != ''){
+				$where .= "And (name LIKE '%$searchText%' 
+				OR username LIKE '%$searchText%'
+				OR tbl_user_type.user_type LIKE '%$searchText%' OR status = '$searchText')"; 
+					
+			}
+			$where .= "AND UserTypeId != 0 ";
 			$pageNo = ($pageNo - 1) * $pageSize; 
 			$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;
 			
 			$query = $conn->query("SELECT * FROM  tbl_user 
 			LEFT JOIN tbl_user_type ON tbl_user.UserTypeId =  tbl_user_type.Id
-			WHERE name LIKE '%$searchText%' AND UserTypeId != 0 LIMIT $pageNo,$pageSize  ");
+			WHERE 1 = 1 $where LIMIT $pageNo,$pageSize  ");
 			$count = $searchText != '' ? $query->rowcount() : $conn->query("SELECT * FROM  tbl_user")->rowcount() ;
 			
 			$data = array();

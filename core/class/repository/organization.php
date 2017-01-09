@@ -12,9 +12,15 @@ class OrganizationRepository{
 		}
 		 function DataList($searchText,$pageNo,$pageSize){
 			global $conn;
+			
+			$where = "";
+			if($searchText != ''){
+				$where .= "AND Name LIKE '%$searchText%' OR Code LIKE '%$searchText%'";
+			}
+			
 					$pageNo = ($pageNo - 1) * $pageSize; 
 					$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;					
-					$query = $conn->query("SELECT * FROM  tbl_organization WHERE Name LIKE '%$searchText%' $limitCondition");
+					$query = $conn->query("SELECT * FROM  tbl_organization WHERE 1 = 1 $where $limitCondition");
 					$count = $searchText != '' ?   $query->rowcount() : $conn->query("SELECT * FROM  tbl_organization")->rowcount();
 			
 			$data = array();

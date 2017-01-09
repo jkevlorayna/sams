@@ -14,10 +14,10 @@
 					<label for="exampleInputPassword1">Course</label>
 					<input type="text" ng-model="formData.course"  class="form-control" required>
 				</div>
-				<div class="form-group">
+<!-- 				<div class="form-group">
 					<label for="exampleInputPassword1">Description</label>
 					<input type="text" ng-model="formData.description"  class="form-control" >
-				</div>
+				</div> -->
 				<button ng-disabled="!checkRole('Course','AllowAdd')" type="submit"  class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
 		</form>
 	</div>
@@ -37,7 +37,7 @@
 					<tr>
 						<th ts-criteria="code" ts-default>Code</th>
 						<th ts-criteria="course">Course</th>
-						<th ts-criteria="description">Description</th>
+<!-- 						<th ts-criteria="description">Description</th> -->
 						<th width="30%"></th>
 					</tr>
 				</thead>
@@ -45,7 +45,7 @@
 					<tr ng-repeat="row in list" ts-repeat>
 						<td>{{row.code}}</td>
 						<td>{{row.course}}</td>
-						<td>{{row.description}}</td>
+						<!-- <td>{{row.description}}</td> -->
 						<td>
 							<a class="btn btn-info btn-sm" href="#/course/{{row.Id}}/year"> Course Year </a> 
 							<button ng-if="checkRole('Course','AllowEdit')" class="btn btn-success btn-sm" ng-click="getById(row.Id)"> <i class="fa fa-edit"></i> </button> 

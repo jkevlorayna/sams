@@ -12,9 +12,13 @@ class CourseRepository{
 		}
 		 function DataList($searchText,$pageNo,$pageSize){
 			global $conn;
+			$where = "";
+			$where .= "And course LIKE '%$searchText%' OR code LIKE '%$searchText%'";
+			
+			
 					$pageNo = ($pageNo - 1) * $pageSize; 
 					$limitCondition = $pageNo == 0 && $pageSize == 0 ? '' : 'LIMIT '.$pageNo.','.$pageSize;					
-					$query = $conn->query("SELECT * FROM  tbl_course WHERE course LIKE '%$searchText%' $limitCondition");
+					$query = $conn->query("SELECT * FROM  tbl_course WHERE 1 = 1 $where $limitCondition");
 					$count = $searchText != '' ?   $query->rowcount() : $conn->query("SELECT * FROM  tbl_course")->rowcount();
 			
 			$data = array();

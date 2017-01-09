@@ -16,7 +16,7 @@
 
 		
 			$scope.load = function () {
-				svcEvent.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Semester,$scope.SchoolYear).then(function (r) {
+				svcEvent.list($scope.searchText,$scope.pageNo,$scope.pageSize,$scope.Semester,$scope.SchoolYear,'').then(function (r) {
 					$scope.list = r.Results;
 					$scope.count = r.Count;
 				})

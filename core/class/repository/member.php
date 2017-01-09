@@ -47,9 +47,10 @@ class MemberRepository{
 			$where = "";
 			$whereCount = "";
 			if($searchText != ''){
-				$where .= "And (firstname  LIKE '%$searchText%')";
-				$where .= "OR (Major  LIKE '%$searchText%')";
-				$where .= "OR (Organization  LIKE '%$searchText%')";
+				$where .= "And (firstname  LIKE '%$searchText%'";
+				$where .= "OR Major  LIKE '%$searchText%'";
+				$where .= "OR Organization  LIKE '%$searchText%'";
+				$where .= "OR gender  = '$searchText')";
 			}
 
 				$where .= "AND MemberTypeId = '$type'";

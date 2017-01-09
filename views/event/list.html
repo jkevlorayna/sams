@@ -31,22 +31,21 @@
 						</div>
 					</form>
 					
-				<table class="table table-bordered table-condensed">
+				<table class="table table-bordered table-condensed" ts-wrapper>
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Place</th>
-						<th>Status</th>
-						<th>Event Date</th>
-						<!-- <th>Date Created</th> -->
-						<th>Current Time In / <br> Time Out Type</th>
+						<th ts-criteria="Name" ts-default>Name</th>
+						<th ts-criteria="Place">Place</th>
+						<th ts-criteria="Status">Status</th>
+						<th ts-criteria="EventDate">Event Date</th>
+						<th ts-criteria="TimeType">Current Time In / <br> Time Out Type</th>
 						<th></th>
 						<th></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="row in list">
+					<tr ng-repeat="row in list" ts-repeat>
 						<td>{{row.Name}}</td>
 						<td>{{row.Place}}</td>
 						<td>

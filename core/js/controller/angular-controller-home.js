@@ -1,5 +1,5 @@
 ﻿
-app.controller('AppHomeController', function ($scope, $http, $q, $filter, svcMember,svcMemberType,growl,$uibModal,$stateParams,svcSemester,svcSchoolYear) {
+app.controller('AppHomeController', function ($scope, $http, $q, $filter, svcMember,svcMemberType,growl,$uibModal,$stateParams,svcSemester,svcSchoolYear,svcEvent) {
 		$scope.pageNo = 1;
 		$scope.pageSize = 10;
 
@@ -32,6 +32,18 @@ app.controller('AppHomeController', function ($scope, $http, $q, $filter, svcMem
 				})
 			}
 			$scope.loadMemberType();
+			
+			
+			$scope.load = function () {
+				svcEvent.list($scope.searchText,$scope.pageNo,$scope.pageSize,'','','').then(function (r) {
+					$scope.EventList = r.Results;
+					$scope.ActiveEvent = $filter('filter')($scope.EventList,{Status:'Active'},true).length;
+					$scope.InActiveEvent = $filter('filter')($scope.EventList,{Status:'InActive'},true).length;
+					
+					console.log($scope.ActiveEvent);
+				})
+			}
+			$scope.load();
 	
 	})
 		
