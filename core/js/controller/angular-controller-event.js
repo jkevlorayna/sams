@@ -252,7 +252,9 @@ app.controller('AppEventDetailsFilterModalController', function ($state,EventId,
 		  $state.go('eventReportCourseYear', {Id: EventId,CourseId:$scope.formData.CourseId});
 		  	$uibModalInstance.dismiss();
 	}
-
+	$scope.close = function(){
+		$uibModalInstance.dismiss();
+	}
 	// end Course / year / section filter
 });	
 app.controller('AppEventDetailsModalController', function ($rootScope,$scope, $http, $q, $location, $filter, svcEventDetails,growl,$uibModal,dataId,$uibModalInstance) {
