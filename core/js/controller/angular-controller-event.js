@@ -268,9 +268,8 @@ app.controller('AppEventDetailsModalController', function ($rootScope,$scope, $h
     }
 });	
 
-app.controller('AppEventFormController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,$timeout) {
+app.controller('AppEventFormController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,$timeout,$interval) {
 $scope.Id = $stateParams.Id;
-
 $rootScope.Sidebar = false;
 $rootScope.Navigation = false;
 $scope.Message = null;
@@ -281,8 +280,13 @@ $scope.Message = null;
 		})
 	}
 	$scope.getById();
-
-
+	
+   $scope.tick = function() {
+    $scope.clock = Date.now();
+  }
+  $scope.tick();
+  $interval($scope.tick, 1000);
+  
 
 	$scope.save = function () {
 		$scope.formData.EventId = $scope.Id;

@@ -9,7 +9,8 @@
 		
 						<div class="header text-center">							
 											<h1>{{formData.Name}}</h1>
-											<h4>{{formData.TimeType}}</h1>
+											<h4>{{formData.TimeType}}</h4>
+											<p>{{ clock  | date:'medium'}}</p>
 						</div>
 						<div class="row" ng-show="Message != null">
 							<div class="col-md-3">
