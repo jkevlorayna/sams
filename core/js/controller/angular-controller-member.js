@@ -354,6 +354,8 @@ app.controller('AppStudentSignUpController', function ($scope, $http, $q, $filte
 		svcMember.signUp($scope.formData).then(function (r) {     
 			if(r == 'exist'){
 				growl.error('Id Number Already Exist');
+			}else if(r == 'exist barcode'){
+				growl.error('Barcode Already Exist');
 			}else{
 				growl.success('Data Successfully Saved');
 				svcMember.Upload($scope.fileData,r.Id).then(function(r){

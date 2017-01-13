@@ -44,6 +44,8 @@ $slim_app->post('/signup',function(){
 		if($p->Id == 0){
 			if(is_object($MemberRepo->GetByIdNumber($p->IdNumber))){
 				echo 'exist';	
+			}else if(is_object($MemberRepo->GetByBarcode($p->Barcode))){
+				echo 'exist barcode';
 			}else{
 				echo json_encode($MemberRepo->SignUp($p));				
 			}

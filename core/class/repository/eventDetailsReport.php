@@ -12,6 +12,11 @@ class EventDetailsReportRepository{
 				$where .= "AND tbl_member.CourseId = '$CourseId'";
 				$where .= "AND tbl_member.CourseYearId = '$CourseYearId'";
 			}
+			if($CourseId != 'null' && $CourseYearId != 'null' && $SectionId != 'null'){
+				$where .= "AND tbl_member.CourseId = '$CourseId'";
+				$where .= "AND tbl_member.CourseYearId = '$CourseYearId'";
+				$where .= "AND tbl_member.SectionId = '$SectionId'";
+			}
 			
 			$query = $conn->query("SELECT
 			SUM(InAm) as TotalInAm , 

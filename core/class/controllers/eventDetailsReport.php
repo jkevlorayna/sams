@@ -11,6 +11,9 @@ $slim_app->get('/event-report/:EventId/:CourseId/:CourseYearId/:SectionId',funct
 	if($CourseId != 'null' && $CourseYearId == 'null' && $SectionId == 'null'){
 		$result = $CourseYearRepo->DataList($CourseId,'',0,0);
 	}
+	if($CourseId != 'null' && $CourseYearId != 'null' && $SectionId == 'null'){
+		$result = $SectionRepo->DataList($CourseYearId,'',0,0);
+	}
 
 	foreach($result['Results'] as $row){
 
@@ -21,6 +24,10 @@ $slim_app->get('/event-report/:EventId/:CourseId/:CourseYearId/:SectionId',funct
 		if($CourseId != 'null' && $CourseYearId == 'null' && $SectionId == 'null'){
 			$row->Name = $row->year;
 			$data = $EventDetailsReportRepo->ReportByCourse($EventId,$CourseId,$row->Id,$SectionId);
+		}
+		if($CourseId != 'null' && $CourseYearId != 'null' && $SectionId == 'null'){
+			$row->Name = $row->section;
+			$data = $EventDetailsReportRepo->ReportByCourse($EventId,$CourseId,$CourseYearId,$row->Id);
 		}
 
 		 if($data != null){
