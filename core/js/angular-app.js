@@ -190,6 +190,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "views/event/report/course-year-section.html",
             controller: "AppEventDetailsReportCourseYearSectionController",
         })
+		.state('eventReportOrganization',
+        {
+            url: '/event/details/:Id/report/organization/:Organization',
+            templateUrl: "views/event/report/organization.html",
+            controller: "AppEventDetailsReportOrganizationController",
+        })
 		.state('event.form',
         {
             url: 'form/:Id',

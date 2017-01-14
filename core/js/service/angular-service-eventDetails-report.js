@@ -11,6 +11,18 @@ app.factory('svcEventDetailsReport', function ($rootScope, $http, $q) {
                 deferred.reject(data);
             });
             return deferred.promise;
+        },
+		ReportByOrganization: function (EventId,Organization) {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: BasePath+'/class/event-report-organization/'+EventId+'/'+Organization
+            }).success(function (data, status) {
+                deferred.resolve(data);
+            }).error(function (data, status) {
+                deferred.reject(data);
+            });
+            return deferred.promise;
         }
     };
     return $this;

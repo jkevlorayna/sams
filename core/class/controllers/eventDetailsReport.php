@@ -39,4 +39,26 @@ $slim_app->get('/event-report/:EventId/:CourseId/:CourseYearId/:SectionId',funct
 	}
 	echo json_encode($result);
 });
+
+$slim_app->get('/event-report-organization/:EventId/:Organization',function($EventId,$Organization){
+	$EventDetailsReportRepo = new EventDetailsReportRepository();
+	$OrganizationRepo = new OrganizationRepository();
+
+	$result = $OrganizationRepo->DataList('',0,0);
+
+	foreach($result['Results'] as $row){
+
+		$row->Name = $row->Code;
+		$data = $EventDetailsReportRepo->ReportByOrganization($EventId,$row->Code);
+
+
+		 if($data != null){
+			 $row->TotalInAm  = $data->TotalInAm == null ? (int) 0 : (int) $data->TotalInAm;
+			 $row->TotalOutAm = $data->TotalOutAm == null ? (int) 0 : (int) $data->TotalOutAm;
+			 $row->TotalInPm = $data->TotalInPm == null ?  (int) 0 : (int) $data->TotalInPm;
+			 $row->TotalOutPm = $data->TotalOutPm == null ? (int) 0 : (int) $data->TotalOutPm;
+		 }
+	}
+	echo json_encode($result);
+});
 ?>

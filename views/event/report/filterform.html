@@ -1,7 +1,7 @@
 
         <div class="modal-body">
 	<form method="POST" class="form-horizontal" name="YearForm" ng-submit="save()">
-					<div class="form-group">
+					<div class="form-group" ng-show="Report=='CY' || Report=='CYS'">
 					<label class="control-label col-md-4">Course</label>
 					<div class="col-md-8">
 						<select type="text" ng-model="formData.CourseId" ng-change="loadCourseYear(formData.CourseId)"  ng-options="row.Id as row.course for row in courseList" class="form-control" required>
@@ -17,6 +17,16 @@
 						</select>
 					</div>
 				</div>
+				
+				<div class="form-group" ng-show="Report=='Organization'">
+					<label class="control-label col-md-4">Organization</label>
+					<div class="col-md-8">
+						<select type="text" ng-model="formData.Organization"  ng-options="row.Code as row.Name for row in OrganizationList" class="form-control" required>
+
+						</select>
+					</div>
+				</div>
+				
 <!-- 				<div class="form-group">
 					<label class="control-label col-md-4">Section</label>
 					<div class="col-md-8">

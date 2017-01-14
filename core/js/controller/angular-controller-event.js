@@ -121,7 +121,7 @@ app.controller('AppEventModalController', function ($rootScope,$scope, $http, $q
     }
 });	
 
-app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection) {
+app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, $q, $location, svcEvent,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection,svcOrganization) {
 	$scope.Id = $stateParams.Id;
 	
 	$scope.pageNo = 1;
@@ -187,6 +187,8 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 		$scope.load();
 	}
 	
+
+	
 	$scope.openDeleteModal = function (size,id) {
 			var modal = $uibModal.open({
 			templateUrl: 'views/deletemodal/deleteModal.html',
@@ -223,7 +225,7 @@ app.controller('AppEventDetailsController', function ($rootScope,$scope, $http, 
 
 	
 });	
-app.controller('AppEventDetailsFilterModalController', function ($state,EventId,$rootScope,$location,$scope,growl,$uibModalInstance,svcCourse,svcCourseYear,svcSection,Report) {
+app.controller('AppEventDetailsFilterModalController', function ($state,EventId,$rootScope,$location,$scope,growl,$uibModalInstance,svcCourse,svcCourseYear,svcSection,Report,svcOrganization) {
 	// Course / year / section filter
 	$scope.formData = {};
 	$scope.CourseId = null;	
@@ -249,6 +251,13 @@ app.controller('AppEventDetailsFilterModalController', function ($state,EventId,
 		})
 	}
 	
+	$scope.LoadOrganization = function(){
+		svcOrganization.list('',0,0).then(function(r){
+			$scope.OrganizationList = r.Results;
+		})
+	}
+	$scope.LoadOrganization();
+	
 	$scope.ViewReport = function(){
 		if($scope.Report == 'CY'){
 			$state.go('eventReportCourseYear', {Id: EventId,CourseId:$scope.formData.CourseId});
@@ -256,7 +265,9 @@ app.controller('AppEventDetailsFilterModalController', function ($state,EventId,
 		if($scope.Report == 'CYS'){
 			$state.go('eventReportCourseYearSection',{Id: EventId,CourseId:$scope.formData.CourseId,CourseYearId:$scope.formData.CourseYearId});
 		}
-		  
+		if($scope.Report == 'Organization'){
+			$state.go('eventReportOrganization',{Id: EventId,Organization:$scope.formData.Organization});
+		}
 		  
 		  
 		  
@@ -449,3 +460,44 @@ app.controller('AppEventDetailsReportCourseYearSectionController', function ($ro
 	} 
 	
 });	
+
+app.controller('AppEventDetailsReportOrganizationController', function ($rootScope,$scope, $http, $q, $location, svcEventDetailsReport,growl,$uibModal,$stateParams,svcEventDetails,svcEvent,svcCourse,svcCourseYear,svcSection) {
+	$scope.Id = $stateParams.Id;
+	$scope.Organization = $stateParams.Organization;
+
+		
+	svcEvent.getById($scope.Id).then(function(r){
+		$scope.formData = r;
+	})
+	
+
+	$scope.TotalInAmTotal = 0;
+	$scope.TotalOutAmTotal = 0;
+	$scope.TotalInPmTotal = 0;
+	$scope.TotalOutPmTotal = 0;
+	
+	svcEventDetailsReport.ReportByOrganization($scope.Id,$scope.Organization).then(function(r){
+		$scope.reportlist = r.Results;
+		
+		angular.forEach($scope.reportlist,function(row){
+			$scope.TotalInAmTotal += row.TotalInAm;
+			$scope.TotalOutAmTotal += row.TotalOutAm;
+			$scope.TotalInPmTotal += row.TotalInPm;
+			$scope.TotalOutPmTotal += row.TotalOutPm;
+		})
+		
+	})
+
+	
+	$scope.printDiv = function(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var popupWin = window.open('', '_blank', 'width=700,height=700');
+		popupWin.document.open();
+		popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="core/css/print.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+		popupWin.document.close();
+	} 
+	
+});	
+
+
+
