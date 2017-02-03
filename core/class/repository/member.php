@@ -7,6 +7,25 @@ class MemberRepository{
 			WHERE tbl_member.Id = '$id'");
 			return $query->fetch(PDO::FETCH_OBJ);	
 		}
+		public function CountMember($CourseId,$CourseYearId,$SectionId,$Organization){
+			global $conn;
+			$where = "";
+			if($CourseId != ''){
+				$where .= "AND CourseId = '$CourseId'";
+			}
+			if($CourseYearId != ''){
+				$where .= "And CourseYearId = '$CourseYearId'";
+			}
+			if($SectionId != ''){
+				$where .= "And SectionId = '$SectionId'";
+			}
+			if($Organization != ''){
+				$where .= "And Organization = '$Organization'";
+			}
+			$where .= "And MemberTypeId = 1";
+			$query = $conn->query("SELECT * FROM tbl_member WHERE 1 = 1 $where ");
+			return $query->rowcount();	
+		}
 		public function GetAttendance($id,$Semester,$SchoolYear){
 			global $conn;
 			$where = "";

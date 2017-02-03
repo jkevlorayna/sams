@@ -18,27 +18,44 @@
 				<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>Sections</th>
-						<th class="text-center">In AM</th>
-						<th class="text-center">Out AM</th>
-						<th class="text-center">In PM</th>
-						<th class="text-center">Out PM</th>
+						<th rowspan="2">Organization</th>
+						<th class="text-center" colspan="2">In AM</th>
+						<th class="text-center" colspan="2">Out AM</th>
+						<th class="text-center" colspan="2">In PM</th>
+						<th class="text-center" colspan="2">Out PM</th>
+					</tr>
+					<tr>
+						<th>Present</th><th>Absent</th>
+						<th>Present</th><th>Absent</th>
+						<th>Present</th><th>Absent</th>
+						<th>Present</th><th>Absent</th>
 					</tr>
 				</thead>
 				<tbody>
 						<tr ng-repeat="row in reportlist">
 							<td>{{row.Name}}  </td>
 							<td class="text-center">{{row.TotalInAm}}</td>	
+							<td class="text-center">{{row.TotalMember - row.TotalInAm}}</td>	
+							
 							<td class="text-center">{{row.TotalOutAm}}</td>	
+							<td class="text-center">{{row.TotalMember - row.TotalOutAm}}</td>	
+							
 							<td class="text-center">{{row.TotalInPm}}</td>	
+							<td class="text-center">{{row.TotalMember - row.TotalInPm}}</td>	
+							
 							<td class="text-center">{{row.TotalOutPm}}</td>	
+							<td class="text-center">{{row.TotalMember - row.TotalOutPm}}</td>	
 						</tr>
 						<tr>
 							<td class="text-right">Total</td>
 							<td class="text-center">{{TotalInAmTotal}}</td>	
+							<td class="text-center">{{TotalInAmTotalAbsent}}</td>	
 							<td class="text-center">{{TotalOutAmTotal}}</td>	
+							<td class="text-center">{{TotalOutAmTotalAbsent}}</td>	
 							<td class="text-center">{{TotalInPmTotal}}</td>	
+							<td class="text-center">{{TotalInPmTotalAbsent}}</td>	
 							<td class="text-center">{{TotalOutPmTotal}}</td>	
+							<td class="text-center">{{TotalOutPmTotalAbsent}}</td>	
 						</tr>
 				</tbody>
 			</table>

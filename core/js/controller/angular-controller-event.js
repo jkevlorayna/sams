@@ -356,17 +356,25 @@ app.controller('AppEventDetailsReportCourseController', function ($rootScope,$sc
 		$scope.formData = r;
 	})
 	$scope.TotalInAmTotal = 0;
+	$scope.TotalInAmTotalAbsent = 0;
 	$scope.TotalOutAmTotal = 0;
+	$scope.TotalOutAmTotalAbsent = 0;
 	$scope.TotalInPmTotal = 0;
+	$scope.TotalInPmTotalAbsent = 0;
 	$scope.TotalOutPmTotal = 0;
+	$scope.TotalOutPmTotalAbsent = 0;
 	
 	svcEventDetailsReport.ReportByCourse($scope.Id,null,null,null).then(function(r){
 		$scope.reportlist = r.Results;
 		angular.forEach($scope.reportlist,function(row){
 			$scope.TotalInAmTotal += row.TotalInAm;
+			$scope.TotalInAmTotalAbsent += parseInt(row.TotalMember - row.TotalInAm);
 			$scope.TotalOutAmTotal += row.TotalOutAm;
+			$scope.TotalOutAmTotalAbsent += parseInt(row.TotalMember - row.TotalOutAm);
 			$scope.TotalInPmTotal += row.TotalInPm;
+			$scope.TotalInPmTotalAbsent += parseInt(row.TotalMember - row.TotalInPm);
 			$scope.TotalOutPmTotal += row.TotalOutPm;
+			$scope.TotalOutPmTotalAbsent += parseInt(row.TotalMember - row.TotalOutPm);
 		})
 	})
 	
@@ -393,19 +401,27 @@ app.controller('AppEventDetailsReportCourseYearController', function ($rootScope
 		$scope.Course = r[0];
 		
 		
-			$scope.TotalInAmTotal = 0;
-			$scope.TotalOutAmTotal = 0;
-			$scope.TotalInPmTotal = 0;
-			$scope.TotalOutPmTotal = 0;
-	
+	$scope.TotalInAmTotal = 0;
+	$scope.TotalInAmTotalAbsent = 0;
+	$scope.TotalOutAmTotal = 0;
+	$scope.TotalOutAmTotalAbsent = 0;
+	$scope.TotalInPmTotal = 0;
+	$scope.TotalInPmTotalAbsent = 0;
+	$scope.TotalOutPmTotal = 0;
+	$scope.TotalOutPmTotalAbsent = 0;
+			
 		svcEventDetailsReport.ReportByCourse($scope.Id,$scope.CourseId,null,null).then(function(r){
 			$scope.reportlist = r.Results;
 			
 			angular.forEach($scope.reportlist,function(row){
-				$scope.TotalInAmTotal += row.TotalInAm;
-				$scope.TotalOutAmTotal += row.TotalOutAm;
-				$scope.TotalInPmTotal += row.TotalInPm;
-				$scope.TotalOutPmTotal += row.TotalOutPm;
+			$scope.TotalInAmTotal += row.TotalInAm;
+			$scope.TotalInAmTotalAbsent += parseInt(row.TotalMember - row.TotalInAm);
+			$scope.TotalOutAmTotal += row.TotalOutAm;
+			$scope.TotalOutAmTotalAbsent += parseInt(row.TotalMember - row.TotalOutAm);
+			$scope.TotalInPmTotal += row.TotalInPm;
+			$scope.TotalInPmTotalAbsent += parseInt(row.TotalMember - row.TotalInPm);
+			$scope.TotalOutPmTotal += row.TotalOutPm;
+			$scope.TotalOutPmTotalAbsent += parseInt(row.TotalMember - row.TotalOutPm);
 			})
 			
 		})
@@ -433,19 +449,28 @@ app.controller('AppEventDetailsReportCourseYearSectionController', function ($ro
 		$scope.Course = r[0];
 		$scope.CourseYear = r[1];
 		
-			$scope.TotalInAmTotal = 0;
-			$scope.TotalOutAmTotal = 0;
-			$scope.TotalInPmTotal = 0;
-			$scope.TotalOutPmTotal = 0;
-	
+	$scope.TotalInAmTotal = 0;
+	$scope.TotalInAmTotalAbsent = 0;
+	$scope.TotalOutAmTotal = 0;
+	$scope.TotalOutAmTotalAbsent = 0;
+	$scope.TotalInPmTotal = 0;
+	$scope.TotalInPmTotalAbsent = 0;
+	$scope.TotalOutPmTotal = 0;
+	$scope.TotalOutPmTotalAbsent = 0;
+			
 		svcEventDetailsReport.ReportByCourse($scope.Id,$scope.CourseId,$scope.CourseYearId,null).then(function(r){
 			$scope.reportlist = r.Results;
 			
 			angular.forEach($scope.reportlist,function(row){
-				$scope.TotalInAmTotal += row.TotalInAm;
-				$scope.TotalOutAmTotal += row.TotalOutAm;
-				$scope.TotalInPmTotal += row.TotalInPm;
-				$scope.TotalOutPmTotal += row.TotalOutPm;
+			$scope.TotalInAmTotal += row.TotalInAm;
+			$scope.TotalInAmTotalAbsent += parseInt(row.TotalMember - row.TotalInAm);
+			$scope.TotalOutAmTotal += row.TotalOutAm;
+			$scope.TotalOutAmTotalAbsent += parseInt(row.TotalMember - row.TotalOutAm);
+			$scope.TotalInPmTotal += row.TotalInPm;
+			$scope.TotalInPmTotalAbsent += parseInt(row.TotalMember - row.TotalInPm);
+			$scope.TotalOutPmTotal += row.TotalOutPm;
+			$scope.TotalOutPmTotalAbsent += parseInt(row.TotalMember - row.TotalOutPm);
+				
 			})
 			
 		})
@@ -472,18 +497,26 @@ app.controller('AppEventDetailsReportOrganizationController', function ($rootSco
 	
 
 	$scope.TotalInAmTotal = 0;
+	$scope.TotalInAmTotalAbsent = 0;
 	$scope.TotalOutAmTotal = 0;
+	$scope.TotalOutAmTotalAbsent = 0;
 	$scope.TotalInPmTotal = 0;
+	$scope.TotalInPmTotalAbsent = 0;
 	$scope.TotalOutPmTotal = 0;
+	$scope.TotalOutPmTotalAbsent = 0;
 	
 	svcEventDetailsReport.ReportByOrganization($scope.Id,$scope.Organization).then(function(r){
 		$scope.reportlist = r.Results;
 		
 		angular.forEach($scope.reportlist,function(row){
 			$scope.TotalInAmTotal += row.TotalInAm;
+			$scope.TotalInAmTotalAbsent += parseInt(row.TotalMember - row.TotalInAm);
 			$scope.TotalOutAmTotal += row.TotalOutAm;
+			$scope.TotalOutAmTotalAbsent += parseInt(row.TotalMember - row.TotalOutAm);
 			$scope.TotalInPmTotal += row.TotalInPm;
+			$scope.TotalInPmTotalAbsent += parseInt(row.TotalMember - row.TotalInPm);
 			$scope.TotalOutPmTotal += row.TotalOutPm;
+			$scope.TotalOutPmTotalAbsent += parseInt(row.TotalMember - row.TotalOutPm);
 		})
 		
 	})

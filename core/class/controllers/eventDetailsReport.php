@@ -4,6 +4,7 @@ $slim_app->get('/event-report/:EventId/:CourseId/:CourseYearId/:SectionId',funct
 	$CourseRepo = new CourseRepository();
 	$CourseYearRepo = new CourseYearRepository();
 	$SectionRepo = new SectionRepository();
+	$MemberRepo = new MemberRepository();
 
 	if($CourseId == 'null' && $CourseYearId == 'null' && $SectionId == 'null'){
 		$result = $CourseRepo->DataList('',0,0);
@@ -20,14 +21,17 @@ $slim_app->get('/event-report/:EventId/:CourseId/:CourseYearId/:SectionId',funct
 		if($CourseId == 'null' && $CourseYearId == 'null' && $SectionId == 'null'){
 			$row->Name = $row->course + ' ' + $row->code;
 			$data = $EventDetailsReportRepo->ReportByCourse($EventId,$row->Id,$CourseYearId,$SectionId);
+			$row->TotalMember = $MemberRepo->CountMember($row->Id,'','','');
 		}
 		if($CourseId != 'null' && $CourseYearId == 'null' && $SectionId == 'null'){
 			$row->Name = $row->year;
 			$data = $EventDetailsReportRepo->ReportByCourse($EventId,$CourseId,$row->Id,$SectionId);
+			$row->TotalMember = $MemberRepo->CountMember($CourseId,$row->Id,'','');
 		}
 		if($CourseId != 'null' && $CourseYearId != 'null' && $SectionId == 'null'){
 			$row->Name = $row->section;
 			$data = $EventDetailsReportRepo->ReportByCourse($EventId,$CourseId,$CourseYearId,$row->Id);
+			$row->TotalMember = $MemberRepo->CountMember($CourseId,$CourseYearId,$row->Id,'');
 		}
 
 		 if($data != null){
@@ -43,14 +47,15 @@ $slim_app->get('/event-report/:EventId/:CourseId/:CourseYearId/:SectionId',funct
 $slim_app->get('/event-report-organization/:EventId/:Organization',function($EventId,$Organization){
 	$EventDetailsReportRepo = new EventDetailsReportRepository();
 	$OrganizationRepo = new OrganizationRepository();
-
+	$MemberRepo = new MemberRepository();
+	
 	$result = $OrganizationRepo->DataList('',0,0);
 
 	foreach($result['Results'] as $row){
 
 		$row->Name = $row->Code;
 		$data = $EventDetailsReportRepo->ReportByOrganization($EventId,$row->Code);
-
+		$row->TotalMember = $MemberRepo->CountMember('','','',$row->Code);
 
 		 if($data != null){
 			 $row->TotalInAm  = $data->TotalInAm == null ? (int) 0 : (int) $data->TotalInAm;
